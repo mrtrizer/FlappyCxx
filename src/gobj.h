@@ -49,9 +49,9 @@ private:
 
 /// @brief Curiously recurring template pattern (CRTP)
 /// @details Avoids copy&past of clone method.
-template <typename Derived> class GObj_CRTP: public GObj {
+template <typename Derived, typename From = GObj> class GObj_CRTP: public From {
 public:
-    GObj_CRTP<Derived>(Id id):GObj(id)
+    GObj_CRTP<Derived, From>(GObj::Id id):From(id)
     {}
 
     GObj* clone() const {
