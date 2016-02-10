@@ -12,7 +12,7 @@
 
 class GObjTest : public GObj_CRTP<GObjTest> {
 public:
-    GObjTest(Id id): GObj_CRTP(id) {
+    explicit GObjTest(Id id): GObj_CRTP(id) {
         qDebug() << "[constructor] GObjTest Id:" << getId();
     }
     ~GObjTest() {
@@ -22,7 +22,7 @@ public:
 
 class GObjContainerTest : public GObj_CRTP<GObjContainerTest, GObjContainer> {
 public:
-    GObjContainerTest(Id id): GObj_CRTP(id) {
+    explicit GObjContainerTest(Id id): GObj_CRTP(id) {
         qDebug() << "[constructor] GObjContainerTest Id:" << getId();
     }
     ~GObjContainerTest() {
@@ -98,7 +98,7 @@ private slots:
         QVERIFY(gObjPList.size() == TEST_N * TEST_N);
     }
 
-    void deinitTestCase() {
+    void cleanupTestCase() {
         delete gObjContainer;
     }
 };

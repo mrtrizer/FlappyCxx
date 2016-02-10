@@ -15,12 +15,12 @@ public:
     typedef std::list<GObj *> GObjPList;
     typedef unsigned int Id;
     struct Pos {
-        double x = 0.0;
-        double y = 0.0;
-        double z = 0.0;
+        double x;
+        double y;
+        double z;
     };
 
-    explicit GObj(Id);
+    explicit GObj(Id, Pos = {0,0,0});
     virtual ~GObj(){}
 
     /// Returns a list of pointers to objects intersects with. Add object to a world, before use.
@@ -30,6 +30,8 @@ public:
 
     inline Id getId() const {return id;}
     inline Pos & getPosR() {return pos;}
+    inline const Pos & getPos() const {return pos;}
+    inline void setPos(const Pos & pos) {this->pos = pos;}
     inline GObjContainer * getParent() {return parent;}
     inline const GWorld * getWorld() {return gWorld;}
 
@@ -47,14 +49,13 @@ private:
     GObjContainer * parent = nullptr;
 };
 
-/// @brief Curiously recurring template pattern (CRTP)
-/// @details Avoids copy&past of clone method.
+/// @brief Divno-rekursivny pattern (CRTP)
+/// @details Avoids copy&past of a clone method.
 template <typename Derived, typename From = GObj> class GObj_CRTP: public From {
 public:
-    GObj_CRTP<Derived, From>(GObj::Id id):From(id)
-    {}
+    using From::From; //to not duplicate a constructor
 
-    GObj* clone() const {
+    virtual GObj* clone() const override {
         return new Derived(dynamic_cast<Derived const&>(*this));
     }
 };

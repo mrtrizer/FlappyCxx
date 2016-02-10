@@ -5,12 +5,14 @@
 
 class GObjCircle : public GObj_CRTP<GObjCircle> {
 public:
-    explicit GObjCircle(Id);
-    virtual ~GObjCircle(){}
-    double getR(){return r;}
+    typedef double R;
+
+    explicit GObjCircle(Id, R = 0, Pos = {0,0,0});
+    inline void setR(R r) {this->r = r;}
+    inline R getR() const {return r;}
 
 private:
-    double r = 0;
+    R r = 0;
 };
 
 #endif // GOBJCIRCLE_H

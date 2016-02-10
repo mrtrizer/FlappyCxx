@@ -13,6 +13,7 @@ public:
     ///Recursively
     GObjPList getChildsR() const;
     GObjPList getChilds() const;
+    //TODO: Maybe addChild with a pointer in arg, to avoid double alloc. Or smartptr?
     void addChild(const GObj&);
     void removeChild(Id);
     GObj *findChild(Id);

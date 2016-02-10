@@ -8,7 +8,8 @@ HEADERS += \
     $$PWD/gobjcircle.h \
     $$PWD/gview.h \
     $$PWD/gvisializer.h \
-    $$PWD/gobjcontainer.h
+    $$PWD/gobjcontainer.h \
+    $$PWD/tools.h
 
 SOURCES += \
     $$PWD/gworld.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
     $$PWD/gobjcircle.cpp \
     $$PWD/gview.cpp \
     $$PWD/gvisializer.cpp \
-    $$PWD/gobjcontainer.cpp
+    $$PWD/gobjcontainer.cpp \
+    $$PWD/tools.cpp
 
 QMAKE_CXXFLAGS += -std=c++11

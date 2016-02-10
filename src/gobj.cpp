@@ -1,6 +1,7 @@
 #include "gobj.h"
+#include "tools.h"
 
-GObj::GObj(Id id):id(id)
+GObj::GObj(Id id, Pos pos):id(id),pos(pos)
 {
 
 }
@@ -15,6 +16,6 @@ GObj::GObjPList GObj::intersectObjList_() const {
     return GObjPList();
 }
 
-bool GObj::isIntersectWith(const GObj &) const {
-    return false;
+bool GObj::isIntersectWith(const GObj & gObj) const {
+    return Tools::isIntersect(*this, gObj);
 }
