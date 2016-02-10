@@ -3,8 +3,7 @@
 
 /// Interface.
 /// View in MVC terms.
-class GView
-{
+class GView {
 public:
     virtual ~GView(){}
     virtual void init() = 0;

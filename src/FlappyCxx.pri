@@ -16,7 +16,6 @@ SOURCES += \
     $$PWD/gobj.cpp \
     $$PWD/gobjrect.cpp \
     $$PWD/gobjcircle.cpp \
-    $$PWD/main.cpp \
     $$PWD/gview.cpp \
     $$PWD/gvisializer.cpp \
     $$PWD/gobjcontainer.cpp

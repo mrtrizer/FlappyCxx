@@ -11,8 +11,7 @@
 /// Model in MVC terms.
 /// Thread-save.
 /// Creates and manages gameloop thread.
-class GWorld
-{
+class GWorld {
 public:
     GWorld();
     virtual ~GWorld();

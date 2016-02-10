@@ -1,5 +1,5 @@
 #include "gobjcircle.h"
 
-GObjCircle::GObjCircle(const GWorld &gWorld):GObjCircle(gWorld){
+GObjCircle::GObjCircle(Id id):GObj_CRTP<GObjCircle>(id){
 
 }

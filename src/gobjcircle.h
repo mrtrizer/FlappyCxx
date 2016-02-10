@@ -3,10 +3,9 @@
 
 #include "gobj.h"
 
-class GObjCircle : public GObj
-{
+class GObjCircle : public GObj_CRTP<GObjCircle> {
 public:
-    explicit GObjCircle(const GWorld &);
+    explicit GObjCircle(Id);
     virtual ~GObjCircle(){}
     double getR(){return r;}
 

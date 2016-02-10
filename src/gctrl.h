@@ -10,8 +10,7 @@ class GWorldFlappy;
 /// @details Singlenton. Controller in MVC terms.
 /// Instantiates GWorld and GView.
 /// Handles input.
-class GCtrl
-{
+class GCtrl {
 public:
     void start(std::function<void()>);
     void stop();

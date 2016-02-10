@@ -1,8 +1,7 @@
 #ifndef GVISIALIZER_H
 #define GVISIALIZER_H
 
-class GVisializer
-{
+class GVisializer {
 public:
     GVisializer();
 };
