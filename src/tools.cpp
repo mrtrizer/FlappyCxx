@@ -39,32 +39,25 @@ private:
 
 //Die matherfucker die!
 template <typename GObjT1, typename GObjT2>
-class Check {
-public:
-    static void check(const GObj &gObj1, const GObj &gObj2) {
-        try { //is it valid cast?
-        auto gObjT1 = dynamic_cast<const GObjT1 &>(gObj1);
-        auto gObjT2 = dynamic_cast<const GObjT2 &>(gObj2);
+static void check(const GObj &gObj1, const GObj &gObj2) {
+    try { //is it valid cast?
+    auto gObjT1 = dynamic_cast<const GObjT1 &>(gObj1);
+    auto gObjT2 = dynamic_cast<const GObjT2 &>(gObj2);
+    throw Done(isIntersect(gObjT1, gObjT2)); //allright, return checking result
+    } catch (std::bad_cast &) { //if bad cast, try to reverse and over
+        try {
+        auto gObjT1 = dynamic_cast<const GObjT2 &>(gObj1);
+        auto gObjT2 = dynamic_cast<const GObjT1 &>(gObj2);
         throw Done(isIntersect(gObjT1, gObjT2)); //allright, return checking result
-        } catch (std::bad_cast &) { //if bad cast, try to reverse and over
-            try {
-            auto gObjT1 = dynamic_cast<const GObjT2 &>(gObj1);
-            auto gObjT2 = dynamic_cast<const GObjT1 &>(gObj2);
-            throw Done(isIntersect(gObjT1, gObjT2)); //allright, return checking result
-            } catch (std::bad_cast &) {} //we can't cast, ignore checking
-        }
+        } catch (std::bad_cast &) {} //we can't cast, ignore checking
     }
-private:
-    Check(){}
-    Check(const Check & check){}
-    ~Check(){}
-};
+}
 
 bool isIntersect(const GObj &gObj1, const GObj &gObj2) {
     try { //if checking done, catch Done exception
-        Check<GObjCircle, GObjCircle>::check(gObj1, gObj2);
-        Check<GObjRect, GObjCircle>::check(gObj1, gObj2);
-        Check<GObjRect, GObjRect>::check(gObj1, gObj2);
+        check<GObjCircle, GObjCircle>(gObj1, gObj2);
+        check<GObjRect, GObjCircle>(gObj1, gObj2);
+        check<GObjRect, GObjRect>(gObj1, gObj2);
     } catch (Done & done) {
         return done.getResult();
     }
