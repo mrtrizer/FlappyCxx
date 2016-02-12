@@ -8,9 +8,7 @@ CONFIG += testcase
 
 TEMPLATE = app
 
-LIBS += -lffi
-
-include("../src/FlappyCxx.pri")
+include("../../src/FlappyCxx.pri")
 
 QMAKE_CXXFLAGS += -std=gnu++11
 

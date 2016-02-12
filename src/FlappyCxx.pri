@@ -9,7 +9,9 @@ HEADERS += \
     $$PWD/gview.h \
     $$PWD/gvisializer.h \
     $$PWD/gobjcontainer.h \
-    $$PWD/tools.h
+    $$PWD/tools.h \
+    $$PWD/shader.h
+
 
 SOURCES += \
     $$PWD/gworld.cpp \
@@ -20,6 +22,7 @@ SOURCES += \
     $$PWD/gview.cpp \
     $$PWD/gvisializer.cpp \
     $$PWD/gobjcontainer.cpp \
-    $$PWD/tools.cpp
+    $$PWD/tools.cpp \
+    $$PWD/shader.cpp
 
 QMAKE_CXXFLAGS += -std=c++11
