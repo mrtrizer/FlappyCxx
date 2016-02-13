@@ -2,12 +2,15 @@
 #define GVIEW_H
 
 #include <GL/glew.h>
+#include <vector>
 
 class Shader;
 
 /// View in MVC terms.
 class GView {
 public:
+    typedef GLuint VBO;
+
     GView();
     ~GView();
     void redraw();
@@ -15,7 +18,7 @@ public:
     void resize(int width, int height);
 
 private:
-    struct vertex {
+    struct Vertex {
       GLfloat x;
       GLfloat y;
     };
@@ -23,7 +26,16 @@ private:
     Shader * shader;
     GLint  Attrib_vertex;
     GLint  Unif_color;
-    GLuint VBO;
+    GLuint vbo;
+
+    template<typename ItemType>
+    VBO createVBO(const ItemType * data, int size) {
+        VBO vbo;
+        glGenBuffers(1, &vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW);
+        return vbo;
+    }
 };
 
 #endif // GVIEW_H

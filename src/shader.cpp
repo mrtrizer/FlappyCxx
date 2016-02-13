@@ -51,7 +51,7 @@ GLuint Shader::createProgram(const char* pVertexSource, const char* pFragmentSou
         return 0;
     }
 
-    GLuint program = glCreateProgram();
+    Program program = glCreateProgram();
     if (program) {
         glAttachShader(program, vertexShader);
         //checkGlError("glAttachShader");

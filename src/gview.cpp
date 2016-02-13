@@ -22,9 +22,10 @@ static void printGLString(const char *name, GLenum s) {
 }
 #endif
 
+using namespace std;
+
 static void checkGlError(const char* op) {
-    for (GLint error = glGetError(); error; error
-            = glGetError()) {
+    for (GLint error = glGetError(); error; error = glGetError()) {
         LOGI("after %s() glError (0x%x)\n", op, error);
     }
 }
@@ -69,15 +70,12 @@ GView::GView() {
     //Init GL
     glClearColor(0, 0, 0, 0);
 
-    //Init VBO
-    glGenBuffers(1, &VBO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    vertex triangle[3] = {
+    Vertex triangleData[] = {
         {-1.0f,-1.0f},
         { 0.0f, 1.0f},
         { 1.0f,-1.0f}
     };
-    glBufferData(GL_ARRAY_BUFFER, sizeof(triangle), triangle, GL_STATIC_DRAW);
+    vbo = createVBO<Vertex>(triangleData, sizeof(triangleData));
 
     checkOpenGLerror();
 
@@ -90,7 +88,7 @@ GView::GView() {
 
 GView::~GView() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &vbo);
 }
 
 void GView::resize(int width, int height) {
@@ -103,11 +101,12 @@ void GView::redraw() {
     static float red[4] = {1.0f, 0.0f, 0.0f, 1.0f};
     glUniform4fv(Unif_color, 1, red);
     glEnableVertexAttribArray(Attrib_vertex);
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
             glVertexAttribPointer(Attrib_vertex, 2, GL_FLOAT, GL_FALSE, 0, 0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glDrawArrays(GL_TRIANGLES, 0, 3);
     glDisableVertexAttribArray(Attrib_vertex);
+
     shader->refuse();
     checkOpenGLerror();
 }

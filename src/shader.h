@@ -9,14 +9,15 @@ class Shader
 public:
     typedef const char * VertexSource;
     typedef const char * FragmentSource;
+    typedef GLuint Program;
 
     Shader(VertexSource, FragmentSource);
     ~Shader();
-    inline GLuint getProgram() const {return program;}
+    inline Program getProgram() const {return program;}
     inline void use() {glUseProgram(getProgram());}
     inline void refuse() {glUseProgram(0);}
 private:
-    GLuint program;
+    Program program;
 
     GLuint loadShader(GLenum shaderType, const char* pSource);
     GLuint createProgram(const char* pVertexSource, const char* pFragmentSource);
