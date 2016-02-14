@@ -20,7 +20,7 @@ public:
 
     Shader(VertexSource, FragmentSource);
     ~Shader();
-    void render(const AttribArray &, Method, UniformFunc);
+    void render(const AttribArray &, Method, UniformFunc) const;
     AttribLocation findAttr(Name) const;
     AttribLocation findUniform(Name) const;
     inline Program getProgram() const {return program;}
@@ -28,8 +28,8 @@ public:
     class shader_init_failed {};
 
 protected:
-    void bind();
-    void unbind();
+    void bind() const;
+    void unbind() const;
 
 private:
     typedef GLenum ShaderType;

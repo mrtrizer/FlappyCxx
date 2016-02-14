@@ -2,6 +2,8 @@
 #define GLTOOLS_H
 
 #include <cstdio>
+#include <memory>
+#include <cmath>
 
 #include <GL/glew.h>
 
@@ -22,7 +24,25 @@ static void printGLString(const char *name, GLenum s) {
 
 namespace GLTools {
 
+typedef double R;
+
+struct Vertex {
+  GLfloat x;
+  GLfloat y;
+};
+
+struct Color {
+  GLfloat r;
+  GLfloat g;
+  GLfloat b;
+  GLfloat a;
+};
+
+class too_few_vertices{};
+
 void checkOpenGLerror(const char * = "", const char * = "", int = 0);
+
+std::vector<Vertex> circleTriangleFan(R r, int count);
 
 }
 

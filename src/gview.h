@@ -14,24 +14,16 @@ class GWorld;
 /// View in MVC terms.
 class GView {
 public:
+    typedef int Width;
+    typedef int Height;
     GView(GWorld &);
     ~GView();
     void redraw();
-    void resize(int width, int height);
+    void resize(Width, Height);
 
 private:
-    struct Vertex {
-      GLfloat x;
-      GLfloat y;
-    };
-
-    struct Color {
-      GLfloat r;
-      GLfloat g;
-      GLfloat b;
-      GLfloat a;
-    };
-
+    Width width;
+    Height height;
     Shader shader;
     AttribArray triangle;
     GWorld &gWorld;

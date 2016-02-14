@@ -54,19 +54,17 @@ Shader::AttribLocation Shader::findUniform(Name name) const {
     return glGetUniformLocation(getProgram(), name);
 }
 
-void Shader::bind() {
+void Shader::bind() const {
     glUseProgram(getProgram());
     CHECK_GL_ERROR;
 }
 
-void Shader::unbind() {
+void Shader::unbind() const {
     glUseProgram(0);
 }
 
-void Shader::render(const AttribArray & attribArray, Method method, UniformFunc uniformFunc = [](){}) {
+void Shader::render(const AttribArray & attribArray, Method method, UniformFunc uniformFunc = [](){}) const {
     bind();
-    GLfloat param[4] = {0.5f, 0.5f, 0.5f, 1.0f};
-    glUniform4fv(findUniform("uParam"), 1, param);
     uniformFunc();
     attribArray.bind();
     glDrawArrays(method, 0, attribArray.getSize());
