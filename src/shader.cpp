@@ -46,8 +46,12 @@ Shader::~Shader() {
     CHECK_GL_ERROR;
 }
 
-Shader::AttribLocation Shader::findAttr(AttribName name) const {
+Shader::AttribLocation Shader::findAttr(Name name) const {
     return glGetAttribLocation(getProgram(), name);
+}
+
+Shader::AttribLocation Shader::findUniform(Name name) const {
+    return glGetUniformLocation(getProgram(), name);
 }
 
 void Shader::bind() {
@@ -59,8 +63,11 @@ void Shader::unbind() {
     glUseProgram(0);
 }
 
-void Shader::render(const AttribArray & attribArray, Method method) {
+void Shader::render(const AttribArray & attribArray, Method method, UniformFunc uniformFunc = [](){}) {
     bind();
+    GLfloat param[4] = {0.5f, 0.5f, 0.5f, 1.0f};
+    glUniform4fv(findUniform("uParam"), 1, param);
+    uniformFunc();
     attribArray.bind();
     glDrawArrays(method, 0, attribArray.getSize());
     attribArray.unbind();

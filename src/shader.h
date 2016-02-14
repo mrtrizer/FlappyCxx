@@ -3,14 +3,10 @@
 
 #include <GL/glew.h>
 #include <iostream>
+#include <functional>
 
 #include "gltools.h"
 #include "attribarray.h"
-
-class Uniform {
-public:
-    Uniform();
-};
 
 class Shader {
 public:
@@ -19,17 +15,19 @@ public:
     typedef GLuint Program;
     typedef unsigned int Method;
     typedef GLint AttribLocation;
-    typedef const char * AttribName;
+    typedef const char * Name;
+    typedef const std::function<void()>& UniformFunc;
 
     Shader(VertexSource, FragmentSource);
     ~Shader();
-    void render(const AttribArray &, Method);
-    AttribLocation findAttr(AttribName) const;
+    void render(const AttribArray &, Method, UniformFunc);
+    AttribLocation findAttr(Name) const;
+    AttribLocation findUniform(Name) const;
+    inline Program getProgram() const {return program;}
 
     class shader_init_failed {};
 
 protected:
-    inline Program getProgram() const {return program;}
     void bind();
     void unbind();
 

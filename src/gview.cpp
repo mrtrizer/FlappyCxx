@@ -22,8 +22,9 @@ static const char gVertexShader[] =
 static const char gFragmentShader[] =
     "precision mediump float;\n"
     "varying vec4 vColor;\n"
+    "uniform vec4 uParam;"
     "void main() {\n"
-    "   gl_FragColor = vColor;\n"
+    "   gl_FragColor = vColor + uParam;\n"
     "}\n";
 
 GView::GView(GWorld &gWorld):
@@ -67,5 +68,9 @@ void GView::redraw() {
 
     }
 
-    shader.render(triangle, GL_TRIANGLES);
+    GLfloat param[4] = {0.5f, -0.5f, -0.5f, 1.0f};
+
+    shader.render(triangle, GL_TRIANGLES, [this, param](){
+        glUniform4fv(shader.findUniform("uParam"), 1, param);
+    });
 }
