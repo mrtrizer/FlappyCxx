@@ -30,6 +30,8 @@ GView::GView(GWorld &gWorld):
     shader(gVertexShader, gFragmentShader),
     gWorld(gWorld) {
 
+    LOGI("OpenGL Version: %s\n", glGetString(GL_VERSION));
+
     glClearColor(0, 0, 0, 0);
 
     Vertex triangleData[] = {
@@ -46,7 +48,7 @@ GView::GView(GWorld &gWorld):
     };
     triangle.addVBO<Color>(colorData, sizeof(colorData), GL_FLOAT, shader.findAttr("aColor"));
 
-    checkOpenGLerror();
+    CHECK_GL_ERROR;
 }
 
 GView::~GView() {

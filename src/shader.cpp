@@ -22,10 +22,11 @@ Shader::Shader(VertexSource vertexSource, FragmentSource fragmentSource) {
     program = glCreateProgram();
     if (program) {
         glAttachShader(program, vertexShader);
-        //checkGlError("glAttachShader");
+        CHECK_GL_ERROR;
         glAttachShader(program, fragmentShader);
-        //checkGlError("glAttachShader");
+        CHECK_GL_ERROR;
         glLinkProgram(program);
+        CHECK_GL_ERROR;
         GLint linkStatus = GL_FALSE;
         glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
         if (linkStatus != GL_TRUE) {
@@ -38,8 +39,11 @@ Shader::Shader(VertexSource vertexSource, FragmentSource fragmentSource) {
 
 Shader::~Shader() {
     glDetachShader(program, vertexShader);
+    CHECK_GL_ERROR;
     glDetachShader(program, fragmentShader);
+    CHECK_GL_ERROR;
     glDeleteProgram(program);
+    CHECK_GL_ERROR;
 }
 
 Shader::AttribLocation Shader::findAttr(AttribName name) const {
@@ -48,6 +52,7 @@ Shader::AttribLocation Shader::findAttr(AttribName name) const {
 
 void Shader::bind() {
     glUseProgram(getProgram());
+    CHECK_GL_ERROR;
 }
 
 void Shader::unbind() {
@@ -64,16 +69,18 @@ void Shader::render(const AttribArray & attribArray, Method method) {
 
 GLuint Shader::loadShader(ShaderType shaderType, ShaderSource source) {
     GLuint shader = glCreateShader(shaderType);
-    if (shader) {
-        glShaderSource(shader, 1, &source, NULL);
-        glCompileShader(shader);
-        GLint compiled = 0;
-        glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
-        if (!compiled) {
-            PRINT_INFO(Shader, shader);
-            glDeleteShader(shader);
-            shader = 0;
-        }
+    if (shader == 0)
+        throw shader_init_failed();
+    glShaderSource(shader, 1, &source, NULL);
+    CHECK_GL_ERROR;
+    glCompileShader(shader);
+    CHECK_GL_ERROR;
+    GLint compiled = 0;
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
+    if (!compiled) {
+        PRINT_INFO(Shader, shader);
+        glDeleteShader(shader);
+        throw shader_init_failed();
     }
     return shader;
 }

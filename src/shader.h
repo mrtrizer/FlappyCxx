@@ -26,6 +26,8 @@ public:
     void render(const AttribArray &, Method);
     AttribLocation findAttr(AttribName) const;
 
+    class shader_init_failed {};
+
 protected:
     inline Program getProgram() const {return program;}
     void bind();

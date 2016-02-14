@@ -1,15 +1,18 @@
 #include <iostream>
+#include <exception>
 
 #include "gltools.h"
 
-static void checkGlError(const char* op) {
-    for (GLint error = glGetError(); error; error = glGetError()) {
-        LOGI("after %s() glError (0x%x)\n", op, error);
-    }
+namespace GLTools {
+
+void checkOpenGLerror(const char * file, const char * func, int line) {
+    GLenum errCode = glGetError();
+    if(errCode != GL_NO_ERROR)
+        LOGE("[ERROR] %s %s %d %s\n",file,func,line,gluErrorString(errCode));
+#ifdef QT_DEBUG
+    if(errCode != GL_NO_ERROR)
+        throw std::runtime_error(reinterpret_cast<const char *>(gluErrorString(errCode)));
+#endif
 }
 
-void checkOpenGLerror() {
-  GLenum errCode;
-  if((errCode=glGetError()) != GL_NO_ERROR)
-    std::cout << "OpenGl error! - " << gluErrorString(errCode);
 }

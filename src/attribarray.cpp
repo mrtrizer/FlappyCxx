@@ -5,7 +5,9 @@ AttribArray::AttribArray(Size size): size(size) {
 }
 
 AttribArray::~AttribArray() {
-
+    //TODO: Do I need unbind VBOs?
+    glDeleteVertexArrays(1,&id);
+    glDeleteBuffers(vboBufs.size(),vboBufs.data());
 }
 
 void AttribArray::bind() const {
