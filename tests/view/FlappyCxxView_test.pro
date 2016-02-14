@@ -13,5 +13,7 @@ include("../../src/FlappyCxx.pri")
 
 QMAKE_CXXFLAGS += -std=gnu++11
 
-SOURCES += main.cpp \
+SOURCES += main.cpp
+
+HEADERS +=
 

@@ -35,6 +35,8 @@ int main(int argc, char** argv) {
       return 1;
     }
 
+    std::cout << "INFO: OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
+
     view = new GView();
 
     glutReshapeFunc(resizeWindow);

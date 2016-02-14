@@ -20,8 +20,16 @@ Shader::Shader(VertexSource pVertexSource, FragmentSource pFragmentSource) {
 }
 
 Shader::~Shader() {
-    refuse();
+    unbind();
     glDeleteProgram(program);
+}
+
+void Shader::render(const AttribArray & attribArray, Method method) {
+    bind();
+    attribArray.bind();
+    glDrawArrays(method, 0, attribArray.getSize());
+    attribArray.unbind();
+    unbind();
 }
 
 GLuint Shader::loadShader(GLenum shaderType, const char* pSource) {
