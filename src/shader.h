@@ -14,13 +14,19 @@ public:
     typedef const char * FragmentSource;
     typedef GLuint Program;
     typedef unsigned int Method;
+    typedef GLint AttribLocation;
+    typedef const char * AttribName;
 
     Shader(VertexSource, FragmentSource);
     ~Shader();
+    void render(const AttribArray &, Method);
+    AttribLocation findAttr(AttribName) const;
+
+protected:
     inline Program getProgram() const {return program;}
     inline void bind() {glUseProgram(getProgram());}
     inline void unbind() {glUseProgram(0);}
-    void render(const AttribArray &, Method);
+
 private:
     Program program;
 

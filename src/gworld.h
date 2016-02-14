@@ -9,7 +9,6 @@
 /// @brief Game World
 /// @details Contains and manages game objects.
 /// Model in MVC terms.
-/// Thread-save.
 /// Creates and manages gameloop thread.
 class GWorld {
 public:
@@ -17,15 +16,13 @@ public:
     virtual ~GWorld();
     void pause(){pauseFlag = true;}
     void resume(){pauseFlag = false;}
-    GObjContainer getObjTree();
+    inline const GObjContainer & getObjTree() const {return gObjContainer;}
 
 protected:
     virtual void recalc(int){}
 
 private:
-    std::thread gThread;
-    std::atomic<bool> breakFlag;
-    std::atomic<bool> pauseFlag;
+    bool pauseFlag;
     GObjContainer gObjContainer;
 
     void run();

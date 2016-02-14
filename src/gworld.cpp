@@ -8,8 +8,6 @@
 using namespace std;
 
 GWorld::GWorld():
-    gThread(std::thread(&GWorld::run, this)),
-    breakFlag(false),
     pauseFlag(false),
     gObjContainer(0,this)
 {
@@ -17,16 +15,11 @@ GWorld::GWorld():
 }
 
 GWorld::~GWorld() {
-    breakFlag = true;
-    gThread.join();
 }
 
 void GWorld::run() {
-    while (!breakFlag) {
-        std::this_thread::sleep_for(std::chrono::milliseconds(DELTA_T));
-        if (!pauseFlag)
-            recalc(DELTA_T);
-    }
+    if (!pauseFlag)
+        recalc(DELTA_T);
 }
 
 void GWorldFlappy::recalc(int deltaT) {

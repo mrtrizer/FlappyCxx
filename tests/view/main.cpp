@@ -4,8 +4,10 @@
 #include <GL/glut.h>
 
 #include "gview.h"
+#include "gworld.h"
 
 GView * view;
+GWorld gWorld;
 
 void render() {
     view->redraw();
@@ -37,7 +39,7 @@ int main(int argc, char** argv) {
 
     std::cout << "INFO: OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 
-    view = new GView();
+    view = new GView(gWorld);
 
     glutReshapeFunc(resizeWindow);
     glutDisplayFunc(render);

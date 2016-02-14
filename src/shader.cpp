@@ -24,6 +24,10 @@ Shader::~Shader() {
     glDeleteProgram(program);
 }
 
+Shader::AttribLocation Shader::findAttr(AttribName name) const {
+    return glGetAttribLocation(getProgram(), name);
+}
+
 void Shader::render(const AttribArray & attribArray, Method method) {
     bind();
     attribArray.bind();

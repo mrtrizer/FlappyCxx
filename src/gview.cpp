@@ -6,6 +6,7 @@
 #include <sstream>
 
 #include "shader.h"
+#include "gworld.h"
 
 using namespace std;
 
@@ -25,7 +26,7 @@ static const char gFragmentShader[] =
     "   gl_FragColor = vColor;\n"
     "}\n";
 
-GView::GView() {
+GView::GView(const GWorld &gWorld): gWorld(gWorld) {
     //Init GL
     glClearColor(0, 0, 0, 0);
 
@@ -37,16 +38,14 @@ GView::GView() {
         { 0.0f, 1.0f},
         { 1.0f,-1.0f}
     };
-    triangle.addVBO<Vertex>(triangleData, sizeof(triangleData), GL_FLOAT,
-                            glGetAttribLocation(shader->getProgram(), "aPosition"));
+    triangle.addVBO<Vertex>(triangleData, sizeof(triangleData), GL_FLOAT, shader->findAttr("aPosition"));
 
     Color colorData[] = {
         {1.0f, 0.0f, 0.0f, 1.0f},
         {0.0f, 1.0f, 0.0f, 1.0f},
         {0.0f, 0.0f, 1.0f, 1.0f}
     };
-    triangle.addVBO<Color>(colorData, sizeof(colorData), GL_FLOAT,
-                           glGetAttribLocation(shader->getProgram(), "aColor"));
+    triangle.addVBO<Color>(colorData, sizeof(colorData), GL_FLOAT, shader->findAttr("aColor"));
 
     checkOpenGLerror();
 }
@@ -61,6 +60,11 @@ void GView::resize(int width, int height) {
 
 void GView::redraw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    GObjContainer::GObjPList root = gWorld.getObjTree().getChildsR();
+    for (GObj * gObj: root) {
+
+    }
 
     shader->render(triangle, GL_TRIANGLES);
 }

@@ -8,11 +8,12 @@
 #include "attribarray.h"
 
 class Shader;
+class GWorld;
 
 /// View in MVC terms.
 class GView {
 public:
-    GView();
+    GView(const GWorld &);
     ~GView();
     void redraw();
     void resize(int width, int height);
@@ -32,6 +33,7 @@ private:
 
     Shader * shader;
     AttribArray triangle;
+    const GWorld &gWorld;
 };
 
 #endif // GVIEW_H
