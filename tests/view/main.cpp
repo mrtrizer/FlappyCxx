@@ -5,6 +5,7 @@
 
 #include "gview.h"
 #include "gworld.h"
+#include "gobjcircle.h"
 
 GView * view;
 GWorld gWorld;
@@ -39,6 +40,7 @@ int main(int argc, char** argv) {
 
     std::cout << "INFO: OpenGL Version: " << glGetString(GL_VERSION) << std::endl;
 
+    gWorld.getObjTree().addChild(GObjCircle(1,10));
     view = new GView(gWorld);
 
     glutReshapeFunc(resizeWindow);

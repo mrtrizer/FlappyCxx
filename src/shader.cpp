@@ -15,59 +15,15 @@ using namespace std;
     } \
 }
 
-Shader::Shader(VertexSource pVertexSource, FragmentSource pFragmentSource) {
-    program = createProgram(pVertexSource, pFragmentSource);
-}
+Shader::Shader(VertexSource vertexSource, FragmentSource fragmentSource) {
+    vertexShader = loadShader(GL_VERTEX_SHADER, vertexSource);
+    fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentSource);
 
-Shader::~Shader() {
-    unbind();
-    glDeleteProgram(program);
-}
-
-Shader::AttribLocation Shader::findAttr(AttribName name) const {
-    return glGetAttribLocation(getProgram(), name);
-}
-
-void Shader::render(const AttribArray & attribArray, Method method) {
-    bind();
-    attribArray.bind();
-    glDrawArrays(method, 0, attribArray.getSize());
-    attribArray.unbind();
-    unbind();
-}
-
-GLuint Shader::loadShader(GLenum shaderType, const char* pSource) {
-    GLuint shader = glCreateShader(shaderType);
-    if (shader) {
-        glShaderSource(shader, 1, &pSource, NULL);
-        glCompileShader(shader);
-        GLint compiled = 0;
-        glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
-        if (!compiled) {
-            PRINT_INFO(Shader, shader);
-            glDeleteShader(shader);
-            shader = 0;
-        }
-    }
-    return shader;
-}
-
-GLuint Shader::createProgram(const char* pVertexSource, const char* pFragmentSource) {
-    GLuint vertexShader = loadShader(GL_VERTEX_SHADER, pVertexSource);
-    if (!vertexShader) {
-        return 0;
-    }
-
-    GLuint pixelShader = loadShader(GL_FRAGMENT_SHADER, pFragmentSource);
-    if (!pixelShader) {
-        return 0;
-    }
-
-    Program program = glCreateProgram();
+    program = glCreateProgram();
     if (program) {
         glAttachShader(program, vertexShader);
         //checkGlError("glAttachShader");
-        glAttachShader(program, pixelShader);
+        glAttachShader(program, fragmentShader);
         //checkGlError("glAttachShader");
         glLinkProgram(program);
         GLint linkStatus = GL_FALSE;
@@ -78,5 +34,46 @@ GLuint Shader::createProgram(const char* pVertexSource, const char* pFragmentSou
             program = 0;
         }
     }
-    return program;
+}
+
+Shader::~Shader() {
+    glDetachShader(program, vertexShader);
+    glDetachShader(program, fragmentShader);
+    glDeleteProgram(program);
+}
+
+Shader::AttribLocation Shader::findAttr(AttribName name) const {
+    return glGetAttribLocation(getProgram(), name);
+}
+
+void Shader::bind() {
+    glUseProgram(getProgram());
+}
+
+void Shader::unbind() {
+    glUseProgram(0);
+}
+
+void Shader::render(const AttribArray & attribArray, Method method) {
+    bind();
+    attribArray.bind();
+    glDrawArrays(method, 0, attribArray.getSize());
+    attribArray.unbind();
+    unbind();
+}
+
+GLuint Shader::loadShader(ShaderType shaderType, ShaderSource source) {
+    GLuint shader = glCreateShader(shaderType);
+    if (shader) {
+        glShaderSource(shader, 1, &source, NULL);
+        glCompileShader(shader);
+        GLint compiled = 0;
+        glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
+        if (!compiled) {
+            PRINT_INFO(Shader, shader);
+            glDeleteShader(shader);
+            shader = 0;
+        }
+    }
+    return shader;
 }

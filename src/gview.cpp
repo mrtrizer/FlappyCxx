@@ -26,26 +26,25 @@ static const char gFragmentShader[] =
     "   gl_FragColor = vColor;\n"
     "}\n";
 
-GView::GView(const GWorld &gWorld): gWorld(gWorld) {
-    //Init GL
-    glClearColor(0, 0, 0, 0);
+GView::GView(GWorld &gWorld):
+    shader(gVertexShader, gFragmentShader),
+    gWorld(gWorld) {
 
-    //Init shader
-    shader = new Shader(gVertexShader, gFragmentShader);
+    glClearColor(0, 0, 0, 0);
 
     Vertex triangleData[] = {
         {-1.0f,-1.0f},
         { 0.0f, 1.0f},
         { 1.0f,-1.0f}
     };
-    triangle.addVBO<Vertex>(triangleData, sizeof(triangleData), GL_FLOAT, shader->findAttr("aPosition"));
+    triangle.addVBO<Vertex>(triangleData, sizeof(triangleData), GL_FLOAT, shader.findAttr("aPosition"));
 
     Color colorData[] = {
         {1.0f, 0.0f, 0.0f, 1.0f},
         {0.0f, 1.0f, 0.0f, 1.0f},
         {0.0f, 0.0f, 1.0f, 1.0f}
     };
-    triangle.addVBO<Color>(colorData, sizeof(colorData), GL_FLOAT, shader->findAttr("aColor"));
+    triangle.addVBO<Color>(colorData, sizeof(colorData), GL_FLOAT, shader.findAttr("aColor"));
 
     checkOpenGLerror();
 }
@@ -66,5 +65,5 @@ void GView::redraw() {
 
     }
 
-    shader->render(triangle, GL_TRIANGLES);
+    shader.render(triangle, GL_TRIANGLES);
 }

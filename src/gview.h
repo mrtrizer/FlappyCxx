@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <vector>
 
+#include "shader.h"
 #include "gltools.h"
 #include "attribarray.h"
 
@@ -13,7 +14,7 @@ class GWorld;
 /// View in MVC terms.
 class GView {
 public:
-    GView(const GWorld &);
+    GView(GWorld &);
     ~GView();
     void redraw();
     void resize(int width, int height);
@@ -31,9 +32,9 @@ private:
       GLfloat a;
     };
 
-    Shader * shader;
+    Shader shader;
     AttribArray triangle;
-    const GWorld &gWorld;
+    GWorld &gWorld;
 };
 
 #endif // GVIEW_H

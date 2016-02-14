@@ -16,7 +16,7 @@ public:
     virtual ~GWorld();
     void pause(){pauseFlag = true;}
     void resume(){pauseFlag = false;}
-    inline const GObjContainer & getObjTree() const {return gObjContainer;}
+    inline GObjContainer & getObjTree() {return gObjContainer;}
 
 protected:
     virtual void recalc(int){}

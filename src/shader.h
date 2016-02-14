@@ -7,8 +7,12 @@
 #include "gltools.h"
 #include "attribarray.h"
 
-class Shader
-{
+class Uniform {
+public:
+    Uniform();
+};
+
+class Shader {
 public:
     typedef const char * VertexSource;
     typedef const char * FragmentSource;
@@ -24,14 +28,18 @@ public:
 
 protected:
     inline Program getProgram() const {return program;}
-    inline void bind() {glUseProgram(getProgram());}
-    inline void unbind() {glUseProgram(0);}
+    void bind();
+    void unbind();
 
 private:
+    typedef GLenum ShaderType;
+    typedef const char * ShaderSource;
+
+    GLuint fragmentShader;
+    GLuint vertexShader;
     Program program;
 
-    GLuint loadShader(GLenum shaderType, const char* pSource);
-    GLuint createProgram(const char* pVertexSource, const char* pFragmentSource);
+    GLuint loadShader(ShaderType, ShaderSource);
 };
 
 #endif // SHADER_H
