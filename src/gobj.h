@@ -19,12 +19,7 @@ public:
     typedef int DeltaT;
 
     struct Pos {
-        const Pos & operator+ (const Pos & pos) {
-            x += pos.x;
-            y += pos.y;
-            z += pos.z;
-            return *this;
-        }
+        const Pos & operator+ (const Pos & pos);
         float x;
         float y;
         float z;

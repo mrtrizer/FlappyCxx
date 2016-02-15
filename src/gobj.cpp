@@ -33,3 +33,10 @@ GObj::Pos GObj::getPosAbsolute() const {
     else
         return pos;
 }
+
+const GObj::Pos & GObj::Pos::operator+ (const Pos & pos) {
+    x += pos.x;
+    y += pos.y;
+    z += pos.z;
+    return *this;
+}
