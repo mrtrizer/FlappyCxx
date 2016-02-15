@@ -30,3 +30,4 @@ SOURCES += \
     $$PWD/gltools.cpp
 
 QMAKE_CXXFLAGS += -std=c++11
+LIBS += -lGL -lglut -lGLEW -lGLU
