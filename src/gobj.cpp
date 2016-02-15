@@ -24,3 +24,11 @@ bool GObj::isIntersectWith(const GObj & gObj) const {
 std::shared_ptr<GObjContainer> GObj::getRoot() const {
     throw no_valid_root();
 }
+
+GObj::Pos GObj::getPosAbsolute() const {
+    if (getParent() != nullptr) {
+        return getParent()->getPosAbsolute() + this->pos;
+    }
+    else
+        return pos;
+}

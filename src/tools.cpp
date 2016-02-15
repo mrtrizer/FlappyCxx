@@ -10,8 +10,8 @@ namespace Tools {
 using namespace std;
 
 double calcDist2D(const GObj & obj1, const GObj & obj2) {
-    double dX = obj1.getPos().x - obj2.getPos().x;
-    double dY = obj1.getPos().y - obj2.getPos().y;
+    double dX = obj1.getPosAbsolute().x - obj2.getPosAbsolute().x;
+    double dY = obj1.getPosAbsolute().y - obj2.getPosAbsolute().y;
     return sqrt(dX * dX + dY * dY);
 }
 

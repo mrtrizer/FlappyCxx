@@ -18,6 +18,12 @@ public:
     typedef std::shared_ptr<GObj> GObjP;
 
     struct Pos {
+        const Pos & operator+ (const Pos & pos) {
+            x += pos.x;
+            y += pos.y;
+            z += pos.z;
+        }
+
         float x;
         float y;
         float z;
@@ -31,6 +37,7 @@ public:
     virtual bool isIntersectWith(const GObj &) const;
     std::shared_ptr<GObjContainer> getRoot() const;
 
+    Pos getPosAbsolute() const;
     inline Pos & getPosR() {return pos;}
     inline const Pos & getPos() const {return pos;}
     inline void setPos(const Pos & pos) {this->pos = pos;}
