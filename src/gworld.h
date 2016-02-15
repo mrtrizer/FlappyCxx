@@ -4,6 +4,8 @@
 #include <thread>
 #include <atomic>
 #include <list>
+#include <memory>
+
 #include "gobjcontainer.h"
 
 /// @brief Game World
@@ -16,14 +18,14 @@ public:
     virtual ~GWorld();
     void pause(){pauseFlag = true;}
     void resume(){pauseFlag = false;}
-    inline GObjContainer & getRoot() {return gObjContainer;}
+    inline std::shared_ptr<GObjContainer> getRoot() {return gObjContainer;}
 
 protected:
     virtual void recalc(int){}
 
 private:
     bool pauseFlag;
-    GObjContainer gObjContainer;
+    std::shared_ptr<GObjContainer> gObjContainer;
 
     void run();
 };

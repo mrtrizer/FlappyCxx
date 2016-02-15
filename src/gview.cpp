@@ -75,12 +75,12 @@ void GView::redraw() {
         0, 0, -2.0f / (far - near), (far + near) / (far - near),
         0, 0, 0, 1.0f
     };
-    GObjContainer::GObjPList root = gWorld.getRoot().getChildsR();
+    GObjContainer::GObjPList root = gWorld.getRoot()->getChildsR();
     for (std::shared_ptr<GObj> gObj: root) {
         GLfloat mvMatrix[] = {
-            1.0f, 0, 0, gObj->getPos().x,
-            0, 1.0f, 0, gObj->getPos().y,
-            0, 0, 1.0f, gObj->getPos().z,
+            1.0f, 0, 0, gObj->getPosAbsolute().x,
+            0, 1.0f, 0, gObj->getPosAbsolute().y,
+            0, 0, 1.0f, gObj->getPosAbsolute().z,
             0, 0, 0, 1.0f
         };
 

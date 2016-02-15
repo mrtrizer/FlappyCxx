@@ -1,4 +1,5 @@
 #include <iostream>
+#include <memory>
 
 #include <GL/glew.h>
 #include <GL/glut.h>
@@ -38,10 +39,13 @@ int main(int argc, char** argv) {
       return 1;
     }
 
-    gWorld.getRoot().addChild(GObjCircle(1,20));
-    gWorld.getRoot().addChild(GObjCircle(2,20,{5,5,0}));
-    //gWorld.getObjTree().addChild(GObjCircle(3,10,{5,-5,0}));
-    //gWorld.getObjTree().addChild(GObjCircle(4,10,{-5,5,0}));
+    auto gObjContainer = std::make_shared<GObjContainer>();
+    auto gObjSubContainer1 = gWorld.getRoot()->addChild<GObjContainer>(std::make_shared<GObjContainer>(GObj::Pos({5,0,0})));
+    auto gObjSubContainer2 = gObjSubContainer1->addChild<GObjContainer>(std::make_shared<GObjContainer>(GObj::Pos({0,0,0})));
+    gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(10,GObj::Pos({-5,-5,0})));
+    gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(10,GObj::Pos({5,-5,0})));
+    gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(10,GObj::Pos({-5,5,0})));
+    gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(10,GObj::Pos({5,5,0})));
     view = new GView(gWorld);
 
     glutReshapeFunc(resizeWindow);
