@@ -68,7 +68,6 @@ void GView::redraw() {
     float near = 0.0f;
     float far = 100.0f;
 
-    //TODO: Move to resize()
     GLfloat pMatrix[] = {
         2.0f / (right - left), 0, 0, (right + left) / (right - left),
         0, 2.0f / (top - bottom), 0, (top + bottom) / (top - bottom),
