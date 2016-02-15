@@ -21,7 +21,7 @@ void resizeWindow(int width, int height) {
 
 int main(int argc, char** argv) {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_ALPHA | GLUT_DOUBLE);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_ALPHA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
     glutInitWindowSize(800, 600);
     glutCreateWindow("Simple shaders");
 
@@ -38,8 +38,8 @@ int main(int argc, char** argv) {
       return 1;
     }
 
-    gWorld.getObjTree().addChild(GObjCircle(1,10));
-    gWorld.getObjTree().addChild(GObjCircle(2,10,{5,5,0}));
+    gWorld.getObjTree().addChild(GObjCircle(1,20));
+    gWorld.getObjTree().addChild(GObjCircle(2,20,{5,5,0}));
     //gWorld.getObjTree().addChild(GObjCircle(3,10,{5,-5,0}));
     //gWorld.getObjTree().addChild(GObjCircle(4,10,{-5,5,0}));
     view = new GView(gWorld);

@@ -35,6 +35,7 @@ GView::GView(GWorld &gWorld):
     LOGI("OpenGL Version: %s\n", glGetString(GL_VERSION));
 
     glClearColor(0, 0, 0, 0);
+    glEnable(GL_MULTISAMPLE);
 
     std::vector<GLTools::Vertex> vertexList = GLTools::circleTriangleFan(1,30);
     triangle.addVBO<GLTools::Vertex>(vertexList.data(), vertexList.size() * sizeof(GLTools::Vertex), GL_FLOAT, shader.findAttr("aPosition"));
@@ -48,7 +49,7 @@ GView::GView(GWorld &gWorld):
 }
 
 GView::~GView() {
-
+    glDisable(GL_MULTISAMPLE);
 }
 
 void GView::resize(Width width, Height height) {
@@ -60,26 +61,26 @@ void GView::resize(Width width, Height height) {
 void GView::redraw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    float left = -10 * width / height;
-    float right = 10 * width / height;
-    float bottom = -10;
-    float top = 10;
-    float near = 0;
-    float far = 100;
+    float left = -10.0f * width / height;
+    float right = 10.0f * width / height;
+    float bottom = -10.0f;
+    float top = 10.0f;
+    float near = 0.0f;
+    float far = 100.0f;
 
     GLfloat pMatrix[] = {
-        2 / (right - left), 0, 0, (right + left) / (right - left),
-        0, 2 / (top - bottom), 0, (top + bottom) / (top - bottom),
-        0, 0, -2 / (far - near), (far + near) / (far - near),
-        0, 0, 0, 1
+        2.0f / (right - left), 0, 0, (right + left) / (right - left),
+        0, 2.0f / (top - bottom), 0, (top + bottom) / (top - bottom),
+        0, 0, -2.0f / (far - near), (far + near) / (far - near),
+        0, 0, 0, 1.0f
     };
     GObjContainer::GObjPList root = gWorld.getObjTree().getChildsR();
     for (GObj * gObj: root) {
         GLfloat mvMatrix[] = {
-            1, 0, 0, gObj->getPos().x,
-            0, 1, 0, gObj->getPos().y,
-            0, 0, 1, gObj->getPos().z,
-            0, 0, 0, 1
+            1.0f, 0, 0, gObj->getPos().x,
+            0, 1.0f, 0, gObj->getPos().y,
+            0, 0, 1.0f, gObj->getPos().z,
+            0, 0, 0, 1.0f
         };
 
         shader.render(triangle, GL_TRIANGLE_FAN, [this, mvMatrix, pMatrix](){
