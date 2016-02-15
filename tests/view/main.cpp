@@ -38,8 +38,8 @@ int main(int argc, char** argv) {
       return 1;
     }
 
-    gWorld.getObjTree().addChild(GObjCircle(1,20));
-    gWorld.getObjTree().addChild(GObjCircle(2,20,{5,5,0}));
+    gWorld.getRoot().addChild(GObjCircle(1,20));
+    gWorld.getRoot().addChild(GObjCircle(2,20,{5,5,0}));
     //gWorld.getObjTree().addChild(GObjCircle(3,10,{5,-5,0}));
     //gWorld.getObjTree().addChild(GObjCircle(4,10,{-5,5,0}));
     view = new GView(gWorld);

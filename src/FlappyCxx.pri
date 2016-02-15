@@ -29,5 +29,5 @@ SOURCES += \
     $$PWD/attribarray.cpp \
     $$PWD/gltools.cpp
 
-QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -std=c++1y
 LIBS += -lGL -lglut -lGLEW -lGLU

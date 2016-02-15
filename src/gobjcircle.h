@@ -3,7 +3,7 @@
 
 #include "gobj.h"
 
-class GObjCircle : public GObj_CRTP<GObjCircle> {
+class GObjCircle : public GObj {
 public:
     typedef double R;
 

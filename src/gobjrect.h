@@ -3,7 +3,7 @@
 
 #include "gobj.h"
 
-class GObjRect: public GObj_CRTP<GObjRect> {
+class GObjRect: public GObj {
 public:
     explicit GObjRect();
     virtual ~GObjRect(){}

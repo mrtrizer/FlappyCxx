@@ -2,6 +2,7 @@
 #define GOBJ_H
 
 #include <list>
+#include <memory>
 
 class GWorld;
 class GObjContainer;
@@ -12,11 +13,14 @@ class GObjContainer;
 class GObj {
     friend class GObjContainer;
 public:
-    typedef std::list<GObj *> GObjPList;
+    typedef std::list<std::shared_ptr<GObj>> GObjPList;
+    typedef std::shared_ptr<GObjContainer> GObjContainerP;
+    typedef std::shared_ptr<GObj> GObjP;
+
     struct Pos {
-        double x;
-        double y;
-        double z;
+        float x;
+        float y;
+        float z;
     };
 
     explicit GObj(Pos = {0,0,0});
@@ -25,36 +29,23 @@ public:
     /// Returns a list of pointers to objects intersects with. Add object to a world, before use.
     GObjPList intersectObjList() const;
     virtual bool isIntersectWith(const GObj &) const;
-    virtual GObj* clone(GObjContainer * parent) const = 0;
-    const GObjContainer *getRoot() const;
+    std::shared_ptr<GObjContainer> getRoot() const;
 
     inline Pos & getPosR() {return pos;}
     inline const Pos & getPos() const {return pos;}
     inline void setPos(const Pos & pos) {this->pos = pos;}
-    inline const GObjContainer * getParent() const {return parent;}
-    //TODO: IMPLEMENT ME
-    inline bool operator == (const GObj & gObj) const {}
-    inline void setParent(GObjContainer * parent) {this->parent = parent;}
+    inline const GObjContainerP getParent() const {return parent.lock();}
+
+    class no_valid_root{};
 
 protected:
     virtual GObjPList intersectObjList_() const;
 
 private:
     Pos pos;
-    GObjContainer * parent = nullptr;
-};
+    std::weak_ptr<GObjContainer> parent;
 
-/// @brief Divno-rekursivny pattern (CRTP)
-/// @details Avoids copy&past of a clone method.
-template <typename Derived, typename From = GObj> class GObj_CRTP: public From {
-public:
-    using From::From; //to not duplicate a constructor
-
-    virtual GObj* clone(GObjContainer * parent) const override {
-        GObj * clone = new Derived(dynamic_cast<Derived const&>(*this));
-        clone->setParent(parent);
-        return clone;
-    }
+    inline void setParent(std::shared_ptr<GObjContainer> parent) {this->parent = parent;}
 };
 
 #endif // GOBJ_H

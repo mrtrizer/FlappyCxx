@@ -1,5 +1,5 @@
 #include "gobjrect.h"
 
-GObjRect::GObjRect():GObj_CRTP<GObjRect>(){
+GObjRect::GObjRect():GObj(){
 
 }

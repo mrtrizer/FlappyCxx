@@ -21,9 +21,6 @@ bool GObj::isIntersectWith(const GObj & gObj) const {
     return Tools::isIntersect(*this, gObj);
 }
 
-const GObjContainer * GObj::getRoot() const {
-    const GObj * root = this;
-    while (root->getParent() != nullptr)
-        root = root->getParent();
-    return dynamic_cast<const GObjContainer*>(root);
+std::shared_ptr<GObjContainer> GObj::getRoot() const {
+    throw no_valid_root();
 }

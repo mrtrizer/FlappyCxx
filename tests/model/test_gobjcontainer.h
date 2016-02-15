@@ -6,97 +6,92 @@
 #include <QDebug>
 #include <QTest>
 #include <QTime>
-#include "assert.h"
 
 #include <gobjcontainer.h>
-
-class GObjTest : public GObj_CRTP<GObjTest> {
-public:
-    explicit GObjTest(): GObj_CRTP() {
-        qDebug() << "[constructor] GObjTest";
-    }
-    ~GObjTest() {
-        qDebug() << "[destructor] GObjTest";
-    }
-};
-
-class GObjContainerTest : public GObj_CRTP<GObjContainerTest, GObjContainer> {
-public:
-    explicit GObjContainerTest(): GObj_CRTP() {
-        qDebug() << "[constructor] GObjContainerTest";
-    }
-    ~GObjContainerTest() {
-        qDebug() << "[destructor] GObjContainerTest";
-    }
-};
+#include <gobjcircle.h>
 
 class Test_GObjContainer : public QObject {
     Q_OBJECT
 
-    const unsigned int TEST_N = 1;
-    GObjContainerTest * gObjContainer;
+    auto getCheckFunc(int r) {
+        return [r](const std::shared_ptr<GObj> & i) { //check if the droids we're looking for?
+            auto gObjCircle = std::dynamic_pointer_cast<GObjCircle>(i);
+            if (gObjCircle == nullptr)
+                return false;
+            return gObjCircle->getR() == r;
+        };
+    }
+
+    auto findByRR(const GObj::GObjContainerP & gObjContainer, int r) {
+        auto gObj = gObjContainer->findChildR(getCheckFunc(r));
+        return std::dynamic_pointer_cast<GObjCircle>(gObj);
+    }
+
+    const int N = 10;
+    const int R = 10;
 
 private slots:
 
     void initTestCase() {
-        gObjContainer = new GObjContainerTest();
-        assert(TEST_N > 0);
-        for (unsigned int i = 0; i < TEST_N; i++)
-            gObjContainer->addChild(GObjContainerTest());
-        int offset = 0;
-        for (unsigned int i = 0; i < TEST_N; i++) {
-            offset += TEST_N;
-//            for (unsigned int j = 0; j < TEST_N; j++) {
-//                GObjContainerTest * gObjSubContainer =
-//                        dynamic_cast<GObjContainerTest *>(gObjContainer->findChild(i + 1));
-//                gObjSubContainer->addChild(GObjTest());
-//            }
+
+    }
+
+    void addChild_one_item() {
+        auto gObjContainer = std::make_shared<GObjContainer>();
+        auto gObjCircle = gObjContainer->addChild<GObjCircle>(std::make_shared<GObjCircle>(R));
+        QVERIFY(gObjCircle->getR() == R);
+        QVERIFY(findByRR(gObjContainer, R)->getR() == R);
+    }
+
+    void addChild_multiple_item() {
+        auto gObjContainer = std::make_shared<GObjContainer>();
+        for (int i = 0; i < N; i++)
+            gObjContainer->addChild<GObjCircle>(std::make_shared<GObjCircle>(i,GObj::Pos({(float)i,0,0})));
+        for (int i = 0; i < N; i++)
+            QVERIFY(findByRR(gObjContainer, i)->getPos().x == i);
+        QVERIFY(gObjContainer->getChilds().size() == (unsigned int)N);
+    }
+
+    void removeChild() {
+        auto gObjContainer = std::make_shared<GObjContainer>();
+        gObjContainer->addChild<GObjCircle>(std::make_shared<GObjCircle>(R));
+        QVERIFY(gObjContainer->getChilds().size() == 1);
+        gObjContainer->removeChild(findByRR(gObjContainer, R));
+        QVERIFY_EXCEPTION_THROWN(findByRR(gObjContainer, R),GObjContainer::no_child_with_id_exception);
+    }
+
+    void findChildR() {
+        auto gObjContainer = std::make_shared<GObjContainer>();
+
+        for (int i = 0; i < N; i++) {
+            auto gObjSubContainer = gObjContainer->addChild<GObjContainer>(std::make_shared<GObjContainer>());
+            gObjSubContainer->addChild(std::make_shared<GObjCircle>(i,GObj::Pos({(float)i,0,0})));
         }
+        for (int i = 0; i < N; i++)
+            QVERIFY(findByRR(gObjContainer, i)->getPos().x == i);
     }
 
-    void addChild_test() {
-        GObj * gObj = gObjContainer->addChild(GObjTest());
-        gObjContainer->removeChild(gObj);
+    void getRoot() {
+        auto gObjContainer = std::make_shared<GObjContainer>();
+        auto gObjSubContainer1 = gObjContainer->addChild<GObjContainer>(std::make_shared<GObjContainer>());
+        auto gObjSubContainer2 = gObjSubContainer1->addChild<GObjContainer>(std::make_shared<GObjContainer>());
+        QVERIFY(gObjSubContainer2->getRoot() == gObjContainer);
     }
 
-    void removeChild_test() {
-        GObj * gObj = gObjContainer->addChild(GObjTest());
-        gObjContainer->removeChild(gObj);
-        QVERIFY_EXCEPTION_THROWN(gObjContainer->removeChild(gObj),
-                                 GObjContainer::no_child_with_id_exception);
-    }
-
-    void findChild_test() {
-//        QVERIFY(gObjContainer->findChild(1)->getId() == 1);
-//        QVERIFY_EXCEPTION_THROWN(gObjContainer->findChild(TEST_N + 1),
-//                                 GObjContainer::no_child_with_id_exception);
-    }
-
-    void findChildR_test() {
-//        QVERIFY(gObjContainer->findChildR(1)->getId() == 1);
-//        QVERIFY_EXCEPTION_THROWN(gObjContainer->findChildR(TEST_N * TEST_N + TEST_N + 1),
-//                                 GObjContainer::no_child_with_id_exception);
-    }
-
-    void getChilds_test() {
-        GObj::GObjPList gObjPList = gObjContainer->getChilds();
-
-        QVERIFY(gObjPList.size() == TEST_N);
-
-//        for (unsigned int i = 0; i < TEST_N; i++) {
-//            QVERIFY(gObjPList.front()->getId() == i + 1);
-//            gObjPList.pop_front();
-//        }
-    }
-
-    void getChildsR_test() {
-        GObj::GObjPList gObjPList = gObjContainer->getChildsR();
-
-        QVERIFY(gObjPList.size() == TEST_N * TEST_N);
+    void getChilds_getChildsR() {
+        auto gObjContainer = std::make_shared<GObjContainer>();
+        for (int i = 0; i < N; i++) {
+            auto gObjSubContainer = gObjContainer->addChild<GObjContainer>(std::make_shared<GObjContainer>());
+            for (int j = 0; j < N; j++)
+                gObjSubContainer->addChild(std::make_shared<GObjCircle>(j,GObj::Pos({(float)j,0,0})));
+        }
+        //not recursive
+        QVERIFY(gObjContainer->getChilds().size() == (unsigned int)N);
+        //recursive
+        QVERIFY(gObjContainer->getChildsR().size() ==(unsigned int)N * (unsigned int)N);
     }
 
     void cleanupTestCase() {
-        delete gObjContainer;
     }
 };
 

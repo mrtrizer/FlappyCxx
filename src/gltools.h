@@ -24,7 +24,7 @@ static void printGLString(const char *name, GLenum s) {
 
 namespace GLTools {
 
-typedef double R;
+typedef float R;
 
 struct Vertex {
   GLfloat x;
