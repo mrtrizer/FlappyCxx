@@ -8,8 +8,7 @@
 using namespace std;
 
 GWorld::GWorld():
-    pauseFlag(false),
-    gObjContainer(0)
+    pauseFlag(false)
 {
     //game initialization
 }

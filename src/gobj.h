@@ -20,7 +20,7 @@ public:
         double z;
     };
 
-    explicit GObj(Id, Pos = {0,0,0});
+    explicit GObj(Pos = {0,0,0});
     virtual ~GObj(){}
 
     /// Returns a list of pointers to objects intersects with. Add object to a world, before use.
@@ -42,7 +42,7 @@ protected:
     virtual GObjPList intersectObjList_() const;
 
 private:
-    Id id;
+    Id id = 0;
     Pos pos;
     GObjContainer * parent = nullptr;
 };

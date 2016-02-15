@@ -1,10 +1,15 @@
 #include <typeinfo>
+#include <stdexcept>
 
 #include "gobjcontainer.h"
 
-GObjContainer::GObjContainer(Id id): GObj_CRTP<GObjContainer>(id)
-{
+GObjContainer::GObjContainer(): GObj_CRTP<GObjContainer>() {
 
+}
+
+GObjContainer::GObjContainer(const GObjContainer & gObjContainer) {
+    if (gObjContainer.getChilds().size() != 0)
+        throw std::runtime_error("Copy constructor for GObjContainer with childs isn't implemented!");
 }
 
 GObjContainer::~GObjContainer() {
@@ -25,15 +30,18 @@ GObj::GObjPList GObjContainer::getChilds() const {
     return objList;
 }
 
+GObj::Id GObjContainer::getNextId() {
+    if (getParent() == nullptr)
+        return ++lastId;
+    else
+        return lastId;
+}
+
 GObj::Id GObjContainer::addChild(const GObj & child) {
     const GObjContainer * root = getRoot();
-    try {
-        root->findChildR(child.getId());
-        throw obj_id_exists_exception();
-    } catch (no_child_with_id_exception &) { //no objects with same id
-        GObj * objClone = child.clone(child.getId(),this);
-        children.push_back(objClone);
-    }
+    GObj * objClone = child.clone(getNextId(),this);
+    children.push_back(objClone);
+    return objClone->getId();
 }
 
 void GObjContainer::removeChild(Id id) {

@@ -2,7 +2,7 @@
 #include "tools.h"
 #include "gobjcontainer.h"
 
-GObj::GObj(Id id, Pos pos):id(id),pos(pos)
+GObj::GObj(Pos pos):pos(pos)
 {
 
 }

@@ -5,7 +5,7 @@
 
 class GObjRect: public GObj_CRTP<GObjRect> {
 public:
-    explicit GObjRect(Id);
+    explicit GObjRect();
     virtual ~GObjRect(){}
 };
 

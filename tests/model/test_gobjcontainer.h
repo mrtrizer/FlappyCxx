@@ -12,7 +12,7 @@
 
 class GObjTest : public GObj_CRTP<GObjTest> {
 public:
-    explicit GObjTest(Id id): GObj_CRTP(id) {
+    explicit GObjTest(): GObj_CRTP() {
         qDebug() << "[constructor] GObjTest Id:" << getId();
     }
     ~GObjTest() {
@@ -22,7 +22,7 @@ public:
 
 class GObjContainerTest : public GObj_CRTP<GObjContainerTest, GObjContainer> {
 public:
-    explicit GObjContainerTest(Id id): GObj_CRTP(id) {
+    explicit GObjContainerTest(): GObj_CRTP() {
         qDebug() << "[constructor] GObjContainerTest Id:" << getId();
     }
     ~GObjContainerTest() {
@@ -40,45 +40,43 @@ class Test_GObjContainer : public QObject {
 private slots:
 
     void initTestCase() {
-        gObjContainer = new GObjContainerTest(0);
+        gObjContainer = new GObjContainerTest();
         assert(TEST_N > 0);
         for (unsigned int i = 0; i < TEST_N; i++)
-            gObjContainer->addChild(GObjContainerTest(i + 1));
+            gObjContainer->addChild(GObjContainerTest());
         int offset = 0;
         for (unsigned int i = 0; i < TEST_N; i++) {
             offset += TEST_N;
             for (unsigned int j = 0; j < TEST_N; j++) {
                 GObjContainerTest * gObjSubContainer =
                         dynamic_cast<GObjContainerTest *>(gObjContainer->findChild(i + 1));
-                gObjSubContainer->addChild(GObjTest(offset + j + 1));
+                gObjSubContainer->addChild(GObjTest());
             }
         }
     }
 
     void addChild_test() {
-        gObjContainer->addChild(GObjTest(ID));
-        QVERIFY_EXCEPTION_THROWN(gObjContainer->addChild(GObjTest(ID)),
-                                 GObjContainerTest::obj_id_exists_exception);
-        gObjContainer->removeChild(ID);
+        GObj::Id id = gObjContainer->addChild(GObjTest());
+        gObjContainer->removeChild(id);
     }
 
     void removeChild_test() {
-        gObjContainer->addChild(GObjTest(ID));
-        gObjContainer->removeChild(ID);
-        QVERIFY_EXCEPTION_THROWN(gObjContainer->removeChild(ID),
-                                 GObjContainerTest::no_child_with_id_exception);
+        GObj::Id id = gObjContainer->addChild(GObjTest());
+        gObjContainer->removeChild(id);
+        QVERIFY_EXCEPTION_THROWN(gObjContainer->removeChild(id),
+                                 GObjContainer::no_child_with_id_exception);
     }
 
     void findChild_test() {
         QVERIFY(gObjContainer->findChild(1)->getId() == 1);
         QVERIFY_EXCEPTION_THROWN(gObjContainer->findChild(TEST_N + 1),
-                                 GObjContainerTest::no_child_with_id_exception);
+                                 GObjContainer::no_child_with_id_exception);
     }
 
     void findChildR_test() {
-        QVERIFY(gObjContainer->findChildR(TEST_N + 1)->getId() == TEST_N + 1);
+        QVERIFY(gObjContainer->findChildR(1)->getId() == 1);
         QVERIFY_EXCEPTION_THROWN(gObjContainer->findChildR(TEST_N * TEST_N + TEST_N + 1),
-                                 GObjContainerTest::no_child_with_id_exception);
+                                 GObjContainer::no_child_with_id_exception);
     }
 
     void getChilds_test() {
