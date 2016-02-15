@@ -30,40 +30,33 @@ GObj::GObjPList GObjContainer::getChilds() const {
     return objList;
 }
 
-GObj::Id GObjContainer::getNextId() {
-    if (getParent() == nullptr)
-        return ++lastId;
-    else
-        return lastId;
-}
-
-GObj::Id GObjContainer::addChild(const GObj & child) {
-    const GObjContainer * root = getRoot();
-    GObj * objClone = child.clone(getNextId(),this);
+GObj *GObjContainer::addChild(const GObj & child) {
+    GObj * objClone = child.clone(this);
     children.push_back(objClone);
-    return objClone->getId();
+    return objClone;
 }
 
-void GObjContainer::removeChild(Id id) {
-    children.remove(findChild(id));
+void GObjContainer::removeChild(GObj * gObj) {
+    children.remove(findChildR([gObj](GObj * gObj){return gObj == gObj;}));
+    delete gObj;
 }
 
-GObj * GObjContainer::findChild(Id id) const {
+GObj * GObjContainer::findChild(std::function<bool(GObj *)> check) const {
     for (GObj * i : children)
-        if (i->getId() == id)
+        if (check(i))
             return i;
     throw no_child_with_id_exception();
 }
 
-GObj * GObjContainer::findChildR(Id id) const {
+GObj * GObjContainer::findChildR(std::function<bool(GObj*)> check) const {
     for (GObj * i : children)
     {
-        if (i->getId() == id)
+        if (check(i))
             return i;
         GObjContainer * container = dynamic_cast<GObjContainer *>(i);
         if (container != nullptr)
             try {
-                return container->findChildR(id);
+                return container->findChildR(check);
             } catch (no_child_with_id_exception &) {}
     }
     throw no_child_with_id_exception();
