@@ -14,10 +14,10 @@ public:
     GObjPList getChildsR() const;
     GObjPList getChilds() const;
     //TODO: Maybe addChild with a pointer in arg, to avoid double alloc. Or smartptr?
-    void addChild(const GObj&);
+    GObj::Id addChild(const GObj&);
     void removeChild(Id);
-    GObj *findChild(Id);
-    GObj *findChildR(Id);
+    GObj *findChild(Id) const;
+    GObj *findChildR(Id) const;
 
     class no_child_with_id_exception{};
     class obj_id_exists_exception{};
@@ -27,7 +27,6 @@ private:
 
     ///Compiles tree to list
     void addChildsToListR(GObjPList &) const;
-    GObjContainer(Id, GWorld *);
 };
 
 #endif // GOBJCONTAINER_H

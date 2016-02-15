@@ -26,24 +26,22 @@ public:
     /// Returns a list of pointers to objects intersects with. Add object to a world, before use.
     GObjPList intersectObjList() const;
     virtual bool isIntersectWith(const GObj &) const;
-    virtual GObj* clone() const = 0;
+    virtual GObj* clone(Id id, GObjContainer * parent) const = 0;
+    const GObjContainer *getRoot() const;
 
     inline Id getId() const {return id;}
     inline Pos & getPosR() {return pos;}
     inline const Pos & getPos() const {return pos;}
     inline void setPos(const Pos & pos) {this->pos = pos;}
-    inline GObjContainer * getParent() {return parent;}
-    inline const GWorld * getWorld() {return gWorld;}
-
+    inline const GObjContainer * getParent() const {return parent;}
     inline bool operator == (const GObj & gObj) const {return gObj.getId() == getId();}
+    inline void setParent(GObjContainer * parent) {this->parent = parent;}
+    inline void setId(Id id){this->id = id;}
 
 protected:
-    inline void setWorld(const GWorld * gWorld) {this->gWorld = gWorld;}
-    inline void setParent(GObjContainer * parent) {this->parent = parent;}
     virtual GObjPList intersectObjList_() const;
 
 private:
-    const GWorld * gWorld = nullptr;
     Id id;
     Pos pos;
     GObjContainer * parent = nullptr;
@@ -55,8 +53,11 @@ template <typename Derived, typename From = GObj> class GObj_CRTP: public From {
 public:
     using From::From; //to not duplicate a constructor
 
-    virtual GObj* clone() const override {
-        return new Derived(dynamic_cast<Derived const&>(*this));
+    virtual GObj* clone(GObj::Id id, GObjContainer * parent) const override {
+        GObj * clone = new Derived(dynamic_cast<Derived const&>(*this));
+        clone->setParent(parent);
+        clone->setId(id);
+        return clone;
     }
 };
 

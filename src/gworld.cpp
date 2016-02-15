@@ -9,7 +9,7 @@ using namespace std;
 
 GWorld::GWorld():
     pauseFlag(false),
-    gObjContainer(0,this)
+    gObjContainer(0)
 {
     //game initialization
 }

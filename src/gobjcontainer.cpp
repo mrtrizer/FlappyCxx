@@ -12,11 +12,6 @@ GObjContainer::~GObjContainer() {
         delete i;
 }
 
-GObjContainer::GObjContainer(Id id, GWorld * gWorld): GObj_CRTP<GObjContainer>(id)
-{
-    setWorld(gWorld);
-}
-
 GObj::GObjPList GObjContainer::getChildsR() const {
     GObjPList objList;
     addChildsToListR(objList);
@@ -30,17 +25,13 @@ GObj::GObjPList GObjContainer::getChilds() const {
     return objList;
 }
 
-void GObjContainer::addChild(const GObj & child) {
-    GObjContainer * root = this;
-    while (root->getParent() != nullptr)
-        root = root->getParent();
+GObj::Id GObjContainer::addChild(const GObj & child) {
+    const GObjContainer * root = getRoot();
     try {
         root->findChildR(child.getId());
         throw obj_id_exists_exception();
     } catch (no_child_with_id_exception &) { //no objects with same id
-        GObj * objClone = child.clone();
-        objClone->setParent(this);
-        objClone->setWorld(this->getWorld());
+        GObj * objClone = child.clone(child.getId(),this);
         children.push_back(objClone);
     }
 }
@@ -49,14 +40,14 @@ void GObjContainer::removeChild(Id id) {
     children.remove(findChild(id));
 }
 
-GObj * GObjContainer::findChild(Id id) {
+GObj * GObjContainer::findChild(Id id) const {
     for (GObj * i : children)
         if (i->getId() == id)
             return i;
     throw no_child_with_id_exception();
 }
 
-GObj * GObjContainer::findChildR(Id id) {
+GObj * GObjContainer::findChildR(Id id) const {
     for (GObj * i : children)
     {
         if (i->getId() == id)
