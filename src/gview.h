@@ -8,6 +8,7 @@
 #include "gltools.h"
 #include "attribarray.h"
 
+class GObjCamera;
 class Shader;
 class GWorld;
 
@@ -27,6 +28,8 @@ private:
     Shader shader;
     AttribArray triangle;
     GWorld &gWorld;
+
+    std::vector<GLfloat> getPMatrix(const std::shared_ptr<GObjCamera> & gObjCamera);
 };
 
 #endif // GVIEW_H

@@ -7,6 +7,7 @@
 #include "gview.h"
 #include "gworld.h"
 #include "gobjcircle.h"
+#include "gobjcamera.h"
 
 GView * view;
 GWorld gWorld;
@@ -39,13 +40,13 @@ int main(int argc, char** argv) {
       return 1;
     }
 
-    auto gObjContainer = std::make_shared<GObjContainer>();
     auto gObjSubContainer1 = gWorld.getRoot()->addChild<GObjContainer>(std::make_shared<GObjContainer>(GObj::Pos({5,0,0})));
     auto gObjSubContainer2 = gObjSubContainer1->addChild<GObjContainer>(std::make_shared<GObjContainer>(GObj::Pos({0,0,0})));
     gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(2,GObj::Pos({-5,-5,0})));
     gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(4,GObj::Pos({5,-5,0})));
     gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(6,GObj::Pos({-5,5,0})));
     gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(8,GObj::Pos({5,5,0})));
+    //gWorld.getRoot()->addChild<GObjCamera>(std::make_shared<GObjCamera>(20,GObj::Pos({10,0,0})));
     view = new GView(gWorld);
 
     glutReshapeFunc(resizeWindow);

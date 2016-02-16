@@ -12,7 +12,8 @@ HEADERS += \
     $$PWD/tools.h \
     $$PWD/shader.h \
     $$PWD/attribarray.h \
-    $$PWD/gltools.h
+    $$PWD/gltools.h \
+    $$PWD/gobjcamera.h
 
 
 SOURCES += \
@@ -27,7 +28,8 @@ SOURCES += \
     $$PWD/tools.cpp \
     $$PWD/shader.cpp \
     $$PWD/attribarray.cpp \
-    $$PWD/gltools.cpp
+    $$PWD/gltools.cpp \
+    $$PWD/gobjcamera.cpp
 
 QMAKE_CXXFLAGS += -std=c++1y
 LIBS += -lGL -lglut -lGLEW -lGLU

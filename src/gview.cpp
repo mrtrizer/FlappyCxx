@@ -7,6 +7,8 @@
 
 #include "shader.h"
 #include "gworld.h"
+#include "gobjcamera.h"
+#include "gobjcircle.h"
 
 using namespace std;
 
@@ -61,12 +63,27 @@ void GView::resize(Width width, Height height) {
 void GView::redraw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    float left = -10.0f * width / height;
-    float right = 10.0f * width / height;
-    float bottom = -10.0f;
-    float top = 10.0f;
-    float near = 0.0f;
-    float far = 100.0f;
+    //Find GObjCamera object
+    std::shared_ptr<GObj> gObj = nullptr;
+    try {
+        gObj = gWorld.getRoot()->findChildR([](const GObj::GObjP & i) {
+            return std::dynamic_pointer_cast<GObjCamera>(i) != nullptr;
+        });
+    } catch (GObjContainer::no_child_with_id_exception &) {
+        throw std::runtime_error("Can't find camera object. Add GObjCamera object to your tree.");
+    }
+
+    std::shared_ptr<GObjCamera> gObjCamera = std::dynamic_pointer_cast<GObjCamera>(gObj);
+
+    //Calc ortho matrix, using GObjCamera
+    const float offset = gObjCamera->getHeight() / 2.0;
+    GObj::Pos pos = gObjCamera->getPosAbsolute();
+    const float left = -offset * width / height - pos.x;
+    const float right = offset * width / height - pos.x;
+    const float bottom = -offset - pos.y;
+    const float top = offset - pos.y;
+    static const float near = 0.0f;
+    static const float far = 100.0f;
 
     GLfloat pMatrix[] = {
         2.0f / (right - left), 0, 0, (right + left) / (right - left),
@@ -74,12 +91,20 @@ void GView::redraw() {
         0, 0, -2.0f / (far - near), (far + near) / (far - near),
         0, 0, 0, 1.0f
     };
+
+    //For all children recursively
     GObjContainer::GObjPList root = gWorld.getRoot()->getChildsR();
     for (std::shared_ptr<GObj> gObj: root) {
+
+        //If it's a visible object
+        if (std::dynamic_pointer_cast<GObjCircle>(gObj) == nullptr)
+            continue;
+
+        GObj::Pos pos = gObj->getPosAbsolute();
         GLfloat mvMatrix[] = {
-            1.0f, 0, 0, gObj->getPosAbsolute().x,
-            0, 1.0f, 0, gObj->getPosAbsolute().y,
-            0, 0, 1.0f, gObj->getPosAbsolute().z,
+            1.0f, 0, 0, pos.x,
+            0, 1.0f, 0, pos.y,
+            0, 0, 1.0f, pos.z,
             0, 0, 0, 1.0f
         };
 
