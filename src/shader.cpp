@@ -63,11 +63,11 @@ void Shader::unbind() const {
     glUseProgram(0);
 }
 
-void Shader::render(const AttribArray & attribArray, Method method, UniformFunc uniformFunc = [](){}) const {
+void Shader::render(const AttribArray & attribArray, UniformFunc uniformFunc = [](){}) const {
     bind();
     uniformFunc();
     attribArray.bind();
-    glDrawArrays(method, 0, attribArray.getSize());
+    glDrawArrays(attribArray.getMethod(), 0, attribArray.getSize());
     attribArray.unbind();
     unbind();
 }

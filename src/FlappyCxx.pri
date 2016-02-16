@@ -15,7 +15,8 @@ HEADERS += \
     $$PWD/bird.h \
     $$PWD/gviewshape.h \
     $$PWD/gworldview.h \
-    $$PWD/gworldmodel.h
+    $$PWD/gworldmodel.h \
+    $$PWD/gview.h
 
 
 SOURCES += \

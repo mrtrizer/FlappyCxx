@@ -1,5 +1,5 @@
-#ifndef GWORLD_H
-#define GWORLD_H
+#ifndef GWORLDMODEL_H
+#define GWORLDMODEL_H
 
 #include <thread>
 #include <atomic>
@@ -19,15 +19,14 @@ public:
     void pause(){pauseFlag = true;}
     void resume(){pauseFlag = false;}
     inline std::shared_ptr<GObjContainer> getRoot() {return gObjContainer;}
+    void run();
 
 protected:
-    virtual void recalc(int){}
+    virtual void recalc(GObj::DeltaT) = 0;
 
 private:
     bool pauseFlag;
     std::shared_ptr<GObjContainer> gObjContainer;
-
-    void run();
 };
 
 class GWorldFlappy: public GWorldModel
@@ -36,10 +35,10 @@ public:
     void flap();
 
 protected:
-    void recalc(int) override;
+    void recalc(GObj::DeltaT) override;
 
 private:
     double speed;
 };
 
-#endif // GWORLD_H
+#endif // GWORLDMODEL_H

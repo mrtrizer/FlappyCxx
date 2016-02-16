@@ -1,11 +1,14 @@
 #include "attribarray.h"
 
-AttribArray::AttribArray(Size size): size(size) {
+///@param size Count of items for glDrawArrays()
+AttribArray::AttribArray(Method method, Size size):
+    size(size),
+    method(method){
     glGenVertexArrays(1, &id);
 }
 
 AttribArray::~AttribArray() {
-    //TODO: Do I need unbind VBOs?
+    //TODO: Do I need unbind VBOs? How to do it properly?
     glDeleteVertexArrays(1,&id);
     glDeleteBuffers(vboBufs.size(),vboBufs.data());
 }

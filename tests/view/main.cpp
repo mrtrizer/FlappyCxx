@@ -10,11 +10,13 @@
 #include "gobjcamera.h"
 
 GWorldView * view;
-GWorldModel gWorld;
+GWorldFlappy gWorld;
 
 void render() {
     view->redraw();
     glutSwapBuffers();
+    glutPostRedisplay();
+    gWorld.run();
 }
 
 void resizeWindow(int width, int height) {

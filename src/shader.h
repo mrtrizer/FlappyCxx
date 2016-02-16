@@ -13,14 +13,13 @@ public:
     typedef const char * VertexSource;
     typedef const char * FragmentSource;
     typedef GLuint Program;
-    typedef unsigned int Method;
     typedef GLint AttribLocation;
     typedef const char * Name;
     typedef const std::function<void()>& UniformFunc;
 
     Shader(VertexSource, FragmentSource);
     ~Shader();
-    void render(const AttribArray &, Method, UniformFunc) const;
+    void render(const AttribArray &, UniformFunc) const;
     AttribLocation findAttr(Name) const;
     AttribLocation findUniform(Name) const;
     inline Program getProgram() const {return program;}

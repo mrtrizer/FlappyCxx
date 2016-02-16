@@ -9,13 +9,16 @@
 class AttribArray {
 public:
     typedef int Size;
-    explicit AttribArray(Size size = -1);
+    typedef unsigned int Method;
+
+    explicit AttribArray(Method = GL_TRIANGLES, Size = -1);
     ~AttribArray();
 
     void bind() const;
     void unbind() const;
 
     inline Size getSize() const {return size;}
+    inline Method getMethod() const {return method;}
 
     template<typename ItemType>
     void addVBO(const ItemType * buf, int bufSize, int itemType, GLint attr) {
@@ -47,6 +50,7 @@ private:
     Id id;
     Size size;
     VBOBufs vboBufs; //need only to cleanup vbos
+    Method method;
 };
 
 #endif // ATTRIBARRAY_H

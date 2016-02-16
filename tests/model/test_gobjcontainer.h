@@ -57,7 +57,7 @@ private slots:
         gObjContainer->addChild<GObjCircle>(std::make_shared<GObjCircle>(R));
         QVERIFY(gObjContainer->getChilds().size() == 1);
         gObjContainer->removeChild(findByRR(gObjContainer, R));
-        QVERIFY_EXCEPTION_THROWN(findByRR(gObjContainer, R),GObjContainer::no_child_with_id_exception);
+        QVERIFY_EXCEPTION_THROWN(findByRR(gObjContainer, R),GObjContainer::cant_find_child);
     }
 
     void findChildR() {

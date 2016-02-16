@@ -1,5 +1,5 @@
-#ifndef GVIEW_H
-#define GVIEW_H
+#ifndef GWORLDVIEW_H
+#define GWORLDVIEW_H
 
 #include <GL/glew.h>
 #include <vector>
@@ -30,4 +30,4 @@ private:
     std::vector<GLfloat> getPMatrix(const std::shared_ptr<GObjCamera> & gObjCamera);
 };
 
-#endif // GVIEW_H
+#endif // GWORLDVIEW_H

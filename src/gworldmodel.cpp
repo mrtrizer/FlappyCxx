@@ -18,10 +18,15 @@ GWorldModel::~GWorldModel() {
 }
 
 void GWorldModel::run() {
-    if (!pauseFlag)
+    if (!pauseFlag) {
+        auto objects = getRoot()->getChildsR();
+        for (auto i : objects) {
+            i->recalc(DELTA_T);
+        }
         recalc(DELTA_T);
+    }
 }
 
-void GWorldFlappy::recalc(int deltaT) {
-    //do essentials
+void GWorldFlappy::recalc(GObj::DeltaT deltaT) {
+
 }
