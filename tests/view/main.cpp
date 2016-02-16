@@ -4,13 +4,13 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 
-#include "gview.h"
-#include "gworld.h"
+#include "gworldview.h"
+#include "gworldmodel.h"
 #include "gobjcircle.h"
 #include "gobjcamera.h"
 
-GView * view;
-GWorld gWorld;
+GWorldView * view;
+GWorldModel gWorld;
 
 void render() {
     view->redraw();
@@ -46,8 +46,8 @@ int main(int argc, char** argv) {
     gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(4,GObj::Pos({5,-5,0})));
     gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(6,GObj::Pos({-5,5,0})));
     gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(8,GObj::Pos({5,5,0})));
-    //gWorld.getRoot()->addChild<GObjCamera>(std::make_shared<GObjCamera>(20,GObj::Pos({10,0,0})));
-    view = new GView(gWorld);
+    gWorld.getRoot()->addChild<GObjCamera>(std::make_shared<GObjCamera>(20,GObj::Pos({10,0,0})));
+    view = new GWorldView(gWorld);
 
     glutReshapeFunc(resizeWindow);
     glutDisplayFunc(render);

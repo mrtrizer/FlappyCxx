@@ -1,4 +1,4 @@
-#include "gworld.h"
+#include "gworldmodel.h"
 #include <chrono>
 #include <iostream>
 
@@ -7,17 +7,17 @@
 
 using namespace std;
 
-GWorld::GWorld():
+GWorldModel::GWorldModel():
     pauseFlag(false),
     gObjContainer(std::make_shared<GObjContainer>())
 {
     //game initialization
 }
 
-GWorld::~GWorld() {
+GWorldModel::~GWorldModel() {
 }
 
-void GWorld::run() {
+void GWorldModel::run() {
     if (!pauseFlag)
         recalc(DELTA_T);
 }

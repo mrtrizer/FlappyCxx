@@ -1,4 +1,4 @@
-#include "gview.h"
+#include "gworldview.h"
 
 #include <string>
 #include <iostream>
@@ -6,32 +6,15 @@
 #include <sstream>
 
 #include "shader.h"
-#include "gworld.h"
+#include "gworldmodel.h"
 #include "gobjcamera.h"
-#include "gobjcircle.h"
+#include "gviewshape.h"
 
 using namespace std;
 
-static const char gVertexShader[] =
-    "attribute vec2 aPosition;\n"
-    "attribute vec4 aColor;\n"
-    "uniform mat4 uMVMatrix;\n"
-    "uniform mat4 uPMatrix;\n"
-    "varying vec4 vColor;\n"
-    "void main() {\n"
-    "   gl_Position = uPMatrix * uMVMatrix * vec4(aPosition,0,1);\n"
-    "   vColor = aColor;"
-    "}\n";
 
-static const char gFragmentShader[] =
-    "precision mediump float;\n"
-    "varying vec4 vColor;\n"
-    "void main() {\n"
-    "   gl_FragColor = vColor;\n"
-    "}\n";
 
-GView::GView(GWorld &gWorld):
-    shader(gVertexShader, gFragmentShader),
+GWorldView::GWorldView(GWorldModel &gWorld):
     gWorld(gWorld) {
 
     LOGI("OpenGL Version: %s\n", glGetString(GL_VERSION));
@@ -39,28 +22,21 @@ GView::GView(GWorld &gWorld):
     glClearColor(0, 0, 0, 0);
     glEnable(GL_MULTISAMPLE);
 
-    std::vector<GLTools::Vertex> vertexList = GLTools::circleTriangleFan(1,30);
-    triangle.addVBO<GLTools::Vertex>(vertexList.data(), vertexList.size() * sizeof(GLTools::Vertex), GL_FLOAT, shader.findAttr("aPosition"));
-
-    std::vector<GLTools::Color> colorList(vertexList.size());
-    for (GLTools::Color & color: colorList)
-        color = {1.0f, 1.0f, 1.0f, 1.0f};
-    triangle.addVBO<GLTools::Color>(colorList.data(), colorList.size() * sizeof(GLTools::Color), GL_FLOAT, shader.findAttr("aColor"));
 
     CHECK_GL_ERROR;
 }
 
-GView::~GView() {
+GWorldView::~GWorldView() {
     glDisable(GL_MULTISAMPLE);
 }
 
-void GView::resize(Width width, Height height) {
+void GWorldView::resize(Width width, Height height) {
     glViewport(0, 0, width, height);
     this->width = width;
     this->height = height;
 }
 
-void GView::redraw() {
+void GWorldView::redraw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //Find GObjCamera object
@@ -69,11 +45,11 @@ void GView::redraw() {
         gObj = gWorld.getRoot()->findChildR([](const GObj::GObjP & i) {
             return std::dynamic_pointer_cast<GObjCamera>(i) != nullptr;
         });
-    } catch (GObjContainer::no_child_with_id_exception &) {
+    } catch (GObjContainer::cant_find_child &) {
         throw std::runtime_error("Can't find camera object. Add GObjCamera object to your tree.");
     }
 
-    std::shared_ptr<GObjCamera> gObjCamera = std::dynamic_pointer_cast<GObjCamera>(gObj);
+    auto gObjCamera = std::dynamic_pointer_cast<GObjCamera>(gObj);
 
     //Calc ortho matrix, using GObjCamera
     const float offset = gObjCamera->getHeight() / 2.0;
@@ -93,11 +69,12 @@ void GView::redraw() {
     };
 
     //For all children recursively
-    GObjContainer::GObjPList root = gWorld.getRoot()->getChildsR();
+    auto root = gWorld.getRoot()->getChildsR();
     for (std::shared_ptr<GObj> gObj: root) {
 
         //If it's a visible object
-        if (std::dynamic_pointer_cast<GObjCircle>(gObj) == nullptr)
+        auto view = std::dynamic_pointer_cast<GView>(gObj);
+        if (view == nullptr)
             continue;
 
         GObj::Pos pos = gObj->getPosAbsolute();
@@ -108,9 +85,6 @@ void GView::redraw() {
             0, 0, 0, 1.0f
         };
 
-        shader.render(triangle, GL_TRIANGLE_FAN, [this, mvMatrix, pMatrix](){
-            glUniformMatrix4fv(shader.findUniform("uMVMatrix"),1,true,mvMatrix);
-            glUniformMatrix4fv(shader.findUniform("uPMatrix"),1,true,pMatrix);
-        });
+        view->draw(pMatrix, mvMatrix);
     }
 }

@@ -12,10 +12,10 @@
 /// @details Contains and manages game objects.
 /// Model in MVC terms.
 /// Creates and manages gameloop thread.
-class GWorld {
+class GWorldModel {
 public:
-    GWorld();
-    virtual ~GWorld();
+    GWorldModel();
+    virtual ~GWorldModel();
     void pause(){pauseFlag = true;}
     void resume(){pauseFlag = false;}
     inline std::shared_ptr<GObjContainer> getRoot() {return gObjContainer;}
@@ -30,7 +30,7 @@ private:
     void run();
 };
 
-class GWorldFlappy: public GWorld
+class GWorldFlappy: public GWorldModel
 {
 public:
     void flap();

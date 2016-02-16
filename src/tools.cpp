@@ -2,9 +2,8 @@
 #include <functional>
 
 #include "tools.h"
+#include "gcollider.h"
 #include "gobj.h"
-#include "gobjcircle.h"
-#include "gobjrect.h"
 
 namespace Tools {
 using namespace std;
@@ -15,17 +14,22 @@ double calcDist2D(const GObj & obj1, const GObj & obj2) {
     return sqrt(dX * dX + dY * dY);
 }
 
-bool isIntersect(const GObjCircle & obj1, const GObjCircle & obj2) {
-    if ((obj1.getR() + obj2.getR()) > calcDist2D(obj1,obj2))
+bool isIntersect(const GColliderCircle & obj1, const GColliderCircle & obj2) {
+    if ((obj1.getR() + obj2.getR()) > calcDist2D(dynamic_cast<const GObj &>(obj1),dynamic_cast<const GObj &>(obj2)))
         return true;
     return false;
 }
 
-bool isIntersect(const GObjRect &, const GObjRect &) {
+bool isIntersect(const GColliderRect &, const GColliderCircle &) {
     throw not_implemented();
 }
 
-bool isIntersect(const GObjCircle &, const GObjRect &) {
+bool isIntersect(const GColliderCircle &, const GColliderRect &) {
+    throw not_implemented();
+}
+
+
+bool isIntersect(const GColliderRect &, const GColliderRect &) {
     throw not_implemented();
 }
 
@@ -38,26 +42,26 @@ private:
 };
 
 //Die matherfucker die!
-template <typename GObjT1, typename GObjT2>
+template <typename GColliderT1, typename GColliderT2>
 static void check(const GObj &gObj1, const GObj &gObj2) {
     try { //is it valid cast?
-    auto gObjT1 = dynamic_cast<const GObjT1 &>(gObj1);
-    auto gObjT2 = dynamic_cast<const GObjT2 &>(gObj2);
-    throw Done(isIntersect(gObjT1, gObjT2)); //allright, return checking result
+    auto gColliderT1 = dynamic_cast<const GColliderT1 &>(gObj1);
+    auto gColliderT2 = dynamic_cast<const GColliderT2 &>(gObj2);
+    throw Done(isIntersect(gColliderT1, gColliderT2)); //allright, return checking result
     } catch (std::bad_cast &) { //if bad cast, try to reverse and over
         try {
-        auto gObjT1 = dynamic_cast<const GObjT2 &>(gObj1);
-        auto gObjT2 = dynamic_cast<const GObjT1 &>(gObj2);
-        throw Done(isIntersect(gObjT1, gObjT2)); //allright, return checking result
+        auto gColliderT1 = dynamic_cast<const GColliderT2 &>(gObj1);
+        auto gColliderT2 = dynamic_cast<const GColliderT1 &>(gObj2);
+        throw Done(isIntersect(gColliderT1, gColliderT2)); //allright, return checking result
         } catch (std::bad_cast &) {} //we can't cast, ignore checking
     }
 }
 
 bool isIntersect(const GObj &gObj1, const GObj &gObj2) {
     try { //if checking done, catch Done exception
-        check<GObjCircle, GObjCircle>(gObj1, gObj2);
-        check<GObjRect, GObjCircle>(gObj1, gObj2);
-        check<GObjRect, GObjRect>(gObj1, gObj2);
+        check<GColliderCircle, GColliderCircle>(gObj1, gObj2);
+        check<GColliderRect, GColliderCircle>(gObj1, gObj2);
+        check<GColliderRect, GColliderRect>(gObj1, gObj2);
     } catch (Done & done) {
         return done.getResult();
     }

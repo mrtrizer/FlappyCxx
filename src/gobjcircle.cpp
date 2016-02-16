@@ -4,7 +4,8 @@
 
 GObjCircle::GObjCircle(R r, Pos pos):
     GObj(pos),
-    r(r)
+    GColliderCircle(r),
+    GViewCircle(5)
 {
 
 }

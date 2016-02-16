@@ -2,17 +2,12 @@
 #define GOBJCIRCLE_H
 
 #include "gobj.h"
+#include "gcollider.h"
+#include "gviewshape.h"
 
-class GObjCircle : public GObj {
+class GObjCircle : public GObj, public GColliderCircle, public GViewCircle {
 public:
-    typedef double R;
-
     explicit GObjCircle(R = 0, Pos = {0,0,0});
-    inline void setR(R r) {this->r = r;}
-    inline R getR() const {return r;}
-
-private:
-    R r = 0;
 };
 
 #endif // GOBJCIRCLE_H

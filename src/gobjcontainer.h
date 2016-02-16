@@ -25,8 +25,7 @@ public:
     std::shared_ptr<GObj> findChildR(std::function<bool(const std::shared_ptr<GObj> &)>) const;
     std::shared_ptr<GObjContainer> getRoot();
 
-    class no_child_with_id_exception{};
-    class obj_id_exists_exception{};
+    class cant_find_child{};
 
 private:
     GObjPList children;

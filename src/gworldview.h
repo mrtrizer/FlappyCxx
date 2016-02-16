@@ -10,24 +10,22 @@
 
 class GObjCamera;
 class Shader;
-class GWorld;
+class GWorldModel;
 
 /// View in MVC terms.
-class GView {
+class GWorldView {
 public:
     typedef int Width;
     typedef int Height;
-    GView(GWorld &);
-    ~GView();
+    GWorldView(GWorldModel &);
+    ~GWorldView();
     void redraw();
     void resize(Width, Height);
 
 private:
     Width width;
     Height height;
-    Shader shader;
-    AttribArray triangle;
-    GWorld &gWorld;
+    GWorldModel &gWorld;
 
     std::vector<GLfloat> getPMatrix(const std::shared_ptr<GObjCamera> & gObjCamera);
 };

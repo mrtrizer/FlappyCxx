@@ -4,7 +4,7 @@
 #include <list>
 #include <memory>
 
-class GWorld;
+class GWorldModel;
 class GObjContainer;
 
 /// @brief Game object

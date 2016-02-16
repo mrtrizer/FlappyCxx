@@ -36,9 +36,9 @@ std::shared_ptr<GObj> GObjContainer::findChildR(std::function<bool(const std::sh
         if (container != nullptr)
             try {
                 return container->findChildR(check);
-            } catch (no_child_with_id_exception &) {}
+            } catch (cant_find_child &) {}
     }
-    throw no_child_with_id_exception();
+    throw cant_find_child();
 }
 
 void GObjContainer::addChildsToListR(GObjPList & list) const {

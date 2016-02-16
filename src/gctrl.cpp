@@ -1,5 +1,5 @@
 #include "gctrl.h"
-#include "gview.h"
+#include "gworldview.h"
 
 GCtrl * GCtrl::instance = nullptr;
 
