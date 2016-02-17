@@ -6,7 +6,7 @@
 #include <list>
 #include <memory>
 
-#include "gobjcontainer.h"
+#include "gobj.h"
 
 /// @brief Game World
 /// @details Contains and manages game objects.
@@ -18,7 +18,7 @@ public:
     virtual ~GWorldModel();
     void pause(){pauseFlag = true;}
     void resume(){pauseFlag = false;}
-    inline std::shared_ptr<GObjContainer> getRoot() {return gObjContainer;}
+    inline std::shared_ptr<GObj> getRoot() {return gObj;}
     void run();
 
 protected:
@@ -26,7 +26,7 @@ protected:
 
 private:
     bool pauseFlag;
-    std::shared_ptr<GObjContainer> gObjContainer;
+    std::shared_ptr<GObj> gObj;
 };
 
 class GWorldFlappy: public GWorldModel

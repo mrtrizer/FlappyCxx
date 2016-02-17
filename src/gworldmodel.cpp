@@ -9,7 +9,7 @@ using namespace std;
 
 GWorldModel::GWorldModel():
     pauseFlag(false),
-    gObjContainer(std::make_shared<GObjContainer>())
+    gObj(std::make_shared<GObj>())
 {
     //game initialization
 }

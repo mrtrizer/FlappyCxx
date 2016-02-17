@@ -45,7 +45,7 @@ void GWorldView::redraw() {
         gObj = gWorld.getRoot()->findChildR([](const GObj::GObjP & i) {
             return std::dynamic_pointer_cast<GObjCamera>(i) != nullptr;
         });
-    } catch (GObjContainer::cant_find_child &) {
+    } catch (GObj::cant_find_child &) {
         throw std::runtime_error("Can't find camera object. Add GObjCamera object to your tree.");
     }
 

@@ -42,8 +42,8 @@ int main(int argc, char** argv) {
       return 1;
     }
 
-    auto gObjSubContainer1 = gWorld.getRoot()->addChild<GObjContainer>(std::make_shared<GObjContainer>(GObj::Pos({5,0,0})));
-    auto gObjSubContainer2 = gObjSubContainer1->addChild<GObjContainer>(std::make_shared<GObjContainer>(GObj::Pos({0,0,0})));
+    auto gObjSubContainer1 = gWorld.getRoot()->addChild<GObj>(std::make_shared<GObj>(GObj::Pos({5,0,0})));
+    auto gObjSubContainer2 = gObjSubContainer1->addChild<GObj>(std::make_shared<GObj>(GObj::Pos({0,0,0})));
     gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(2,GObj::Pos({-5,-5,0})));
     gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(4,GObj::Pos({5,-5,0})));
     gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(6,GObj::Pos({-5,5,0})));

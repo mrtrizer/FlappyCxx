@@ -1,6 +1,5 @@
 #include "gobj.h"
 #include "tools.h"
-#include "gobjcontainer.h"
 
 GObj::GObj(Pos pos):pos(pos)
 {
@@ -22,7 +21,7 @@ bool GObj::isIntersectWith(const GObj & gObj) const {
     return Tools::isIntersect(*this, gObj);
 }
 
-std::shared_ptr<GObjContainer> GObj::getRoot() const {
+std::shared_ptr<GObj> GObj::getRoot() const {
     throw no_valid_root();
 }
 
@@ -32,6 +31,56 @@ GObj::Pos GObj::getPosAbsolute() const {
     }
     else
         return pos;
+}
+
+GObj::GObjPList GObj::getChildsR() {
+    GObjPList objList;
+    addChildsToListR(objList);
+    return objList;
+}
+
+GObj::GObjPList GObj::getChilds() const {
+    GObjPList objList;
+    for (auto i : children)
+        objList.push_back(i);
+    return objList;
+}
+
+void GObj::removeChild(const std::shared_ptr<GObj> & gObj) {
+    children.remove(findChildR([gObj](const std::shared_ptr<GObj> & i){return i == gObj;}));
+}
+
+std::shared_ptr<GObj> GObj::findChildR(std::function<bool(const std::shared_ptr<GObj> &)> check) const {
+    for (std::shared_ptr<GObj> i : children)
+    {
+        if (check(i))
+            return i;
+        auto container = std::dynamic_pointer_cast<GObj>(i);
+        if (container != nullptr)
+            try {
+                return container->findChildR(check);
+            } catch (cant_find_child &) {}
+    }
+    throw cant_find_child();
+}
+
+void GObj::addChildsToListR(GObjPList & list) {
+    list.push_back(shared_from_this());
+    for (std::shared_ptr<GObj> i : children) {
+        std::shared_ptr<GObj> container = std::dynamic_pointer_cast<GObj>(i);
+        if (container != nullptr)
+            container->addChildsToListR(list);
+        else
+            list.push_back(i);
+    }
+}
+
+std::shared_ptr<GObj> GObj::getRoot() {
+    const std::shared_ptr<GObj> root = getParent();
+    if (root == nullptr)
+        return shared_from_this();
+    else
+        return root->getParent();
 }
 
 const GObj::Pos & GObj::Pos::operator+ (const Pos & pos) {

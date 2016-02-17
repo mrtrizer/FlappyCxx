@@ -5,7 +5,6 @@ HEADERS += \
     $$PWD/gobj.h \
     $$PWD/gobjrect.h \
     $$PWD/gobjcircle.h \
-    $$PWD/gobjcontainer.h \
     $$PWD/tools.h \
     $$PWD/shader.h \
     $$PWD/attribarray.h \
@@ -24,7 +23,6 @@ SOURCES += \
     $$PWD/gobj.cpp \
     $$PWD/gobjrect.cpp \
     $$PWD/gobjcircle.cpp \
-    $$PWD/gobjcontainer.cpp \
     $$PWD/tools.cpp \
     $$PWD/shader.cpp \
     $$PWD/attribarray.cpp \

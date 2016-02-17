@@ -5,7 +5,6 @@
 #include <fstream>
 #include <sstream>
 
-#include "test_gobjcontainer.h"
 #include "test_gobj.h"
 #include "test_tools.h"
 
@@ -18,7 +17,6 @@ int main(int argc, char** argv)
      delete obj;
    };
 
-   RUN_TEST(new Test_GObjContainer());
    RUN_TEST(new Test_GObj());
    RUN_TEST(new Test_Tools());
 
