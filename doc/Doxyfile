@@ -1,0 +1,3 @@
+INPUT = ../src/ ../tests/
+HAVE_DOT = YES
+FILE_PATTERNS = *.cpp *.h
