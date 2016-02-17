@@ -31,18 +31,7 @@ struct Vertex {
   GLfloat y;
 };
 
-struct Color {
-  GLfloat r;
-  GLfloat g;
-  GLfloat b;
-  GLfloat a;
-};
-
-class too_few_vertices{};
-
 void checkOpenGLerror(const char * = "", const char * = "", int = 0);
-
-std::vector<Vertex> circleTriangleFan(R r, int count);
 
 }
 

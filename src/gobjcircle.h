@@ -12,6 +12,17 @@ public:
         GColliderCircle(r),
         GViewCustom(25,r)
     {}
+    void recalc(DeltaT) override {
+        n += 0.001;
+        this->getPosR().x += std::sin(n) / 50.0;
+        this->getPosR().y += std::cos(n) / 50.0;
+        if (intersectObjList().size() > 0)
+            setColorRGBA({1.0f, 0, 0, 0});
+        else
+            setColorRGBA({1.0f, 1.0f, 1.0f, 1.0f});
+    }
+private:
+    float n = 0;
 };
 
 #endif // GOBJCIRCLE_H

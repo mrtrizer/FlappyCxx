@@ -6,6 +6,9 @@
 
 #include "gltools.h"
 
+/// Contains VBOs, draw method and item count for drawArrays().
+/// Kinda mesh object.
+/// @see Shader
 class AttribArray {
 public:
     typedef int Size;

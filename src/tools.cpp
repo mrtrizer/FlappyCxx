@@ -81,8 +81,7 @@ bool isIntersect(const GObj &gObj1, const GObj &gObj2) {
     } catch (Done & done) {
         return done.getResult();
     }
-    //no appropriate intersect checking function
-    throw unknown_intersect_obj();
+    return false;
 }
 
 }

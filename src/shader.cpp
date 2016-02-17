@@ -16,6 +16,9 @@ using namespace std;
     } \
 }
 
+/// Takes GLSL sources from nullterm strings.
+/// Prints logs if build problems.
+/// @throw shader_init_failed Initialization filed. See debug output.
 Shader::Shader(VertexSource vertexSource, FragmentSource fragmentSource) {
     vertexShader = loadShader(GL_VERTEX_SHADER, vertexSource);
     fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentSource);
@@ -65,6 +68,10 @@ void Shader::unbind() const {
     glUseProgram(0);
 }
 
+/// Render VBOs.
+/// @param attribArray VBOs
+/// @param uniformFunc Define uniforms here with glUniform...() methods.
+/// @see AttribArray
 void Shader::render(const AttribArray & attribArray, UniformFunc uniformFunc = [](){}) const {
     bind();
     uniformFunc();

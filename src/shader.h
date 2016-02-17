@@ -8,6 +8,7 @@
 #include "gltools.h"
 #include "attribarray.h"
 
+//TODO: Rename to ShaderProgram
 class Shader {
 public:
     typedef const char * VertexSource;

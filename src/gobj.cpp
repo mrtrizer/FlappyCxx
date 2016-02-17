@@ -7,23 +7,20 @@ GObj::GObj(Pos pos):pos(pos)
 }
 
 GObj::GObjPList GObj::intersectObjList() {
-    GObjPList gObjPList;
+    GObjPList result;
+    GObjPList allObjects = getRoot()->getChildsR();
     auto me = shared_from_this_cast();
-    for (auto i: getChildsR()) {
+    for (auto i: allObjects) {
         if (i != me) {
             if (i->isIntersectWith(me))
-                gObjPList.push_back(i);
+                result.push_back(i);
         }
     }
-    return gObjPList;
+    return result;
 }
 
 bool GObj::isIntersectWith(const GObjP & gObj) const {
     return Tools::isIntersect(*this, *gObj);
-}
-
-std::shared_ptr<GObj> GObj::getRoot() const {
-    throw no_valid_root();
 }
 
 GObj::Pos GObj::getPosAbsolute() const {
@@ -34,12 +31,14 @@ GObj::Pos GObj::getPosAbsolute() const {
         return pos;
 }
 
+/// Same as getChilds() but works recursively.
 GObj::GObjPList GObj::getChildsR() {
     GObjPList objList;
     addChildsToListR(objList);
     return objList;
 }
 
+/// Returns a list of GObj childs.
 GObj::GObjPList GObj::getChilds() const {
     GObjPList objList;
     for (auto i : children)
@@ -51,6 +50,8 @@ void GObj::removeChild(const std::shared_ptr<GObj> & gObj) {
     children.remove(findChildR([gObj](const std::shared_ptr<GObj> & i){return i == gObj;}));
 }
 
+//TODO: Return a list of appropriate objects
+/// Search a child recursively using check callback for validation.
 std::shared_ptr<GObj> GObj::findChildR(std::function<bool(const std::shared_ptr<GObj> &)> check) const {
     for (std::shared_ptr<GObj> i : children)
     {
@@ -65,6 +66,8 @@ std::shared_ptr<GObj> GObj::findChildR(std::function<bool(const std::shared_ptr<
     throw cant_find_child();
 }
 
+/// Compiles a tree to the list
+/// @see getChildsR()
 void GObj::addChildsToListR(GObjPList & list) {
     list.push_back(shared_from_this_cast());
     for (std::shared_ptr<GObj> i : children) {
@@ -76,6 +79,7 @@ void GObj::addChildsToListR(GObjPList & list) {
     }
 }
 
+/// Recursive ups to the root and returns it.
 std::shared_ptr<GObj> GObj::getRoot() {
     const std::shared_ptr<GObj> root = getParent();
     if (root == nullptr)

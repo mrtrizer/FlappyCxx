@@ -38,9 +38,9 @@ public:
     inline const GObjP getParent() const {return parent.lock();}
     virtual void recalc(DeltaT) {}
 
-    ///Recursively
     GObjPList getChildsR();
     GObjPList getChilds() const;
+    /// Add child. Returns pointer to added object casted to needed type.
     template<typename TCastTo = GObj>
     std::shared_ptr<TCastTo> addChild(const std::shared_ptr<GObj> & child) {
         child->setParent(shared_from_this_cast());
@@ -59,7 +59,6 @@ private:
     std::weak_ptr<GObj> parent;
     GObjPList children;
 
-    ///Compiles tree to list
     void addChildsToListR(GObjPList &);
     inline void setParent(std::shared_ptr<GObj> parent) {this->parent = parent;}
 };
