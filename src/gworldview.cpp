@@ -12,8 +12,6 @@
 
 using namespace std;
 
-
-
 GWorldView::GWorldView(GWorldModel &gWorld):
     gWorld(gWorld) {
 
@@ -22,7 +20,6 @@ GWorldView::GWorldView(GWorldModel &gWorld):
     glClearColor(0, 0, 0, 0);
     glEnable(GL_MULTISAMPLE);
 
-
     CHECK_GL_ERROR;
 }
 
@@ -30,40 +27,22 @@ GWorldView::~GWorldView() {
     glDisable(GL_MULTISAMPLE);
 }
 
-void GWorldView::resize(Width width, Height height) {
+void GWorldView::resize(double width, double height) {
     glViewport(0, 0, width, height);
-    this->width = width;
-    this->height = height;
+    gWorld.getActiveCamera()->setRatio(width / height);
 }
 
 void GWorldView::redraw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    //Find GObjCamera object
-    std::shared_ptr<GObj> gObj = nullptr;
-    try {
-        gObj = gWorld.getRoot()->findChildR([](const GObj::GObjP & i) {
-            return std::dynamic_pointer_cast<GObjCamera>(i) != nullptr;
-        });
-    } catch (GObj::cant_find_child &) {
-        throw std::runtime_error("Can't find camera object. Add GObjCamera object to your tree.");
-    }
-
-    auto gObjCamera = std::dynamic_pointer_cast<GObjCamera>(gObj);
-
     //Calc ortho matrix, using GObjCamera
-    const float offset = gObjCamera->getHeight() / 2.0;
-    GObj::Pos pos = gObjCamera->getPosAbsolute();
-    const float left = -offset * width / height - pos.x;
-    const float right = offset * width / height - pos.x;
-    const float bottom = -offset - pos.y;
-    const float top = offset - pos.y;
+    auto rect = gWorld.getActiveCamera()->getRect();
     static const float near = 0.0f;
     static const float far = 100.0f;
 
     GLfloat pMatrix[] = {
-        2.0f / (right - left), 0, 0, (right + left) / (right - left),
-        0, 2.0f / (top - bottom), 0, (top + bottom) / (top - bottom),
+        2.0f / (rect.x2 - rect.x1), 0, 0, (rect.x2 + rect.x1) / (rect.x2 - rect.x1),
+        0, 2.0f / (rect.y1 - rect.y2), 0, (rect.y1 + rect.y2) / (rect.y1 - rect.y2),
         0, 0, -2.0f / (far - near), (far + near) / (far - near),
         0, 0, 0, 1.0f
     };

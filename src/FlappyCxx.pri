@@ -21,8 +21,6 @@ HEADERS += \
 SOURCES += \
     $$PWD/gctrl.cpp \
     $$PWD/gobj.cpp \
-    $$PWD/gobjrect.cpp \
-    $$PWD/gobjcircle.cpp \
     $$PWD/tools.cpp \
     $$PWD/shader.cpp \
     $$PWD/attribarray.cpp \

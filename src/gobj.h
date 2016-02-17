@@ -4,12 +4,14 @@
 #include <list>
 #include <memory>
 
+#include "tools.h"
+
 class GWorldModel;
 
 /// @brief Game object
 /// @details Component in Composite.
 /// @see GObj
-class GObj : public std::enable_shared_from_this<GObj> {
+class GObj : public Tools::enable_shared_from_this_virtual<GObj> {
 public:
     typedef std::list<std::shared_ptr<GObj>> GObjPList;
     typedef std::shared_ptr<GObj> GObjP;
@@ -25,8 +27,8 @@ public:
     explicit GObj(Pos = {0,0,0});
     virtual ~GObj(){}
 
-    GObjPList intersectObjList() const;
-    virtual bool isIntersectWith(const GObj &) const;
+    GObjPList intersectObjList();
+    virtual bool isIntersectWith(const GObjP &) const;
     std::shared_ptr<GObj> getRoot() const;
 
     Pos getPosAbsolute() const;
@@ -41,7 +43,7 @@ public:
     GObjPList getChilds() const;
     template<typename TCastTo = GObj>
     std::shared_ptr<TCastTo> addChild(const std::shared_ptr<GObj> & child) {
-        child->setParent(shared_from_this());
+        child->setParent(shared_from_this_cast());
         children.push_back(child);
         return std::dynamic_pointer_cast<TCastTo>(child);
     }
@@ -50,12 +52,7 @@ public:
     std::shared_ptr<GObj> getRoot();
 
     class cant_find_child{};
-
-
     class no_valid_root{};
-
-protected:
-    virtual GObjPList intersectObjList_() const;
 
 private:
     Pos pos;

@@ -32,16 +32,51 @@ void GViewShape::draw(const GLfloat * pMatrix, const GLfloat * mvMatrix) {
     });
 }
 
-GViewCircle::GViewCircle(int vertexCnt):
+GViewCircle::GViewCircle(int vertexCnt, double r):
     vertexCnt(vertexCnt),
     circle(GL_TRIANGLE_FAN){
-    std::vector<GLTools::Vertex> vertexList = GLTools::circleTriangleFan(1,vertexCnt);
-    circle.addVBO<GLTools::Vertex>(vertexList.data(), vertexList.size() * sizeof(GLTools::Vertex), GL_FLOAT, getShader().findAttr("aPosition"));
+    std::vector<GLTools::Vertex> vertexList = GLTools::circleTriangleFan(r,vertexCnt);
+    circle.addVBO<GLTools::Vertex>(vertexList.data(),                           //data array
+                                   vertexList.size() * sizeof(GLTools::Vertex), //size
+                                   GL_FLOAT,                                    //item format
+                                   getShader().findAttr("aPosition")            //attribute id
+                                   );
 
+    //TODO: Replace VBO with a uniform
+    std::vector<GLTools::Color> colorList(vertexList.size());
+
+    for (GLTools::Color & color: colorList)
+        color = {1.0f, 1.0f, 1.0f, 1.0f};
+
+    circle.addVBO<GLTools::Color>(colorList.data(),
+                                  colorList.size() * sizeof(GLTools::Color),
+                                  GL_FLOAT,
+                                  getShader().findAttr("aColor"));
+}
+
+GViewRect::GViewRect(float width, float height):
+    rect(GL_TRIANGLE_STRIP){
+
+    std::vector<GLTools::Vertex> vertexList({
+                                                {0,0},
+                                                {0,height},
+                                                {width,0},
+                                                {width,height}
+                                            });
+    rect.addVBO<GLTools::Vertex>(vertexList.data(),
+                                 vertexList.size() * sizeof(GLTools::Vertex),
+                                 GL_FLOAT,
+                                 getShader().findAttr("aPosition"));
+
+    //TODO: Replace VBO with a uniform
     std::vector<GLTools::Color> colorList(vertexList.size());
     for (GLTools::Color & color: colorList)
         color = {1.0f, 1.0f, 1.0f, 1.0f};
-    circle.addVBO<GLTools::Color>(colorList.data(), colorList.size() * sizeof(GLTools::Color), GL_FLOAT, getShader().findAttr("aColor"));
+
+    rect.addVBO<GLTools::Color>(colorList.data(),
+                                colorList.size() * sizeof(GLTools::Color),
+                                GL_FLOAT,
+                                getShader().findAttr("aColor"));
 }
 
 }

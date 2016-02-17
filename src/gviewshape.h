@@ -1,7 +1,10 @@
 #ifndef GVIEWSHAPE_H
 #define GVIEWSHAPE_H
 
+#include <memory>
+
 #include "gview.h"
+#include "gcollider.h"
 
 namespace GL_GView {
 
@@ -20,12 +23,21 @@ private:
 
 class GViewCircle: public GViewShape {
 public:
-    GViewCircle(int vertexCnt);
+    GViewCircle(int vertexCnt, double r);
     const AttribArray & getAttribArray() const override {return circle; }
 
 private:
     int vertexCnt;
     AttribArray circle;
+};
+
+class GViewRect: public GViewShape {
+public:
+    GViewRect(float width, float height);
+    const AttribArray & getAttribArray() const override {return rect;}
+
+private:
+    AttribArray rect;
 };
 
 }

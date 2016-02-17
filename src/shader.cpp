@@ -5,6 +5,7 @@
 
 using namespace std;
 
+/// The macro prints a build log of shader. It used in constructor and laodShader methods.
 #define PRINT_INFO(type, instance) { \
     GLint infoLen = 0; \
     glGet ## type ## iv(instance, GL_INFO_LOG_LENGTH, &infoLen); \
@@ -38,6 +39,7 @@ Shader::Shader(VertexSource vertexSource, FragmentSource fragmentSource) {
 }
 
 Shader::~Shader() {
+    //TODO: Is it proper cleanup?
     glDetachShader(program, vertexShader);
     CHECK_GL_ERROR;
     glDetachShader(program, fragmentShader);

@@ -1,7 +1,9 @@
 #ifndef GCOLLIDER_H
 #define GCOLLIDER_H
 
-class GCollider {
+#include "tools.h"
+
+class GCollider : public Tools::enable_shared_from_this_virtual<GCollider> {
 public:
     GCollider();
     virtual ~GCollider(){}
@@ -9,7 +11,7 @@ public:
 
 class GColliderCircle: public GCollider {
 public:
-    typedef double R;
+    typedef float R;
 
     explicit GColliderCircle(R r = 0):r(r){}
     inline void setR(R r) {this->r = r;}
@@ -20,7 +22,17 @@ private:
 };
 
 class GColliderRect: public GCollider {
+public:
+    typedef float Size;
 
+    explicit GColliderRect(Size width, Size height):width(width), height(height) {}
+    inline Size getWidth() const {return width;}
+    inline Size getHeight() const {return height;}
+    inline void setWidth(Size width) {this->width = width;}
+    inline void setHeight(Size height) {this->height = height;}
+private:
+    Size width;
+    Size height;
 };
 
 #endif // GCOLLIDER_H

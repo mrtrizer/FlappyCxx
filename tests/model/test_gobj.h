@@ -7,6 +7,7 @@
 #include <memory>
 
 #include <gobjcircle.h>
+#include <gobjrect.h>
 
 class Test_GObj : public QObject
 {
@@ -47,8 +48,12 @@ private slots:
         GObjCircle gObjCircle (10);
         GObjCircle gObjCircle1(10, {10,0,0});
         GObjCircle gObjCircle2(10, {20,0,0});
+        GObjRect gObjRect1(10,10,{0,0,0});
+        GObjRect gObjRect2(10,10,{0,20,0});
         QVERIFY(gObjCircle.isIntersectWith(gObjCircle1) == true);
         QVERIFY(gObjCircle.isIntersectWith(gObjCircle2) == false);
+        QVERIFY(gObjCircle.isIntersectWith(gObjRect1) == true);
+        QVERIFY(gObjCircle.isIntersectWith(gObjRect2) == false);
     }
 
     void addChild_one_item() {

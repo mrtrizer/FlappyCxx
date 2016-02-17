@@ -1,6 +1,7 @@
-#include "gworldmodel.h"
 #include <chrono>
 #include <iostream>
+
+#include "gworldmodel.h"
 
 /// 1000ms / 60fps
 #define DELTA_T (1000 / 60)
@@ -27,6 +28,6 @@ void GWorldModel::run() {
     }
 }
 
-void GWorldFlappy::recalc(GObj::DeltaT deltaT) {
+void GWorldFlappy::recalc(GObj::DeltaT) {
 
 }

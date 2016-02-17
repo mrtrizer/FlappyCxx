@@ -7,11 +7,11 @@
 #include <memory>
 
 #include "gobj.h"
+#include "gobjcamera.h"
 
 /// @brief Game World
 /// @details Contains and manages game objects.
 /// Model in MVC terms.
-/// Creates and manages gameloop thread.
 class GWorldModel {
 public:
     GWorldModel();
@@ -20,6 +20,8 @@ public:
     void resume(){pauseFlag = false;}
     inline std::shared_ptr<GObj> getRoot() {return gObj;}
     void run();
+    void setActiveCamera(const std::shared_ptr<GObjCamera> & camera) {this->activeCamera = camera;}
+    std::shared_ptr<GObjCamera> getActiveCamera() const {return activeCamera;}
 
 protected:
     virtual void recalc(GObj::DeltaT) = 0;
@@ -27,6 +29,7 @@ protected:
 private:
     bool pauseFlag;
     std::shared_ptr<GObj> gObj;
+    std::shared_ptr<GObjCamera> activeCamera;
 };
 
 class GWorldFlappy: public GWorldModel

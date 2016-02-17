@@ -2,17 +2,22 @@
 #define GOBJCAMERA_H
 
 #include "gobj.h"
+#include "tools.h"
 
 class GObjCamera : public GObj
 {
 public:
-    typedef float Height;
+    typedef float Size;
+    typedef float Ratio;
 
-    GObjCamera(Height,Pos);
-    Height getHeight() { return height; }
+    GObjCamera(Size,Ratio,Pos);
+    inline Size getHeight() const { return height; }
+    inline void setRatio(Ratio ratio) {this->ratio = ratio;}
+    Tools::Rect getRect() const;
 
 private:
-    Height height;
+    Size height;
+    Ratio ratio;
 
 };
 
