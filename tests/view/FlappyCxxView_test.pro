@@ -13,5 +13,7 @@ QMAKE_CXXFLAGS += -std=gnu++11
 
 SOURCES += main.cpp
 
+DEFINES += VIEW_TYPE=GL
+
 HEADERS +=
 

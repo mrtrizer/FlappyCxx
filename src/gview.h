@@ -9,23 +9,27 @@ public:
     virtual void draw(const GLfloat *, const GLfloat *) = 0;
 };
 
-class GViewFake: public GView {
-    void draw(const GLfloat *, const GLfloat *){}
-};
-
-//Replaces child of GView with GViewFake to avoid deal with OpenGL in model tests.
-#ifdef NO_VIEW
-template <typename View>
-class GViewCustom : public GViewFake {
-public:
-    GViewCustom(...){}
-};
-#else
+//This block of code selects View implementation and replaces View with a fake if it's not used.
+#ifdef VIEW_TYPE
 template <typename View>
 class GViewCustom : public View {
 public:
     using View::View;
 };
+#else
+class GViewCustom: public GView {
+public:
+    GViewCustom(...){}
+    void draw(const GLfloat *, const GLfloat *){}
+};
+#endif
+
+#ifdef VIEW_TYPE
+#define CONCAT_NAME_(viewType, viewPostfix, viewClass) GViewCustom<viewType ## _ ## viewPostfix ::viewClass>
+#define CONCAT_NAME(viewType, viewPostfix, viewClass) CONCAT_NAME_(viewType, viewPostfix, viewClass)
+#define SELECT_VIEW(viewClass) CONCAT_NAME( VIEW_TYPE , GView, viewClass)
+#else
+#define SELECT_VIEW(viewClass) GViewCustom
 #endif
 
 #endif // GVIEW_H

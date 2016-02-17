@@ -12,8 +12,6 @@ include("../../src/FlappyCxx.pri")
 
 QMAKE_CXXFLAGS += -std=gnu++11
 
-DEFINES += NO_VIEW
-
 SOURCES += main.cpp
 HEADERS += \
     test_gobjcontainer.h \

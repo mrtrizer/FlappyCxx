@@ -5,7 +5,7 @@
 #include "gcollider.h"
 #include "gviewshape.h"
 
-class Bird: public GObj, public GColliderCircle, public GViewCustom<GViewCircle> {
+class Bird: public GObj, public GColliderCircle, public SELECT_VIEW(GViewCircle) {
 public:
     Bird(Pos);
     void recalc(DeltaT) override;

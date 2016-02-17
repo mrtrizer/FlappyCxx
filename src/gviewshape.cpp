@@ -1,5 +1,7 @@
 #include "gviewshape.h"
 
+namespace GL_GView {
+
 static const char gVertexShader[] =
     "attribute vec2 aPosition;\n"
     "attribute vec4 aColor;\n"
@@ -40,4 +42,6 @@ GViewCircle::GViewCircle(int vertexCnt):
     for (GLTools::Color & color: colorList)
         color = {1.0f, 1.0f, 1.0f, 1.0f};
     circle.addVBO<GLTools::Color>(colorList.data(), colorList.size() * sizeof(GLTools::Color), GL_FLOAT, getShader().findAttr("aColor"));
+}
+
 }

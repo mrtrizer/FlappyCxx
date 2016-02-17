@@ -3,6 +3,8 @@
 
 #include "gview.h"
 
+namespace GL_GView {
+
 class GViewShape: public GView {
 public:
     GViewShape();
@@ -25,5 +27,7 @@ private:
     int vertexCnt;
     AttribArray circle;
 };
+
+}
 
 #endif // GVIEWSHAPE_H
