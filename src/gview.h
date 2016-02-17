@@ -25,9 +25,9 @@ public:
 #endif
 
 #ifdef VIEW_TYPE
-#define CONCAT_NAME_(viewType, viewPostfix, viewClass) GViewCustom<viewType ## _ ## viewPostfix ::viewClass>
-#define CONCAT_NAME(viewType, viewPostfix, viewClass) CONCAT_NAME_(viewType, viewPostfix, viewClass)
-#define SELECT_VIEW(viewClass) CONCAT_NAME( VIEW_TYPE , GView, viewClass)
+#define CONCAT_NAME_(viewType, viewClass) GViewCustom<viewType ## _ ## GView ::viewClass>
+#define CONCAT_NAME(viewType, viewClass) CONCAT_NAME_(viewType, viewClass)
+#define SELECT_VIEW(viewClass) CONCAT_NAME( VIEW_TYPE ,viewClass)
 #else
 #define SELECT_VIEW(viewClass) GViewCustom
 #endif
