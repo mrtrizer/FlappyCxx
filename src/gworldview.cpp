@@ -14,7 +14,9 @@ using namespace std;
 
 GWorldView::GWorldView(GWorldModel &gWorld):
     gWorld(gWorld) {
+}
 
+void GWorldView::init() {
     LOGI("OpenGL Version: %s\n", glGetString(GL_VERSION));
 
     glClearColor(0, 0, 0, 0);

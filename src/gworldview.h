@@ -19,6 +19,7 @@ public:
     ~GWorldView();
     void redraw();
     void resize(double width, double height);
+    void init();
 
 private:
     GWorldModel &gWorld;

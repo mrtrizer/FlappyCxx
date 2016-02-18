@@ -9,6 +9,7 @@
 #include <gobjcircle.h>
 #include <gobjrect.h>
 
+//TODO: Add test for getIntersectList()
 class Test_GObj : public QObject
 {
     Q_OBJECT

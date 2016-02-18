@@ -32,5 +32,4 @@ SOURCES += \
     $$PWD/gworldmodel.cpp \
     $$PWD/gworldview.cpp
 
-QMAKE_CXXFLAGS += -std=c++1y
 LIBS += -lGL -lglut -lGLEW -lGLU
