@@ -1,9 +1,9 @@
 #ifndef GOBJRECT_H
 #define GOBJRECT_H
 
-#include "gobj.h"
-#include "gcollider.h"
-#include "gview.h"
+#include "core/gobj.h"
+#include "core/gcollider.h"
+#include "core/gview.h"
 
 class GObjRect: public GObj, public GColliderRect, public GViewRect {
 public:

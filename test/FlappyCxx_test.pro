@@ -16,6 +16,5 @@ DEFINES += VIEW_TYPE=GL
 
 SOURCES += main.cpp
 HEADERS += \
-    test_tools.h \
     test_gobj.h
 

@@ -1,9 +1,9 @@
 #ifndef BIRD_H
 #define BIRD_H
 
-#include "gobj.h"
-#include "gcollider.h"
-#include "gviewshape.h"
+#include "core/gobj.h"
+#include "core/gcollider.h"
+#include "core/gviewshape.h"
 
 class Bird: public GObj, public GColliderCircle, public GViewCircle {
 public:

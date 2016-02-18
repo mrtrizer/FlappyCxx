@@ -9,17 +9,34 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 
-#include <gworldview.h>
-#include <gworldmodel.h>
-#include <gobjcircle.h>
-#include <gobjcamera.h>
-#include <gobjrect.h>
+#include <core/gworldview.h>
+#include <core/gworldmodel.h>
+#include <shapes/gobjcircle.h>
+#include <core/gobjcamera.h>
+#include <shapes/gobjrect.h>
 
 #include "test_gobj.h"
-#include "test_tools.h"
 
 std::shared_ptr<GWorldModel> gWorldModel;
 std::shared_ptr<GWorldView> gWorldView;
+
+/// Moving circle for test scene
+class TestCircle : public GObjCircle {
+public:
+    using GObjCircle::GObjCircle;
+
+    void recalc(DeltaT) override {
+        n += 0.001;
+        this->getPosR().x += std::sin(n) / 50.0;
+        this->getPosR().y += std::cos(n) / 50.0;
+        if (intersectObjList().size() > 0)
+            setColorRGBA({1.0f, 0, 0, 0});
+        else
+            setColorRGBA({1.0f, 1.0f, 1.0f, 1.0f});
+    }
+private:
+    float n = 0;
+};
 
 void render() {
     gWorldView->redraw();
@@ -49,10 +66,10 @@ int main(int argc, char** argv)
     auto gObjSubContainer1 = gWorldModel->getRoot()->ADD_CHILD(GObj,POS(0,0,0));
     auto gObjSubContainer2 = gObjSubContainer1->ADD_CHILD(GObj,POS(-15,0,0));
     gObjSubContainer1->ADD_CHILD(GObjRect,20,20,POS(-10,-10,0));
-    gObjSubContainer2->ADD_CHILD(GObjCircle,4,POS(-20,-20,0));
-    gObjSubContainer2->ADD_CHILD(GObjCircle,6,POS(20,-20,0));
-    gObjSubContainer2->ADD_CHILD(GObjCircle,8,POS(-20,20,0));
-    gObjSubContainer2->ADD_CHILD(GObjCircle,10,POS(20,20,0));
+    gObjSubContainer2->ADD_CHILD(TestCircle,4,POS(-20,-20,0));
+    gObjSubContainer2->ADD_CHILD(TestCircle,6,POS(20,-20,0));
+    gObjSubContainer2->ADD_CHILD(TestCircle,8,POS(-20,20,0));
+    gObjSubContainer2->ADD_CHILD(TestCircle,10,POS(20,20,0));
     auto gObjCamera = std::make_shared<GObjCamera>(100,1.0,GObj::Pos({0,0,0}));
     gWorldModel->getRoot()->addChild<GObjCamera>(gObjCamera);
     gWorldModel->setActiveCamera(gObjCamera);
@@ -65,7 +82,6 @@ int main(int argc, char** argv)
     };
 
     RUN_TEST(new Test_GObj());
-    RUN_TEST(new Test_Tools());
 
     glutReshapeFunc(resizeWindow);
     glutDisplayFunc(render);

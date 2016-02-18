@@ -6,8 +6,8 @@
 
 #include <memory>
 
-#include <gobjcircle.h>
-#include <gobjrect.h>
+#include <shapes/gobjcircle.h>
+#include <shapes/gobjrect.h>
 
 //TODO: Add test for getIntersectList()
 class Test_GObj : public QObject

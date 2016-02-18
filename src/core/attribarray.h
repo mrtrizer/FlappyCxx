@@ -6,6 +6,7 @@
 
 #include "gltools.h"
 
+//TODO: Rename to GLAttribArray
 /// Contains VBOs, draw method and item count for drawArrays().
 /// Kinda mesh object.
 /// @see Shader
