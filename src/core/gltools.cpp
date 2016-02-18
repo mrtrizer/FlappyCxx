@@ -5,6 +5,7 @@
 
 namespace GLTools {
 
+//TODO: Get error description without GLUT
 void checkOpenGLerror(const char * file, const char * func, int line) {
     GLenum errCode = glGetError();
     if(errCode != GL_NO_ERROR)
