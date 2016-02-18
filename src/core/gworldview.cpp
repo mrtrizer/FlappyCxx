@@ -21,13 +21,13 @@ void GWorldView::init() {
     LOGI("OpenGL Version: %s\n", glGetString(GL_VERSION));
 
     glClearColor(0, 0, 0, 0);
-    glEnable(GL_MULTISAMPLE);
+    //glEnable(GL_MULTISAMPLE);
 
     CHECK_GL_ERROR;
 }
 
 GWorldView::~GWorldView() {
-    glDisable(GL_MULTISAMPLE);
+    //glDisable(GL_MULTISAMPLE);
 }
 
 void GWorldView::resize(double width, double height) {

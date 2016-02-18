@@ -1,8 +1,6 @@
 #ifndef GWORLDMODEL_H
 #define GWORLDMODEL_H
 
-#include <thread>
-#include <atomic>
 #include <list>
 #include <memory>
 

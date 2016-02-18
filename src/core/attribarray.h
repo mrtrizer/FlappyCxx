@@ -1,8 +1,10 @@
 #ifndef ATTRIBARRAY_H
 #define ATTRIBARRAY_H
 
-#include <GL/glew.h>
+#include <GLES2/gl2.h>
+#include <GLES2/gl2ext.h>
 #include <cassert>
+#include <vector>
 
 #include "gltools.h"
 
