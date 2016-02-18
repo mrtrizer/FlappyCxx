@@ -3,7 +3,7 @@
 Bird::Bird(Pos pos):
     GObj(pos),
     GColliderCircle(10),
-    GViewCustom(5,1) {
+    GViewCircle(5,1) {
 
 }
 

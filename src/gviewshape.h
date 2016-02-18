@@ -6,8 +6,6 @@
 #include "gview.h"
 #include "gcollider.h"
 
-namespace GL_GView {
-
 /// Contains shader for all shapes and draw implementation.
 /// All derived classes have to impmelent getAttribArray().
 class GViewShape: public GView {
@@ -50,7 +48,5 @@ public:
 private:
     AttribArray rect;
 };
-
-}
 
 #endif // GVIEWSHAPE_H

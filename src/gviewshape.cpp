@@ -1,7 +1,5 @@
 #include "gviewshape.h"
 
-namespace GL_GView {
-
 static const char gVertexShader[] =
     "attribute vec2 aPosition;\n"
     "uniform mat4 uMVMatrix;\n"
@@ -69,6 +67,4 @@ GViewRect::GViewRect(float width, float height):
                                  vertexList.size() * sizeof(GLTools::Vertex),
                                  GL_FLOAT,
                                  getShader().findAttr("aPosition"));
-}
-
 }

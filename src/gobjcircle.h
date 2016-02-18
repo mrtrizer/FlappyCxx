@@ -5,12 +5,12 @@
 #include "gcollider.h"
 #include "gviewshape.h"
 
-class GObjCircle : public GObj, public GColliderCircle, public SELECT_VIEW(GViewCircle) {
+class GObjCircle : public GObj, public GColliderCircle, public GViewCircle {
 public:
     explicit GObjCircle(R r, Pos pos = {0,0,0}):
         GObj(pos),
         GColliderCircle(r),
-        GViewCustom(25,r)
+        GViewCircle(25,r)
     {}
     void recalc(DeltaT) override {
         n += 0.001;

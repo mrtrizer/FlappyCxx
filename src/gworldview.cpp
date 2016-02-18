@@ -12,6 +12,7 @@
 
 using namespace std;
 
+//TODO: gWorld to shared_ptr
 GWorldView::GWorldView(GWorldModel &gWorld):
     gWorld(gWorld) {
 }
