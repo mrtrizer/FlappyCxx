@@ -37,8 +37,8 @@ std::vector<GLTools::Vertex> GViewCircle::circleTriangleFan(float r, int count) 
 
 void GViewShape::draw(const GLfloat * pMatrix, const GLfloat * mvMatrix) {
     shader.render(getAttribArray(), [this, mvMatrix, pMatrix](){
-        glUniformMatrix4fv(shader.findUniform("uMVMatrix"),1,true,mvMatrix);
-        glUniformMatrix4fv(shader.findUniform("uPMatrix"),1,true,pMatrix);
+        glUniformMatrix4fv(shader.findUniform("uMVMatrix"),1,false,mvMatrix);
+        glUniformMatrix4fv(shader.findUniform("uPMatrix"),1,false,pMatrix);
         glUniform4fv(shader.findUniform("uColor"),1, reinterpret_cast<GLfloat *>(&colorRGBA));
     });
 }

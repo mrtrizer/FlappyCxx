@@ -44,10 +44,10 @@ void GWorldView::redraw() {
     static const float far = 100.0f;
 
     GLfloat pMatrix[] = {
-        2.0f / (rect.x2 - rect.x1), 0, 0, (rect.x2 + rect.x1) / (rect.x2 - rect.x1),
-        0, 2.0f / (rect.y1 - rect.y2), 0, (rect.y1 + rect.y2) / (rect.y1 - rect.y2),
-        0, 0, -2.0f / (far - near), (far + near) / (far - near),
-        0, 0, 0, 1.0f
+            2.0f / (rect.x2 - rect.x1), 0, 0, 0,
+            0, 2.0f / (rect.y1 - rect.y2), 0, 0,
+            0, 0, -2.0f / (far - near), 0,
+            (rect.x2 + rect.x1) / (rect.x2 - rect.x1), (rect.y1 + rect.y2) / (rect.y1 - rect.y2), (far + near) / (far - near), 1.0f
     };
 
     //For all children recursively
@@ -61,10 +61,10 @@ void GWorldView::redraw() {
 
         GObj::Pos pos = gObj->getPosAbsolute();
         GLfloat mvMatrix[] = {
-            1.0f, 0, 0, pos.x,
-            0, 1.0f, 0, pos.y,
-            0, 0, 1.0f, pos.z,
-            0, 0, 0, 1.0f
+                1.0f, 0, 0, 0,
+                0, 1.0f, 0, 0,
+                0, 0, 1.0f, 0,
+                pos.x, pos.y, pos.z, 1.0f
         };
 
         view->draw(pMatrix, mvMatrix);
