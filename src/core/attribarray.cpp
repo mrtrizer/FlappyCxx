@@ -4,19 +4,28 @@
 AttribArray::AttribArray(Method method, Size size):
     size(size),
     method(method){
-    glGenVertexArrays(1, &id);
 }
 
 AttribArray::~AttribArray() {
     //TODO: Do I need unbind VBOs? How to do it properly?
-    glDeleteVertexArrays(1,&id);
-    glDeleteBuffers(vboBufs.size(),vboBufs.data());
+    //glDeleteBuffers(vboBufs.size(),vboBufs.data());
 }
 
 void AttribArray::bind() const {
-    glBindVertexArray(id);
+    for (auto vbo: vboBufs) {
+        glBindBuffer(GL_ARRAY_BUFFER, vbo.id);
+        CHECK_GL_ERROR;
+        glVertexAttribPointer(vbo.attr, vbo.componentCount, vbo.itemType, GL_FALSE, 0, 0);
+        CHECK_GL_ERROR;
+        glEnableVertexAttribArray(vbo.attr);
+        CHECK_GL_ERROR;
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
 }
 
 void AttribArray::unbind() const {
-    glBindVertexArray(0);
+    for (auto vbo: vboBufs) {
+        glDisableVertexAttribArray(vbo.attr);
+        CHECK_GL_ERROR;
+    }
 }
