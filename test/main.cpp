@@ -18,54 +18,58 @@
 #include "test_gobj.h"
 #include "test_tools.h"
 
-GWorldFlappy gWorldModel;
-GWorldView gWorldView(gWorldModel);
+std::shared_ptr<GWorldModel> gWorldModel;
+std::shared_ptr<GWorldView> gWorldView;
 
 void render() {
-    gWorldView.redraw();
+    gWorldView->redraw();
     glutSwapBuffers();
     glutPostRedisplay();
-    gWorldModel.run(); //only for test
+    gWorldModel->run(); //only for test
 }
 
 void resizeWindow(int width, int height) {
-    gWorldView.resize(width, height);
+    gWorldView->resize(width, height);
 }
 
 int main(int argc, char** argv)
 {
-   int status = 0;
+    gWorldModel = std::make_shared<GWorldFlappy>();
+    gWorldView = std::make_shared<GWorldView>(gWorldModel);
 
-   glutInit(&argc, argv);
-   glutInitDisplayMode(GLUT_RGBA | GLUT_ALPHA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
-   glutInitWindowSize(800, 600);
-   glutCreateWindow("Simple shaders");
-   glewInit();
+    int status = 0;
 
-   auto gObjSubContainer1 = gWorldModel.getRoot()->addChild<GObj>(std::make_shared<GObj>(GObj::Pos({0,0,0})));
-   auto gObjSubContainer2 = gObjSubContainer1->addChild<GObj>(std::make_shared<GObj>(GObj::Pos({-10,-10,0})));
-   gObjSubContainer1->addChild<GObjRect>(std::make_shared<GObjRect>(20,20,GObj::Pos({-10,-10,0})));
-   gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(2,GObj::Pos({-20,-20,0})));
-   gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(4,GObj::Pos({20,-20,0})));
-   gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(6,GObj::Pos({-20,20,0})));
-   gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(8,GObj::Pos({20,20,0})));
-   auto gObjCamera = std::make_shared<GObjCamera>(100,1.0,GObj::Pos({10,0,0}));
-   gWorldModel.getRoot()->addChild<GObjCamera>(gObjCamera);
-   gWorldModel.setActiveCamera(gObjCamera);
+    glutInit(&argc, argv);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_ALPHA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
+    glutInitWindowSize(800, 600);
+    glutCreateWindow("Simple shaders");
+    glewInit();
 
-   gWorldView.init();
+    //Fill scene with objects
+    auto gObjSubContainer1 = gWorldModel->getRoot()->ADD_CHILD(GObj,POS(0,0,0));
+    auto gObjSubContainer2 = gObjSubContainer1->ADD_CHILD(GObj,POS(-15,0,0));
+    gObjSubContainer1->ADD_CHILD(GObjRect,20,20,POS(-10,-10,0));
+    gObjSubContainer2->ADD_CHILD(GObjCircle,4,POS(-20,-20,0));
+    gObjSubContainer2->ADD_CHILD(GObjCircle,6,POS(20,-20,0));
+    gObjSubContainer2->ADD_CHILD(GObjCircle,8,POS(-20,20,0));
+    gObjSubContainer2->ADD_CHILD(GObjCircle,10,POS(20,20,0));
+    auto gObjCamera = std::make_shared<GObjCamera>(100,1.0,GObj::Pos({0,0,0}));
+    gWorldModel->getRoot()->addChild<GObjCamera>(gObjCamera);
+    gWorldModel->setActiveCamera(gObjCamera);
 
-   const auto RUN_TEST = [&status, argc, argv] (QObject * obj) {
-     status |= QTest::qExec(obj, argc, argv);
-     delete obj;
-   };
+    gWorldView->init();
 
-   RUN_TEST(new Test_GObj());
-   RUN_TEST(new Test_Tools());
+    const auto RUN_TEST = [&status, argc, argv] (QObject * obj) {
+        status |= QTest::qExec(obj, argc, argv);
+        delete obj;
+    };
 
-   glutReshapeFunc(resizeWindow);
-   glutDisplayFunc(render);
-   glutMainLoop();
+    RUN_TEST(new Test_GObj());
+    RUN_TEST(new Test_Tools());
 
-   return status;
+    glutReshapeFunc(resizeWindow);
+    glutDisplayFunc(render);
+    glutMainLoop();
+
+    return status;
 }

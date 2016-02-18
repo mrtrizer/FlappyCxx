@@ -63,4 +63,7 @@ private:
     inline void setParent(std::shared_ptr<GObj> parent) {this->parent = parent;}
 };
 
+#define ADD_CHILD(type,...)addChild<type>(std::make_shared<type>(__VA_ARGS__))
+#define POS(x,y,z)(GObj::Pos({x,y,z}))
+
 #endif // GOBJ_H

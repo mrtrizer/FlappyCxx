@@ -15,14 +15,14 @@ class GWorldModel;
 /// View in MVC terms.
 class GWorldView {
 public:
-    GWorldView(GWorldModel &);
+    GWorldView(const std::shared_ptr<GWorldModel> &);
     ~GWorldView();
     void redraw();
     void resize(double width, double height);
     void init();
 
 private:
-    GWorldModel &gWorld;
+    std::shared_ptr<GWorldModel> gWorld;
 
     std::vector<GLfloat> getPMatrix(const std::shared_ptr<GObjCamera> &);
 };

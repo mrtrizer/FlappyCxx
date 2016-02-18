@@ -13,7 +13,7 @@
 using namespace std;
 
 //TODO: gWorld to shared_ptr
-GWorldView::GWorldView(GWorldModel &gWorld):
+GWorldView::GWorldView(const std::shared_ptr<GWorldModel> &gWorld):
     gWorld(gWorld) {
 }
 
@@ -32,14 +32,14 @@ GWorldView::~GWorldView() {
 
 void GWorldView::resize(double width, double height) {
     glViewport(0, 0, width, height);
-    gWorld.getActiveCamera()->setRatio(width / height);
+    gWorld->getActiveCamera()->setRatio(width / height);
 }
 
 void GWorldView::redraw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //Calc ortho matrix, using GObjCamera
-    auto rect = gWorld.getActiveCamera()->getRect();
+    auto rect = gWorld->getActiveCamera()->getRect();
     static const float near = 0.0f;
     static const float far = 100.0f;
 
@@ -51,7 +51,7 @@ void GWorldView::redraw() {
     };
 
     //For all children recursively
-    auto root = gWorld.getRoot()->getChildsR();
+    auto root = gWorld->getRoot()->getChildsR();
     for (std::shared_ptr<GObj> gObj: root) {
 
         //If it's a visible object
