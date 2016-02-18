@@ -45,15 +45,15 @@ private slots:
     }
 
     void isIntersectWith() {
-        GObjCircle gObjCircle (10);
-        GObjCircle gObjCircle1(10, {10,0,0});
-        GObjCircle gObjCircle2(10, {20,0,0});
-        GObjRect gObjRect1(10,10,{0,0,0});
-        GObjRect gObjRect2(10,10,{0,20,0});
-        QVERIFY(gObjCircle.isIntersectWith(gObjCircle1) == true);
-        QVERIFY(gObjCircle.isIntersectWith(gObjCircle2) == false);
-        QVERIFY(gObjCircle.isIntersectWith(gObjRect1) == true);
-        QVERIFY(gObjCircle.isIntersectWith(gObjRect2) == false);
+        auto gObjCircle = std::make_shared<GObjCircle>(10);
+        auto gObjCircle1 = std::make_shared<GObjCircle>(10, GObj::Pos({10,0,0}));
+        auto gObjCircle2 = std::make_shared<GObjCircle>(10, GObj::Pos({20,0,0}));
+        auto gObjRect1 = std::make_shared<GObjRect>(10,10, GObj::Pos({0,0,0}));
+        auto gObjRect2 = std::make_shared<GObjRect>(10,10, GObj::Pos({0,20,0}));
+        QVERIFY(gObjCircle->isIntersectWith(gObjCircle1) == true);
+        QVERIFY(gObjCircle->isIntersectWith(gObjCircle2) == false);
+        QVERIFY(gObjCircle->isIntersectWith(gObjRect1) == true);
+        QVERIFY(gObjCircle->isIntersectWith(gObjRect2) == false);
     }
 
     void addChild_one_item() {

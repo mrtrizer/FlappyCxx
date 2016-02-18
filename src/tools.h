@@ -7,6 +7,7 @@ class GObj;
 class GColliderCircle;
 class GColliderRect;
 
+//TODO: Rename to GTools
 namespace Tools
 {
     /// Solution of diamond problem.
@@ -18,6 +19,7 @@ namespace Tools
     template <typename Base>
     class enable_shared_from_this_virtual: virtual public enable_shared_from_this_virtual_base {
     public:
+        //TODO: Rename to shared_from_this. + Create template method shared_from_this_cast.
         std::shared_ptr<Base> shared_from_this_cast() {
             return std::dynamic_pointer_cast<Base>(shared_from_this());
         }
