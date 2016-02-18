@@ -8,9 +8,11 @@ CONFIG += testcase
 
 TEMPLATE = app
 
-include("../../src/FlappyCxx.pri")
+include("../src/FlappyCxx.pri")
 
-QMAKE_CXXFLAGS += -std=gnu++11
+QMAKE_CXXFLAGS += -std=c++1y
+
+DEFINES += VIEW_TYPE=GL
 
 SOURCES += main.cpp
 HEADERS += \
