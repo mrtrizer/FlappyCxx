@@ -2,8 +2,7 @@
 
 #include "gworldmodel.h"
 
-/// 1000ms / 60fps
-#define DELTA_T (1000 / 60)
+#define DELTA_T (1.0 / 10.0)
 
 using namespace std;
 
@@ -25,8 +24,4 @@ void GWorldModel::run() {
         }
         recalc(DELTA_T);
     }
-}
-
-void GWorldFlappy::recalc(GObj::DeltaT) {
-
 }

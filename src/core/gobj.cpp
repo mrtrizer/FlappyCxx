@@ -9,7 +9,7 @@ GObj::GObj(Pos pos):pos(pos)
 GObj::GObjPList GObj::intersectObjList() {
     GObjPList result;
     GObjPList allObjects = getRoot()->getChildsR();
-    auto me = shared_from_this_cast();
+    auto me = shared_from_this();
     for (auto i: allObjects) {
         if (i != me) {
             if (i->isIntersectWith(me))
@@ -69,7 +69,7 @@ std::shared_ptr<GObj> GObj::findChildR(std::function<bool(const std::shared_ptr<
 /// Compiles a tree to the list
 /// @see getChildsR()
 void GObj::addChildsToListR(GObjPList & list) {
-    list.push_back(shared_from_this_cast());
+    list.push_back(shared_from_this());
     for (std::shared_ptr<GObj> i : children) {
         std::shared_ptr<GObj> container = std::dynamic_pointer_cast<GObj>(i);
         if (container != nullptr)
@@ -83,9 +83,9 @@ void GObj::addChildsToListR(GObjPList & list) {
 std::shared_ptr<GObj> GObj::getRoot() {
     const std::shared_ptr<GObj> root = getParent();
     if (root == nullptr)
-        return shared_from_this_cast();
+        return shared_from_this();
     else
-        return root->getParent();
+        return root->getRoot();
 }
 
 const GObj::Pos & GObj::Pos::operator+ (const Pos & pos) {

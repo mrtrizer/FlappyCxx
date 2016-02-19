@@ -40,7 +40,7 @@ bool isIntersect(const GColliderCircle & circle, const GColliderRect & rect,cons
 
 /// Intersect checking for two rects. Not implemented yet.
 bool isIntersect(const GColliderRect &, const GColliderRect &, const GObj &, const GObj &) {
-    throw not_implemented();
+    return false;
 }
 
 /// Done used as exception object when found

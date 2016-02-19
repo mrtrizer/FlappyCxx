@@ -15,7 +15,10 @@ HEADERS += \
     $$PWD/core/gviewshape.h \
     $$PWD/core/gworldview.h \
     $$PWD/core/gworldmodel.h \
-    $$PWD/core/gview.h
+    $$PWD/core/gview.h \
+    $$PWD/flappyworld.h \
+    $$PWD/flappycamera.h \
+    $$PWD/tube.h
 
 
 SOURCES += \
@@ -27,7 +30,6 @@ SOURCES += \
     $$PWD/core/gltools.cpp \
     $$PWD/core/gobjcamera.cpp \
     $$PWD/core/gcollider.cpp \
-    $$PWD/bird.cpp \
     $$PWD/core/gviewshape.cpp \
     $$PWD/core/gworldmodel.cpp \
     $$PWD/core/gworldview.cpp

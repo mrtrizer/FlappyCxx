@@ -18,6 +18,7 @@ public:
     void resume(){pauseFlag = false;}
     inline std::shared_ptr<GObj> getRoot() {return gObj;}
     void run();
+    virtual void init() = 0;
     void setActiveCamera(const std::shared_ptr<GObjCamera> & camera) {this->activeCamera = camera;}
     std::shared_ptr<GObjCamera> getActiveCamera() const {return activeCamera;}
 
@@ -28,18 +29,6 @@ private:
     bool pauseFlag;
     std::shared_ptr<GObj> gObj;
     std::shared_ptr<GObjCamera> activeCamera;
-};
-
-class GWorldFlappy: public GWorldModel
-{
-public:
-    void flap();
-
-protected:
-    void recalc(GObj::DeltaT) override;
-
-private:
-    double speed;
 };
 
 #endif // GWORLDMODEL_H

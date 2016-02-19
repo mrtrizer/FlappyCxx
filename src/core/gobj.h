@@ -15,7 +15,7 @@ class GObj : public Tools::enable_shared_from_this_virtual<GObj> {
 public:
     typedef std::list<std::shared_ptr<GObj>> GObjPList;
     typedef std::shared_ptr<GObj> GObjP;
-    typedef int DeltaT;
+    typedef double DeltaT;
 
     struct Pos {
         const Pos & operator+ (const Pos & pos);
@@ -37,14 +37,16 @@ public:
     inline void setPos(const Pos & pos) {this->pos = pos;}
     inline const GObjP getParent() const {return parent.lock();}
     virtual void recalc(DeltaT) {}
+    virtual void init() {}
 
     GObjPList getChildsR();
     GObjPList getChilds() const;
     /// Add child. Returns pointer to added object casted to needed type.
     template<typename TCastTo = GObj>
     std::shared_ptr<TCastTo> addChild(const std::shared_ptr<GObj> & child) {
-        child->setParent(shared_from_this_cast());
+        child->setParent(shared_from_this());
         children.push_back(child);
+        child->init();
         return std::dynamic_pointer_cast<TCastTo>(child);
     }
     void removeChild(const std::shared_ptr<GObj> &gObj);
