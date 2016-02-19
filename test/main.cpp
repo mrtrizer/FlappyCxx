@@ -38,6 +38,18 @@ private:
     float n = 0;
 };
 
+class TestRect : public GObjRect {
+public:
+    using GObjRect::GObjRect;
+
+    void recalc(DeltaT) override {
+        if (intersectObjList().size() > 0)
+            setColorRGBA({1.0f, 0, 0, 0});
+        else
+            setColorRGBA({1.0f, 1.0f, 1.0f, 1.0f});
+    }
+};
+
 void render() {
     gWorldView->redraw();
     glutSwapBuffers();
@@ -65,7 +77,7 @@ int main(int argc, char** argv)
     //Fill scene with objects
     auto gObjSubContainer1 = gWorldModel->getRoot()->ADD_CHILD(GObj,POS(0,0,0));
     auto gObjSubContainer2 = gObjSubContainer1->ADD_CHILD(GObj,POS(-15,0,0));
-    gObjSubContainer1->ADD_CHILD(GObjRect,20,20,POS(-10,-10,0));
+    gObjSubContainer1->ADD_CHILD(TestRect,20,20,POS(-10,-10,0));
     gObjSubContainer2->ADD_CHILD(TestCircle,4,POS(-20,-20,0));
     gObjSubContainer2->ADD_CHILD(TestCircle,6,POS(20,-20,0));
     gObjSubContainer2->ADD_CHILD(TestCircle,8,POS(-20,20,0));
