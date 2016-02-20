@@ -1,4 +1,5 @@
 #include "gviewshape.h"
+#include "gobj.h"
 
 static const char gVertexShader[] =
     "attribute vec2 aPosition;\n"
@@ -35,7 +36,7 @@ std::vector<GLTools::Vertex> GViewCircle::circleTriangleFan(float r, int count) 
     return vertexList;
 }
 
-void GViewShape::draw(const GLfloat * pMatrix, const GLfloat * mvMatrix) {
+void GViewShape::draw(const GLfloat * pMatrix, const GLfloat *mvMatrix) {
     shader.render(getAttribArray(), [this, mvMatrix, pMatrix](){
         glUniformMatrix4fv(shader.findUniform("uMVMatrix"),1,false,mvMatrix);
         glUniformMatrix4fv(shader.findUniform("uPMatrix"),1,false,pMatrix);

@@ -12,7 +12,7 @@ protected:
         getPos().move({SPEED * deltaT,0,0});
     }
 private:
-    const float SPEED = 20.0;
+    static constexpr float SPEED = 20.0;
 };
 
 #endif // FLAPPYCAMERA_H

@@ -9,28 +9,28 @@ class Bird: public GObj, public GColliderCircle, public GViewCircle {
 public:
     Bird(Pos pos):
         GObj(pos),
-        GColliderCircle(3),
-        GViewCircle(30,3) {
-
-    }
+        GColliderCircle(RADIUS),
+        GViewCircle(CIRCLE_VERTEX_CNT, RADIUS) {}
 
     void recalc(DeltaT deltaT) override {
         if (findIntersectObjs().size() > 0)
             setColorRGBA({1.0f, 0, 0, 0});
         else
             setColorRGBA({1.0f, 1.0f, 1.0f, 1.0f});
-        speed = speed + G * deltaT;
-        this->getPos().move({0,speed * deltaT,0});
+        speed = speed + GRAVITY * deltaT;
+        this->getPos().move({0, speed * deltaT,0});
     }
 
     void flap() {
-        speed = 30.0;
+        speed = FLAP_SPEED;
     }
 
 private:
     float speed;
-    float acc;
-    const float G = -40.0;
+    static constexpr float GRAVITY = -40.0;
+    static constexpr float FLAP_SPEED = 30.0;
+    static constexpr float RADIUS = 3.0;
+    static constexpr float CIRCLE_VERTEX_CNT = 30.0;
 };
 
 #endif // BIRD_H

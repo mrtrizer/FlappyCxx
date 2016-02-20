@@ -1,6 +1,8 @@
 #include "gobj.h"
 #include "tools.h"
 
+using namespace std;
+
 GObj::GObj(Pos pos):pos(pos)
 {
 
@@ -73,4 +75,13 @@ void GObj::Pos::move(const Pos & offset) {
     this->setX(this->getX() + offset.getX());
     this->setY(this->getY() + offset.getY());
     this->setZ(this->getZ() + offset.getZ());
+}
+
+GObj::Pos::MvMatrix GObj::Pos::getMvMatrix() {
+    return vector<float>({
+        1.0f, 0, 0, 0,
+        0, 1.0f, 0, 0,
+        0, 0, 1.0f, 0,
+        getX(), getY(), getZ(), 1.0f
+    });
 }

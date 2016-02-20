@@ -34,6 +34,10 @@ void resizeWindow(int width, int height) {
 
 void mouseFunc(int button, int state,
                int x, int y) {
+    (void)button;
+    (void)state;
+    (void)x;
+    (void)y;
     flappyWorld->flap();
 }
 

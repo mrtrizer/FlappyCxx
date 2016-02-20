@@ -62,13 +62,7 @@ void GWorldView::redraw() {
             continue;
 
         GObj::Pos pos = gObj->getPosAbsolute();
-        GLfloat mvMatrix[] = {
-                1.0f, 0, 0, 0,
-                0, 1.0f, 0, 0,
-                0, 0, 1.0f, 0,
-                pos.getX(), pos.getY(), pos.getZ(), 1.0f
-        };
 
-        view->draw(pMatrix, mvMatrix);
+        view->draw(pMatrix, pos.getMvMatrix().data());
     }
 }

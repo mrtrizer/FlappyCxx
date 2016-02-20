@@ -3,6 +3,7 @@
 
 #include <list>
 #include <memory>
+#include <vector>
 
 #include "tools.h"
 
@@ -19,10 +20,13 @@ public:
 
     class Pos {
     public:
+        typedef std::vector<float> MvMatrix;
+
         Pos(float x, float y, float z):
             x(x),y(y),z(z){}
         virtual const Pos & operator* (const Pos & pos);
         virtual void move(const Pos &);
+        virtual MvMatrix getMvMatrix();
         inline void setX(float x) {this->x = x;}
         inline void setY(float y) {this->y = y;}
         inline void setZ(float z) {this->z = z;}

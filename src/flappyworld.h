@@ -19,7 +19,7 @@ public:
         setActiveCamera(flappyCamera);
         bird = flappyCamera->ADD_CHILD(Bird,POS(0,0,1));
         for (int i = 0; i < 50; i++)
-            getRoot()->ADD_CHILD(TubePair,POS(50 * i,std::rand() % 10 * 5 - 20,0));
+            getRoot()->ADD_CHILD(TubePair,POS(50.0f * i,std::rand() % 10 * 5.0f - 20.0f,0));
     }
 
     void flap() {
