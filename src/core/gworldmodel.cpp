@@ -18,7 +18,7 @@ GWorldModel::~GWorldModel() {
 
 void GWorldModel::run() {
     if (!pauseFlag) {
-        auto objects = getRoot()->getChildsR();
+        auto objects = getRoot()->findChildsR();
         for (auto i : objects) {
             i->recalc(DELTA_T);
         }

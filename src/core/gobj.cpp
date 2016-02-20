@@ -8,7 +8,7 @@ GObj::GObj(Pos pos):pos(pos)
 
 GObj::GObjPList GObj::intersectObjList() {
     GObjPList result;
-    GObjPList allObjects = getRoot()->getChildsR();
+    GObjPList allObjects = getRoot()->findChildsR();
     auto me = shared_from_this();
     for (auto i: allObjects) {
         if (i != me) {
@@ -31,51 +31,34 @@ GObj::Pos GObj::getPosAbsolute() const {
         return pos;
 }
 
-/// Same as getChilds() but works recursively.
-GObj::GObjPList GObj::getChildsR() {
-    GObjPList objList;
-    addChildsToListR(objList);
-    return objList;
-}
-
-/// Returns a list of GObj childs.
-GObj::GObjPList GObj::getChilds() const {
-    GObjPList objList;
-    for (auto i : children)
-        objList.push_back(i);
-    return objList;
-}
-
 void GObj::removeChild(const std::shared_ptr<GObj> & gObj) {
     children.remove(findChildR([gObj](const std::shared_ptr<GObj> & i){return i == gObj;}));
 }
 
 //TODO: Return a list of appropriate objects
 /// Search a child recursively using check callback for validation.
-std::shared_ptr<GObj> GObj::findChildR(std::function<bool(const std::shared_ptr<GObj> &)> check) const {
-    for (std::shared_ptr<GObj> i : children)
-    {
-        if (check(i))
-            return i;
-        auto container = std::dynamic_pointer_cast<GObj>(i);
-        if (container != nullptr)
-            try {
-                return container->findChildR(check);
-            } catch (cant_find_child &) {}
-    }
-    throw cant_find_child();
+std::shared_ptr<GObj> GObj::findChildR(std::function<bool(const GObjP &)> check) const {
+    GObjPList objList;
+    addChildsToListR(objList,check);
+    if (objList.size() == 0)
+        throw cant_find_child();
+    return objList.back();
+}
+
+GObj::GObjPList GObj::findChildsR(std::function<bool(const GObjP &)> check, bool recursive) const {
+    GObjPList objList;
+    addChildsToListR(objList, check, recursive);
+    return objList;
 }
 
 /// Compiles a tree to the list
 /// @see getChildsR()
-void GObj::addChildsToListR(GObjPList & list) {
-    list.push_back(shared_from_this());
+void GObj::addChildsToListR(GObjPList & list, std::function<bool(const std::shared_ptr<GObj> &)> check, bool recursive) const {
     for (std::shared_ptr<GObj> i : children) {
-        std::shared_ptr<GObj> container = std::dynamic_pointer_cast<GObj>(i);
-        if (container != nullptr)
-            container->addChildsToListR(list);
-        else
+        if (check(i))
             list.push_back(i);
+        if (recursive)
+            i->addChildsToListR(list, check);
     }
 }
 

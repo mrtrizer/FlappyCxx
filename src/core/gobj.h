@@ -39,8 +39,6 @@ public:
     virtual void recalc(DeltaT) {}
     virtual void init() {}
 
-    GObjPList getChildsR();
-    GObjPList getChilds() const;
     /// Add child. Returns pointer to added object casted to needed type.
     template<typename TCastTo = GObj>
     std::shared_ptr<TCastTo> addChild(const std::shared_ptr<GObj> & child) {
@@ -50,7 +48,12 @@ public:
         return std::dynamic_pointer_cast<TCastTo>(child);
     }
     void removeChild(const std::shared_ptr<GObj> &gObj);
-    std::shared_ptr<GObj> findChildR(std::function<bool(const std::shared_ptr<GObj> &)>) const;
+    std::shared_ptr<GObj> findChildR(std::function<bool(const GObjP &)>) const;
+    GObjPList findChildsR(std::function<bool(const GObjP &)>, bool recursive = true) const;
+    GObjPList findChildsR(bool recursive = true) const {
+        return findChildsR([](const GObjP &){return true;}, recursive);
+    }
+
     std::shared_ptr<GObj> getRoot();
 
     class cant_find_child{};
@@ -61,7 +64,7 @@ private:
     std::weak_ptr<GObj> parent;
     GObjPList children;
 
-    void addChildsToListR(GObjPList &);
+    void addChildsToListR(GObjPList &, std::function<bool(const std::shared_ptr<GObj> &)>, bool recursive = true) const;
     inline void setParent(std::shared_ptr<GObj> parent) {this->parent = parent;}
 };
 
