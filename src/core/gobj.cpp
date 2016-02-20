@@ -6,7 +6,7 @@ GObj::GObj(Pos pos):pos(pos)
 
 }
 
-GObj::GObjPList GObj::intersectObjList() {
+GObj::GObjPList GObj::findIntersectObjs() {
     auto me = shared_from_this();
     return getRoot()->findChilds([me](const GObjP & obj){
         return (obj != me) && me->isIntersectWith(obj);
@@ -19,7 +19,7 @@ bool GObj::isIntersectWith(const GObjP & gObj) const {
 
 GObj::Pos GObj::getPosAbsolute() const {
     if (getParent() != nullptr)
-        return getParent()->getPosAbsolute() + this->pos;
+        return getParent()->getPosAbsolute() * this->pos;
     else
         return pos;
 }
@@ -29,7 +29,7 @@ void GObj::removeChild(const std::shared_ptr<GObj> & gObj) {
 }
 
 /// Search a child recursively using check callback for validation.
-std::shared_ptr<GObj> GObj::findChild(std::function<bool(const GObjP &)> check) const {
+GObj::GObjP GObj::findChild(std::function<bool(const GObjP &)> check) const {
     GObjPList objList = findChilds(check);
     if (objList.size() == 0)
         throw cant_find_child();
@@ -44,7 +44,7 @@ GObj::GObjPList GObj::findChilds(std::function<bool(const GObjP &)> check, bool 
 
 /// Compiles a tree to the list
 /// @see getChildsR()
-void GObj::addChildsToListR(GObjPList & list, std::function<bool(const std::shared_ptr<GObj> &)> check, bool recursive) const {
+void GObj::addChildsToListR(GObjPList & list, std::function<bool(const GObjP &)> check, bool recursive) const {
     for (std::shared_ptr<GObj> i : children) {
         if (check(i))
             list.push_back(i);
@@ -54,7 +54,7 @@ void GObj::addChildsToListR(GObjPList & list, std::function<bool(const std::shar
 }
 
 /// Recursive ups to the root and returns it.
-std::shared_ptr<GObj> GObj::getRoot() {
+GObj::GObjP GObj::getRoot() {
     const std::shared_ptr<GObj> root = getParent();
     if (root == nullptr)
         return shared_from_this();
@@ -62,9 +62,15 @@ std::shared_ptr<GObj> GObj::getRoot() {
         return root->getRoot();
 }
 
-const GObj::Pos & GObj::Pos::operator+ (const Pos & pos) {
+const GObj::Pos & GObj::Pos::operator* (const Pos & pos) {
     x += pos.x;
     y += pos.y;
     z += pos.z;
     return *this;
+}
+
+void GObj::Pos::move(const Pos & offset) {
+    this->setX(this->getX() + offset.getX());
+    this->setY(this->getY() + offset.getY());
+    this->setZ(this->getZ() + offset.getZ());
 }

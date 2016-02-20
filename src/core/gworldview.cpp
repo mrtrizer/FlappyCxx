@@ -21,13 +21,15 @@ void GWorldView::init() {
     LOGI("OpenGL Version: %s\n", glGetString(GL_VERSION));
 
     glClearColor(0, 0, 0, 0);
-    //glEnable(GL_MULTISAMPLE);
+    glEnable(GL_MULTISAMPLE);
+    glEnable(GL_DEPTH_TEST);
 
     CHECK_GL_ERROR;
 }
 
 GWorldView::~GWorldView() {
-    //glDisable(GL_MULTISAMPLE);
+    glDisable(GL_DEPTH_TEST);
+    glDisable(GL_MULTISAMPLE);
 }
 
 void GWorldView::resize(double width, double height) {
@@ -40,7 +42,7 @@ void GWorldView::redraw() {
 
     //Calc ortho matrix, using GObjCamera
     auto rect = gWorld->getActiveCamera()->getRect();
-    static const float near = 0.0f;
+    static const float near = -1.0f;
     static const float far = 100.0f;
 
     GLfloat pMatrix[] = {
@@ -64,7 +66,7 @@ void GWorldView::redraw() {
                 1.0f, 0, 0, 0,
                 0, 1.0f, 0, 0,
                 0, 0, 1.0f, 0,
-                pos.x, pos.y, pos.z, 1.0f
+                pos.getX(), pos.getY(), pos.getZ(), 1.0f
         };
 
         view->draw(pMatrix, mvMatrix);

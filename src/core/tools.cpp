@@ -13,8 +13,8 @@ using namespace std;
 bool isIntersect(const GColliderCircle & gCollider1, const GColliderCircle & gCollider2, const GObj &gObj1, const GObj &gObj2) {
     auto pos1 = gObj1.getPosAbsolute();
     auto pos2 = gObj2.getPosAbsolute();
-    double dX = pos1.x - pos2.x;
-    double dY = pos1.y - pos2.y;
+    double dX = pos1.getX() - pos2.getX();
+    double dY = pos1.getY() - pos2.getY();
     int sumR = gCollider1.getR() + gCollider2.getR();
     if (sumR * sumR  > (dX * dX + dY * dY)) //radius cubed instead sqrt(dist)
         return true;
@@ -29,8 +29,8 @@ bool isIntersect(const GColliderRect & rect, const GColliderCircle & circle, con
     auto height = rect.getHeight();
     auto ciclePos = gObj2.getPosAbsolute();
     auto rectPos = gObj1.getPosAbsolute();
-    double dX = ciclePos.x - std::max(rectPos.x, std::min(ciclePos.x, rectPos.x + width));
-    double dY = ciclePos.y - std::max(rectPos.y, std::min(ciclePos.y, rectPos.y + height));
+    double dX = ciclePos.getX() - std::max(rectPos.getX(), std::min(ciclePos.getX(), rectPos.getX() + width));
+    double dY = ciclePos.getY() - std::max(rectPos.getY(), std::min(ciclePos.getY(), rectPos.getY() + height));
     return (dX * dX + dY * dY) < (r * r);
 }
 

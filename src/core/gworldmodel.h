@@ -3,6 +3,7 @@
 
 #include <list>
 #include <memory>
+#include <chrono>
 
 #include "gobj.h"
 #include "gobjcamera.h"
@@ -29,6 +30,7 @@ private:
     bool pauseFlag;
     std::shared_ptr<GObj> gObj;
     std::shared_ptr<GObjCamera> activeCamera;
+    std::chrono::steady_clock::time_point lastTime;
 };
 
 #endif // GWORLDMODEL_H

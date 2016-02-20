@@ -41,8 +41,8 @@ private slots:
         auto gObjSubContainer1 = gObjContainer->addChild<GObj>(std::make_shared<GObj>(GObj::Pos({10,0,0})));
         auto gObjSubContainer2 = gObjSubContainer1->addChild<GObj>(std::make_shared<GObj>(GObj::Pos({0,10,0})));
         auto gObjCircle = gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(10,GObj::Pos({10,10,0})));
-        QVERIFY(gObjCircle->getPosAbsolute().x == 20);
-        QVERIFY(gObjCircle->getPosAbsolute().y == 20);
+        QVERIFY(gObjCircle->getPosAbsolute().getX() == 20);
+        QVERIFY(gObjCircle->getPosAbsolute().getY() == 20);
     }
 
     void isIntersectWith() {
@@ -69,7 +69,7 @@ private slots:
         for (int i = 0; i < N; i++)
             gObjContainer->addChild<GObjCircle>(std::make_shared<GObjCircle>(i,GObj::Pos({(float)i,0,0})));
         for (int i = 0; i < N; i++)
-            QVERIFY(findByRR(gObjContainer, i)->getPos().x == i);
+            QVERIFY(findByRR(gObjContainer, i)->getPos().getX() == i);
         QVERIFY(gObjContainer->findChilds(false).size() == (unsigned int)N);
     }
 
@@ -89,7 +89,7 @@ private slots:
             gObjSubContainer->addChild(std::make_shared<GObjCircle>(i,GObj::Pos({(float)i,0,0})));
         }
         for (int i = 0; i < N; i++)
-            QVERIFY(findByRR(gObjContainer, i)->getPos().x == i);
+            QVERIFY(findByRR(gObjContainer, i)->getPos().getX() == i);
     }
 
     void getRoot() {

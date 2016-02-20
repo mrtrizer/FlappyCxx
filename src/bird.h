@@ -15,22 +15,22 @@ public:
     }
 
     void recalc(DeltaT deltaT) override {
-        if (intersectObjList().size() > 0)
+        if (findIntersectObjs().size() > 0)
             setColorRGBA({1.0f, 0, 0, 0});
         else
             setColorRGBA({1.0f, 1.0f, 1.0f, 1.0f});
         speed = speed + G * deltaT;
-        this->getPosR().y += speed * deltaT;
+        this->getPos().move({0,speed * deltaT,0});
     }
 
     void flap() {
-        speed = 1.0;
+        speed = 30.0;
     }
 
 private:
     float speed;
     float acc;
-    const float G = -0.05;
+    const float G = -40.0;
 };
 
 #endif // BIRD_H

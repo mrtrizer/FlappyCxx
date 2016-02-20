@@ -17,7 +17,7 @@ public:
         flappyCamera = std::make_shared<FlappyCamera>(100,1.0,GObj::Pos({0,0,0}));
         getRoot()->addChild<GObjCamera>(flappyCamera);
         setActiveCamera(flappyCamera);
-        bird = flappyCamera->ADD_CHILD(Bird,POS(0,0,0));
+        bird = flappyCamera->ADD_CHILD(Bird,POS(0,0,1));
         for (int i = 0; i < 50; i++)
             getRoot()->ADD_CHILD(TubePair,POS(50 * i,std::rand() % 10 * 5 - 20,0));
     }

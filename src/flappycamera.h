@@ -9,10 +9,10 @@ public:
 
 protected:
     void recalc(DeltaT deltaT) override {
-        getPosR().x += SPEED * deltaT;
+        getPos().move({SPEED * deltaT,0,0});
     }
 private:
-    const double SPEED = 1;
+    const float SPEED = 20.0;
 };
 
 #endif // FLAPPYCAMERA_H

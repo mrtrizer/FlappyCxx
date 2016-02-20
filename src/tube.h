@@ -5,14 +5,10 @@
 
 class Tube : public GObjRect {
 public:
-    Tube(const Pos & pos): GObjRect(10,50,pos) {
+    Tube(const Pos & pos): GObjRect(10,70,pos) {
     }
 
     void recalc(DeltaT) override {
-//        if (intersectObjList().size() > 0)
-//            setColorRGBA({1.0f, 0, 0, 0});
-//        else
-//            setColorRGBA({1.0f, 1.0f, 1.0f, 1.0f});
     }
 };
 
@@ -21,7 +17,7 @@ public:
     using GObj::GObj;
     void init() override {
         ADD_CHILD(Tube,POS(0,10,0));
-        ADD_CHILD(Tube,POS(0,-70,0));
+        ADD_CHILD(Tube,POS(0,-90,0));
     }
 };
 
