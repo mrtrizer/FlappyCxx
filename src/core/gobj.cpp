@@ -3,7 +3,7 @@
 
 using namespace std;
 
-GObj::GObj(Pos pos):pos(pos)
+GObj::GObj(GPos pos):pos(pos)
 {
 
 }
@@ -19,7 +19,7 @@ bool GObj::isIntersectWith(const GObjP & gObj) const {
     return Tools::isIntersect(*this, *gObj);
 }
 
-GObj::Pos GObj::getPosAbsolute() const {
+GPos GObj::getPosAbsolute() const {
     if (getParent() != nullptr)
         return getParent()->getPosAbsolute() * this->pos;
     else
@@ -62,26 +62,4 @@ GObj::GObjP GObj::getRoot() {
         return shared_from_this();
     else
         return root->getRoot();
-}
-
-const GObj::Pos & GObj::Pos::operator* (const Pos & pos) {
-    x += pos.x;
-    y += pos.y;
-    z += pos.z;
-    return *this;
-}
-
-void GObj::Pos::move(const Pos & offset) {
-    this->setX(this->getX() + offset.getX());
-    this->setY(this->getY() + offset.getY());
-    this->setZ(this->getZ() + offset.getZ());
-}
-
-GObj::Pos::MvMatrix GObj::Pos::getMvMatrix() {
-    return vector<float>({
-        1.0f, 0, 0, 0,
-        0, 1.0f, 0, 0,
-        0, 0, 1.0f, 0,
-        getX(), getY(), getZ(), 1.0f
-    });
 }

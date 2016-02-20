@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "tools.h"
+#include "gpos.h"
 
 class GWorldModel;
 
@@ -18,38 +19,16 @@ public:
     typedef std::shared_ptr<GObj> GObjP;
     typedef float DeltaT;
 
-    class Pos {
-    public:
-        typedef std::vector<float> MvMatrix;
-
-        Pos(float x, float y, float z):
-            x(x),y(y),z(z){}
-        virtual const Pos & operator* (const Pos & pos);
-        virtual void move(const Pos &);
-        virtual MvMatrix getMvMatrix();
-        inline void setX(float x) {this->x = x;}
-        inline void setY(float y) {this->y = y;}
-        inline void setZ(float z) {this->z = z;}
-        inline float getX() const {return this->x;}
-        inline float getY() const {return this->y;}
-        inline float getZ() const {return this->z;}
-
-    private:
-        float x;
-        float y;
-        float z;
-    };
-
-    explicit GObj(Pos = {0,0,0});
+    explicit GObj(GPos = {0,0,0});
     virtual ~GObj(){}
 
     GObjPList findIntersectObjs();
     virtual bool isIntersectWith(const GObjP &) const;
     std::shared_ptr<GObj> getRoot() const;
 
-    Pos getPosAbsolute() const;
-    inline Pos & getPos() {return pos;}
-    inline void setPos(const Pos & pos) {this->pos = pos;}
+    GPos getPosAbsolute() const;
+    inline GPos & getPos() {return pos;}
+    inline void setPos(const GPos & pos) {this->pos = pos;}
     inline const GObjP getParent() const {return parent.lock();}
     virtual void recalc(DeltaT) {}
     virtual void init() {}
@@ -75,7 +54,7 @@ public:
     class no_valid_root{};
 
 private:
-    Pos pos;
+    GPos pos;
     std::weak_ptr<GObj> parent;
     GObjPList children;
 
@@ -84,6 +63,6 @@ private:
 };
 
 #define ADD_CHILD(type,...)addChild<type>(std::make_shared<type>(__VA_ARGS__))
-#define POS(x,y,z)(GObj::Pos({x,y,z}))
+#define POS(x,y,z)(GPos({x,y,z}))
 
 #endif // GOBJ_H

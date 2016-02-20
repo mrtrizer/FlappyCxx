@@ -7,7 +7,7 @@
 
 class GObjRect: public GObj, public GColliderRect, public GViewRect {
 public:
-    explicit GObjRect(Size width, Size height, Pos pos):
+    explicit GObjRect(Size width, Size height, GPos pos):
         GObj(pos),
         GColliderRect(width,height),
         GViewRect(width, height)

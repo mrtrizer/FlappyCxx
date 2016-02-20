@@ -1,6 +1,8 @@
 #ifndef FLAPPYWORLD_H
 #define FLAPPYWORLD_H
 
+#include <ctime>
+
 #include "core/gworldmodel.h"
 #include "flappycamera.h"
 #include "bird.h"
@@ -10,20 +12,21 @@ class FlappyWorld: public GWorldModel
 {
 public:
     FlappyWorld() {
-        std::srand(1);
+        std::srand(std::time(0));
     }
 
     virtual void init() override {
-        flappyCamera = std::make_shared<FlappyCamera>(100,1.0,GObj::Pos({0,0,0}));
-        getRoot()->addChild<GObjCamera>(flappyCamera);
+        flappyCamera = getRoot()->ADD_CHILD(FlappyCamera,100,1.0,POS(0,0,0));
         setActiveCamera(flappyCamera);
-        bird = flappyCamera->ADD_CHILD(Bird,POS(0,0,1));
         for (int i = 0; i < 50; i++)
-            getRoot()->ADD_CHILD(TubePair,POS(50.0f * i,std::rand() % 10 * 5.0f - 20.0f,0));
+            getRoot()->ADD_CHILD(TubePair,POS(
+                                     STEP * i, //x
+                                     std::rand() % 10 * 5.0f - 20.0f, //y
+                                     0));
     }
 
     void flap() {
-        bird->flap();
+        flappyCamera->getBird()->flap();
     }
 
 protected:
@@ -31,8 +34,8 @@ protected:
 
 private:
     double speed;
-    std::shared_ptr<Bird> bird;
     std::shared_ptr<FlappyCamera> flappyCamera;
+    static constexpr float STEP = 50.0f;
 };
 
 #endif // FLAPPYWORLD_H

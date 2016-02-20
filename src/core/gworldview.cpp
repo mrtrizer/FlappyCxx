@@ -41,18 +41,9 @@ void GWorldView::redraw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     //Calc ortho matrix, using GObjCamera
-    auto rect = gWorld->getActiveCamera()->getRect();
-    static const float near = -1.0f;
-    static const float far = 100.0f;
+    auto pMatrix = gWorld->getActiveCamera()->getPMatrix();
 
-    GLfloat pMatrix[] = {
-            2.0f / (rect.x2 - rect.x1), 0, 0, 0,
-            0, 2.0f / (rect.y1 - rect.y2), 0, 0,
-            0, 0, -2.0f / (far - near), 0,
-            (rect.x2 + rect.x1) / (rect.x2 - rect.x1), (rect.y1 + rect.y2) / (rect.y1 - rect.y2), (far + near) / (far - near), 1.0f
-    };
-
-    //For all children recursively
+    //TODO: Do it recursively
     auto root = gWorld->getRoot()->findChilds();
     for (std::shared_ptr<GObj> gObj: root) {
 
@@ -61,8 +52,9 @@ void GWorldView::redraw() {
         if (view == nullptr)
             continue;
 
-        GObj::Pos pos = gObj->getPosAbsolute();
+        //Get move matrix of the object
+        auto mvMatrix = gObj->getPosAbsolute().getMvMatrix();
 
-        view->draw(pMatrix, pos.getMvMatrix().data());
+        view->draw(pMatrix.data(), mvMatrix.data());
     }
 }

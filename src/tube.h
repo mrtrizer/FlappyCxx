@@ -5,7 +5,7 @@
 
 class Tube : public GObjRect {
 public:
-    Tube(const Pos & pos): GObjRect(10,70,pos) {
+    Tube(const GPos & pos): GObjRect(10,70,pos) {
     }
 
     void recalc(DeltaT) override {

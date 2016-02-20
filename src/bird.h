@@ -7,7 +7,7 @@
 
 class Bird: public GObj, public GColliderCircle, public GViewCircle {
 public:
-    Bird(Pos pos):
+    Bird(GPos pos):
         GObj(pos),
         GColliderCircle(RADIUS),
         GViewCircle(CIRCLE_VERTEX_CNT, RADIUS) {}
