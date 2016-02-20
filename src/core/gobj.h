@@ -48,10 +48,10 @@ public:
         return std::dynamic_pointer_cast<TCastTo>(child);
     }
     void removeChild(const std::shared_ptr<GObj> &gObj);
-    std::shared_ptr<GObj> findChildR(std::function<bool(const GObjP &)>) const;
-    GObjPList findChildsR(std::function<bool(const GObjP &)>, bool recursive = true) const;
-    GObjPList findChildsR(bool recursive = true) const {
-        return findChildsR([](const GObjP &){return true;}, recursive);
+    std::shared_ptr<GObj> findChild(std::function<bool(const GObjP &)>) const;
+    GObjPList findChilds(std::function<bool(const GObjP &)>, bool recursive = true) const;
+    GObjPList findChilds(bool recursive = true) const {
+        return findChilds([](const GObjP &){return true;}, recursive);
     }
 
     std::shared_ptr<GObj> getRoot();

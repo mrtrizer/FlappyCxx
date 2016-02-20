@@ -24,7 +24,7 @@ class Test_GObj : public QObject
     }
 
     auto findByRR(const GObj::GObjP & gObjContainer, int r) {
-        auto gObj = gObjContainer->findChildR(getCheckFunc(r));
+        auto gObj = gObjContainer->findChild(getCheckFunc(r));
         return std::dynamic_pointer_cast<GObjCircle>(gObj);
     }
 
@@ -70,13 +70,13 @@ private slots:
             gObjContainer->addChild<GObjCircle>(std::make_shared<GObjCircle>(i,GObj::Pos({(float)i,0,0})));
         for (int i = 0; i < N; i++)
             QVERIFY(findByRR(gObjContainer, i)->getPos().x == i);
-        QVERIFY(gObjContainer->findChildsR(false).size() == (unsigned int)N);
+        QVERIFY(gObjContainer->findChilds(false).size() == (unsigned int)N);
     }
 
     void removeChild() {
         auto gObjContainer = std::make_shared<GObj>();
         gObjContainer->addChild<GObjCircle>(std::make_shared<GObjCircle>(R));
-        QVERIFY(gObjContainer->findChildsR(false).size() == 1);
+        QVERIFY(gObjContainer->findChilds(false).size() == 1);
         gObjContainer->removeChild(findByRR(gObjContainer, R));
         QVERIFY_EXCEPTION_THROWN(findByRR(gObjContainer, R),GObj::cant_find_child);
     }
@@ -107,9 +107,9 @@ private slots:
                 gObjSubContainer->addChild(std::make_shared<GObjCircle>(j,GObj::Pos({(float)j,0,0})));
         }
         //not recursive
-        QVERIFY(gObjContainer->findChildsR(false).size() == (unsigned int)N);
+        QVERIFY(gObjContainer->findChilds(false).size() == (unsigned int)N);
         //recursive
-        QVERIFY(gObjContainer->findChildsR().size() ==(unsigned int)N * (unsigned int)N + (unsigned int)N);
+        QVERIFY(gObjContainer->findChilds().size() ==(unsigned int)N * (unsigned int)N + (unsigned int)N);
     }
 
     void cleanupTestCase() {

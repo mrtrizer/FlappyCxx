@@ -2,7 +2,7 @@
 
 #include "gworldmodel.h"
 
-#define DELTA_T (1.0 / 10.0)
+#define DELTA_T (1.0 / 30.0)
 
 using namespace std;
 
@@ -18,7 +18,7 @@ GWorldModel::~GWorldModel() {
 
 void GWorldModel::run() {
     if (!pauseFlag) {
-        auto objects = getRoot()->findChildsR();
+        auto objects = getRoot()->findChilds();
         for (auto i : objects) {
             i->recalc(DELTA_T);
         }

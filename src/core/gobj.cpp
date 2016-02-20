@@ -7,16 +7,10 @@ GObj::GObj(Pos pos):pos(pos)
 }
 
 GObj::GObjPList GObj::intersectObjList() {
-    GObjPList result;
-    GObjPList allObjects = getRoot()->findChildsR();
     auto me = shared_from_this();
-    for (auto i: allObjects) {
-        if (i != me) {
-            if (i->isIntersectWith(me))
-                result.push_back(i);
-        }
-    }
-    return result;
+    return getRoot()->findChilds([me](const GObjP & obj){
+        return (obj != me) && me->isIntersectWith(obj);
+    });
 }
 
 bool GObj::isIntersectWith(const GObjP & gObj) const {
@@ -24,28 +18,25 @@ bool GObj::isIntersectWith(const GObjP & gObj) const {
 }
 
 GObj::Pos GObj::getPosAbsolute() const {
-    if (getParent() != nullptr) {
+    if (getParent() != nullptr)
         return getParent()->getPosAbsolute() + this->pos;
-    }
     else
         return pos;
 }
 
 void GObj::removeChild(const std::shared_ptr<GObj> & gObj) {
-    children.remove(findChildR([gObj](const std::shared_ptr<GObj> & i){return i == gObj;}));
+    children.remove(findChild([gObj](const std::shared_ptr<GObj> & i){return i == gObj;}));
 }
 
-//TODO: Return a list of appropriate objects
 /// Search a child recursively using check callback for validation.
-std::shared_ptr<GObj> GObj::findChildR(std::function<bool(const GObjP &)> check) const {
-    GObjPList objList;
-    addChildsToListR(objList,check);
+std::shared_ptr<GObj> GObj::findChild(std::function<bool(const GObjP &)> check) const {
+    GObjPList objList = findChilds(check);
     if (objList.size() == 0)
         throw cant_find_child();
     return objList.back();
 }
 
-GObj::GObjPList GObj::findChildsR(std::function<bool(const GObjP &)> check, bool recursive) const {
+GObj::GObjPList GObj::findChilds(std::function<bool(const GObjP &)> check, bool recursive) const {
     GObjPList objList;
     addChildsToListR(objList, check, recursive);
     return objList;

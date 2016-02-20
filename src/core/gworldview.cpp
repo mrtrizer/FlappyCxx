@@ -51,7 +51,7 @@ void GWorldView::redraw() {
     };
 
     //For all children recursively
-    auto root = gWorld->getRoot()->findChildsR();
+    auto root = gWorld->getRoot()->findChilds();
     for (std::shared_ptr<GObj> gObj: root) {
 
         //If it's a visible object
