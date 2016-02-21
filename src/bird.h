@@ -26,7 +26,7 @@ public:
     }
 
 private:
-    float speed;
+    float speed = 0;
     static constexpr float GRAVITY = -40.0;
     static constexpr float FLAP_SPEED = 30.0;
     static constexpr float RADIUS = 3.0;

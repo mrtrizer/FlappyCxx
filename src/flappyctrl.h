@@ -4,6 +4,7 @@
 #include <memory>
 
 #include "flappyworld.h"
+#include "flappymenu.h"
 #include "core/gworldview.h"
 
 class FlappyCtrl {
@@ -23,12 +24,14 @@ public:
     }
 
     void init() {
-        setWorld(std::make_shared<FlappyWorld>());
+        setWorld(std::make_shared<FlappyMenu>(*this));
     }
 
     void click(int x, int y) {
         if (typeid(*curWorld) == typeid(FlappyWorld))
             std::dynamic_pointer_cast<FlappyWorld>(curWorld)->flap();
+        if (typeid(*curWorld) == typeid(FlappyMenu))
+            std::dynamic_pointer_cast<FlappyMenu>(curWorld)->click(x,y);
     }
 
     void resize(int width, int height) {
@@ -51,12 +54,12 @@ protected:
         switch (state) {
         case MENU: switch (symbol) {
             case START:
-                setWorld(std::make_shared<FlappyWorld>());
+                setWorld(std::make_shared<FlappyWorld>(*this));
                 return GAME;
             }
         case GAME: switch (symbol) {
             case STOP:
-                setWorld(std::make_shared<FlappyWorld>());
+                setWorld(std::make_shared<FlappyMenu>(*this));
                 return MENU;
             }
         }
