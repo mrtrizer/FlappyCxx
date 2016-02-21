@@ -19,7 +19,8 @@ HEADERS += \
     $$PWD/flappyworld.h \
     $$PWD/flappycamera.h \
     $$PWD/tube.h \
-    $$PWD/core/gpos.h
+    $$PWD/core/gpos.h \
+    $$PWD/flappyctrl.h
 
 
 SOURCES += \

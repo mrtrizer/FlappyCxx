@@ -21,16 +21,21 @@ class GWorldModel;
 /// View in MVC terms.
 class GWorldView {
 public:
-    GWorldView(const std::shared_ptr<GWorldModel> &);
+    typedef std::shared_ptr<GWorldModel> GWorldModelP;
+
     ~GWorldView();
+    void setGWorldModel(GWorldModelP gWorldModel);
     void redraw();
     void resize(double width, double height);
-    void init();
 
 private:
-    std::shared_ptr<GWorldModel> gWorld;
+    void init();
+    GWorldModelP gWorld;
 
     std::vector<GLfloat> getPMatrix(const std::shared_ptr<GObjCamera> &);
+
+    int width = 100;
+    int height = 100;
 };
 
 #endif // GWORLDVIEW_H

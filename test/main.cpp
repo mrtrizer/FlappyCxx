@@ -15,37 +15,32 @@
 #include <core/gobjcamera.h>
 #include <shapes/gobjrect.h>
 #include <flappyworld.h>
+#include <flappyctrl.h>
 
 #include "test_gobj.h"
 
-std::shared_ptr<FlappyWorld> flappyWorld;
-std::shared_ptr<GWorldView> gWorldView;
+FlappyCtrl flappyCtrl;
 
 void render() {
-    gWorldView->redraw();
+    flappyCtrl.glRedraw();
     glutSwapBuffers();
     glutPostRedisplay();
-    flappyWorld->run(); //only for test
+    flappyCtrl.step(); //only for test
 }
 
 void resizeWindow(int width, int height) {
-    gWorldView->resize(width, height);
+    flappyCtrl.resize(width, height);
 }
 
 void mouseFunc(int button, int state,
                int x, int y) {
     (void)button;
     (void)state;
-    (void)x;
-    (void)y;
-    flappyWorld->flap();
+    flappyCtrl.click(x,y);
 }
 
 int main(int argc, char** argv)
 {
-    flappyWorld = std::make_shared<FlappyWorld>();
-    gWorldView = std::make_shared<GWorldView>(flappyWorld);
-
     int status = 0;
 
     glutInit(&argc, argv);
@@ -54,8 +49,7 @@ int main(int argc, char** argv)
     glutCreateWindow("Simple shaders");
     glewInit();
 
-    gWorldView->init();
-    flappyWorld->init();
+    flappyCtrl.init();
 
     const auto RUN_TEST = [&status, argc, argv] (QObject * obj) {
         status |= QTest::qExec(obj, argc, argv);

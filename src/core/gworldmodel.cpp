@@ -26,3 +26,7 @@ void GWorldModel::run() {
         recalc(deltaT);
     }
 }
+
+void GWorldModel::deinit() {
+    gObj.reset();
+}

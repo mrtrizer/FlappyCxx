@@ -12,19 +12,14 @@
 
 using namespace std;
 
-//TODO: gWorld to shared_ptr
-GWorldView::GWorldView(const std::shared_ptr<GWorldModel> &gWorld):
-    gWorld(gWorld) {
-}
-
 void GWorldView::init() {
     LOGI("OpenGL Version: %s\n", glGetString(GL_VERSION));
 
     glClearColor(0, 0, 0, 0);
     glEnable(GL_MULTISAMPLE);
     glEnable(GL_DEPTH_TEST);
-
     CHECK_GL_ERROR;
+    resize(width, height);
 }
 
 GWorldView::~GWorldView() {
@@ -32,13 +27,26 @@ GWorldView::~GWorldView() {
     glDisable(GL_MULTISAMPLE);
 }
 
+void GWorldView::setGWorldModel(GWorldModelP gWorldModel) {
+    if (gWorld != nullptr)
+        gWorld->deinit();
+    this->gWorld = gWorldModel;
+    gWorld->init();
+}
+
 void GWorldView::resize(double width, double height) {
+    this->width = width;
+    this->height = height;
     glViewport(0, 0, width, height);
-    gWorld->getActiveCamera()->setRatio(width / height);
+    if (gWorld != nullptr)
+        gWorld->getActiveCamera()->setRatio(width / height);
 }
 
 void GWorldView::redraw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    if (gWorld == nullptr)
+        return;
 
     //Calc ortho matrix, using GObjCamera
     auto pMatrix = gWorld->getActiveCamera()->getPMatrix();
