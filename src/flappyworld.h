@@ -8,14 +8,17 @@
 #include "bird.h"
 #include "tube.h"
 
+class FlappyCtrl;
+
 class FlappyWorld: public GWorldModel
 {
 public:
-    FlappyWorld() {
+    FlappyWorld(FlappyCtrl & flappyCtrl):
+        flappyCtrl(flappyCtrl) {
         std::srand(std::time(0));
     }
 
-    virtual void init() override {
+    virtual void init_() override {
         flappyCamera = getRoot()->ADD_CHILD(FlappyCamera,100,1.0,POS(0,0,0));
         setActiveCamera(flappyCamera);
         for (int i = 0; i < 50; i++)
@@ -30,12 +33,12 @@ public:
     }
 
 protected:
-    void recalc(GObj::DeltaT) override {}
+    void recalc(GObj::DeltaT) override;
 
 private:
-    double speed;
     std::shared_ptr<FlappyCamera> flappyCamera;
     static constexpr float STEP = 50.0f;
+    FlappyCtrl & flappyCtrl;
 };
 
 #endif // FLAPPYWORLD_H

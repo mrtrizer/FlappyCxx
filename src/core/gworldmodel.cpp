@@ -6,11 +6,8 @@ using namespace std;
 
 GWorldModel::GWorldModel():
     pauseFlag(false),
-    gObj(std::make_shared<GObj>()),
     lastTime(chrono::steady_clock::now())
-{
-    //game initialization
-}
+{}
 
 GWorldModel::~GWorldModel() {
 }
@@ -25,6 +22,12 @@ void GWorldModel::run() {
             i->recalc(deltaT);
         recalc(deltaT);
     }
+}
+
+void GWorldModel::init() {
+    gObj = std::make_shared<GObj>();
+    lastTime = chrono::steady_clock::now();
+    init_();
 }
 
 void GWorldModel::deinit() {

@@ -19,13 +19,14 @@ public:
     void resume(){pauseFlag = false;}
     inline std::shared_ptr<GObj> getRoot() {return gObj;}
     void run();
-    virtual void init() = 0;
-    virtual void deinit();
+    void init();
+    virtual void init_() = 0;
+    void deinit();
     void setActiveCamera(const std::shared_ptr<GObjCamera> & camera) {this->activeCamera = camera;}
     std::shared_ptr<GObjCamera> getActiveCamera() const {return activeCamera;}
 
 protected:
-    virtual void recalc(GObj::DeltaT) = 0;
+    virtual void recalc(GObj::DeltaT) {}
 
 private:
     bool pauseFlag;

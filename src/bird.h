@@ -13,6 +13,8 @@ public:
         GViewCircle(CIRCLE_VERTEX_CNT, RADIUS) {}
 
     void recalc(DeltaT deltaT) override {
+        if (deltaT > 1)
+            return;
         if (findIntersectObjs().size() > 0)
             setColorRGBA({1.0f, 0, 0, 0});
         else

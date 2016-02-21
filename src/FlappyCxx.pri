@@ -20,7 +20,9 @@ HEADERS += \
     $$PWD/flappycamera.h \
     $$PWD/tube.h \
     $$PWD/core/gpos.h \
-    $$PWD/flappyctrl.h
+    $$PWD/flappyctrl.h \
+    $$PWD/flappymenu.h \
+    $$PWD/core/gworldctrl.h
 
 
 SOURCES += \
@@ -35,6 +37,8 @@ SOURCES += \
     $$PWD/core/gviewshape.cpp \
     $$PWD/core/gworldmodel.cpp \
     $$PWD/core/gworldview.cpp \
-    $$PWD/core/gpos.cpp
+    $$PWD/core/gpos.cpp \
+    $$PWD/flappyworld.cpp \
+    $$PWD/flappymenu.cpp
 
 LIBS += -lGL -lglut -lGLEW -lGLU
