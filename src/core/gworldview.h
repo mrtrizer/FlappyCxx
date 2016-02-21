@@ -27,9 +27,9 @@ public:
     void setGWorldModel(GWorldModelP gWorldModel);
     void redraw();
     void resize(double width, double height);
+    void init();
 
 private:
-    void init();
     GWorldModelP gWorld;
 
     std::vector<GLfloat> getPMatrix(const std::shared_ptr<GObjCamera> &);

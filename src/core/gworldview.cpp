@@ -28,10 +28,8 @@ GWorldView::~GWorldView() {
 }
 
 void GWorldView::setGWorldModel(GWorldModelP gWorldModel) {
-    if (gWorld != nullptr)
-        gWorld->deinit();
     this->gWorld = gWorldModel;
-    gWorld->init();
+    resize(width, height);
 }
 
 void GWorldView::resize(double width, double height) {

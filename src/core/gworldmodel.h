@@ -14,21 +14,18 @@
 class GWorldModel {
 public:
     GWorldModel();
-    virtual ~GWorldModel();
-    void pause(){pauseFlag = true;}
-    void resume(){pauseFlag = false;}
+    virtual ~GWorldModel(){}
     inline std::shared_ptr<GObj> getRoot() {return gObj;}
     void run();
-    virtual void init() = 0;
-    virtual void deinit();
+    void initWorld();
     void setActiveCamera(const std::shared_ptr<GObjCamera> & camera) {this->activeCamera = camera;}
     std::shared_ptr<GObjCamera> getActiveCamera() const {return activeCamera;}
 
 protected:
-    virtual void recalc(GObj::DeltaT) = 0;
+    virtual void init(){}
+    virtual void recalc(GObj::DeltaT){}
 
 private:
-    bool pauseFlag;
     std::shared_ptr<GObj> gObj;
     std::shared_ptr<GObjCamera> activeCamera;
     std::chrono::steady_clock::time_point lastTime;

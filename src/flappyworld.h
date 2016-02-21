@@ -15,6 +15,12 @@ public:
         std::srand(std::time(0));
     }
 
+    void flap() {
+        flappyCamera->getBird()->flap();
+    }
+
+protected:
+    void recalc(GObj::DeltaT) override {}
     virtual void init() override {
         flappyCamera = getRoot()->ADD_CHILD(FlappyCamera,100,1.0,POS(0,0,0));
         setActiveCamera(flappyCamera);
@@ -25,12 +31,6 @@ public:
                                      0));
     }
 
-    void flap() {
-        flappyCamera->getBird()->flap();
-    }
-
-protected:
-    void recalc(GObj::DeltaT) override {}
 
 private:
     double speed;
