@@ -11,7 +11,7 @@ public:
     inline std::shared_ptr<Bird> getBird() {return bird;}
 
 protected:
-    void recalc(DeltaT deltaT) override {
+    void recalc(DeltaT deltaT, GContext) override {
         getPos().move({SPEED * deltaT,0,0});
     }
 

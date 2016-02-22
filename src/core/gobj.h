@@ -10,6 +10,24 @@
 
 class GWorldModel;
 
+/// Context contains current input controllers state.
+/// It is passed to GObj::recalc method. So, all objects
+/// can use it.
+struct GContext {
+    enum MouseEvent {EMPTY, CLICK, PRESS, RELEASE};
+    GContext(int x, int y, MouseEvent mouseEvent):
+        x(x), y(y),
+        mouseEvent(mouseEvent)
+    {}
+    inline int getX() const {return x;}
+    inline int getY() const {return y;}
+    inline MouseEvent getMouseEvent() const {return mouseEvent;}
+private:
+    int x;
+    int y;
+    MouseEvent mouseEvent;
+};
+
 /// @brief Game object
 /// @details Component in Composite.
 /// @see GObj
@@ -30,7 +48,7 @@ public:
     inline GPos & getPos() {return pos;}
     inline void setPos(const GPos & pos) {this->pos = pos;}
     inline const GObjP getParent() const {return parent.lock();}
-    virtual void recalc(DeltaT) {}
+    virtual void recalc(DeltaT, GContext) {}
     virtual void init() {}
 
     /// Add child. Returns pointer to added object casted to needed type.

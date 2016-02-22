@@ -8,7 +8,7 @@ public:
     Tube(const GPos & pos): GObjRect(10,70,pos) {
     }
 
-    void recalc(DeltaT) override {
+    void recalc(DeltaT, GContext) override {
     }
 };
 

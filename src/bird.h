@@ -12,7 +12,9 @@ public:
         GColliderCircle(RADIUS),
         GViewCircle(CIRCLE_VERTEX_CNT, RADIUS) {}
 
-    void recalc(DeltaT deltaT) override {
+    void recalc(DeltaT deltaT, GContext gContext) override {
+        if (gContext.getMouseEvent() == GContext::CLICK)
+            flap();
         if (findIntersectObjs().size() > 0)
             setColorRGBA({1.0f, 0, 0, 0});
         else

@@ -10,7 +10,6 @@ class FlappyMenu :public GWorldModel
 public:
     FlappyMenu(FlappyCtrl & flappyCtrl):flappyCtrl(flappyCtrl){}
     void init();
-    void click(int x, int y);
 
 private:
     FlappyCtrl & flappyCtrl;

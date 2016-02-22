@@ -14,6 +14,7 @@ public:
 
     FlappyCtrl(){
         gWorldView = std::make_shared<GWorldView>();
+        gContext = std::make_shared<GContext>(0,0,GContext::EMPTY);
     }
 
     void setWorld(std::shared_ptr<GWorldModel> gWorld) {
@@ -28,10 +29,7 @@ public:
     }
 
     void click(int x, int y) {
-        if (typeid(*curWorld) == typeid(FlappyWorld))
-            std::dynamic_pointer_cast<FlappyWorld>(curWorld)->flap();
-        if (typeid(*curWorld) == typeid(FlappyMenu))
-            std::dynamic_pointer_cast<FlappyMenu>(curWorld)->click(x,y);
+        gContext = std::make_shared<GContext>(x,y,GContext::CLICK);
     }
 
     void resize(int width, int height) {
@@ -39,7 +37,8 @@ public:
     }
 
     void step() {
-        curWorld->run();
+        curWorld->run(*gContext);
+        gContext = std::make_shared<GContext>(0,0,GContext::EMPTY);
     }
 
     void glRedraw() {
@@ -68,6 +67,7 @@ protected:
 private:
     std::shared_ptr<GWorldModel> curWorld;
     std::shared_ptr<GWorldView> gWorldView;
+    std::shared_ptr<GContext> gContext;
     State state;
 };
 

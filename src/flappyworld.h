@@ -22,16 +22,8 @@ public:
     }
 
 protected:
-    void recalc(GObj::DeltaT) override;
-    virtual void init() override {
-        flappyCamera = getRoot()->ADD_CHILD(FlappyCamera,100,1.0,POS(0,0,0));
-        setActiveCamera(flappyCamera);
-        for (int i = 0; i < 50; i++)
-            getRoot()->ADD_CHILD(TubePair,POS(
-                                     STEP * i, //x
-                                     std::rand() % 10 * 5.0f - 20.0f, //y
-                                     0));
-    }
+    void recalc(GObj::DeltaT, GContext) override;
+    virtual void init() override;
 
 private:
     double speed;

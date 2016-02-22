@@ -21,7 +21,9 @@ HEADERS += \
     $$PWD/tube.h \
     $$PWD/core/gpos.h \
     $$PWD/flappyctrl.h \
-    $$PWD/flappymenu.h
+    $$PWD/flappymenu.h \
+    $$PWD/flappybutton.h \
+    $$PWD/core/gobjpointer.h
 
 
 SOURCES += \

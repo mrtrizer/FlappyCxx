@@ -16,14 +16,14 @@ public:
     GWorldModel();
     virtual ~GWorldModel(){}
     inline std::shared_ptr<GObj> getRoot() {return gObj;}
-    void run();
+    void run(GContext);
     void initWorld();
     void setActiveCamera(const std::shared_ptr<GObjCamera> & camera) {this->activeCamera = camera;}
     std::shared_ptr<GObjCamera> getActiveCamera() const {return activeCamera;}
 
 protected:
     virtual void init(){}
-    virtual void recalc(GObj::DeltaT){}
+    virtual void recalc(GObj::DeltaT, GContext){}
 
 private:
     std::shared_ptr<GObj> gObj;
