@@ -1,12 +1,13 @@
-#ifndef FLAPPYCAMERA_H
-#define FLAPPYCAMERA_H
+#ifndef FLAPPYSLIDER_H
+#define FLAPPYSLIDER_H
 
-#include "core/gobjcamera.h"
+#include "core/gobj.h"
 #include "bird.h"
 
-class FlappyCamera : public GObjCamera {
+/// Contains a bird and an instance of GObjCamera (added in FlappyWorld::init)
+class FlappySlider: public GObj {
 public:
-    using GObjCamera::GObjCamera;
+    using GObj::GObj;
 
     inline std::shared_ptr<Bird> getBird() {return bird;}
 
@@ -20,8 +21,8 @@ protected:
     }
 
 private:
-    static constexpr float SPEED = 20.0;
     std::shared_ptr<Bird> bird;
+    static constexpr float SPEED = 20.0;
 };
 
-#endif // FLAPPYCAMERA_H
+#endif // FLAPPYSLIDER_H

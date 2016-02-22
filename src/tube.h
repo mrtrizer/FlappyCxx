@@ -5,11 +5,9 @@
 
 class Tube : public GObjRect {
 public:
-    Tube(const GPos & pos): GObjRect(10,70,pos) {
-    }
-
-    void recalc(DeltaT, GContext) override {
-    }
+    Tube(const GPos & pos):
+        GObjRect(10,70,pos)
+    {}
 };
 
 class TubePair : public GObj {
@@ -19,6 +17,7 @@ public:
         ADD_CHILD(Tube,POS(0,10,0));
         ADD_CHILD(Tube,POS(0,-90,0));
     }
+
 };
 
 #endif // TUBE_H

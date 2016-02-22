@@ -36,7 +36,11 @@ void mouseFunc(int button, int state,
                int x, int y) {
     (void)button;
     (void)state;
-    flappyCtrl.click(x,y);
+    flappyCtrl.mouseClick(x,y);
+}
+
+void passiveMotionFunc(int x, int y) {
+    flappyCtrl.mouseMove(x,y);
 }
 
 int main(int argc, char** argv)
@@ -59,6 +63,7 @@ int main(int argc, char** argv)
     RUN_TEST(new Test_GObj());
 
     glutMouseFunc(mouseFunc);
+    glutPassiveMotionFunc(passiveMotionFunc);
     glutReshapeFunc(resizeWindow);
     glutDisplayFunc(render);
     glutMainLoop();

@@ -17,13 +17,14 @@ HEADERS += \
     $$PWD/core/gworldmodel.h \
     $$PWD/core/gview.h \
     $$PWD/flappyworld.h \
-    $$PWD/flappycamera.h \
     $$PWD/tube.h \
     $$PWD/core/gpos.h \
     $$PWD/flappyctrl.h \
     $$PWD/flappymenu.h \
-    $$PWD/flappybutton.h \
-    $$PWD/core/gobjpointer.h
+    $$PWD/core/gobjpointer.h \
+    $$PWD/flappyslider.h \
+    $$PWD/button.h \
+    $$PWD/core/gcontext.h
 
 
 SOURCES += \
@@ -40,6 +41,9 @@ SOURCES += \
     $$PWD/core/gworldview.cpp \
     $$PWD/core/gpos.cpp \
     $$PWD/flappymenu.cpp \
-    $$PWD/flappyworld.cpp
+    $$PWD/flappyworld.cpp \
+    $$PWD/flappyctrl.cpp \
+    $$PWD/bird.cpp \
+    $$PWD/button.cpp
 
 LIBS += -lGL -lglut -lGLEW -lGLU

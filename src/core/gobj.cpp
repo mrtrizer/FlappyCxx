@@ -8,12 +8,17 @@ GObj::GObj(GPos pos):pos(pos)
 
 }
 
-GObj::GObjPList GObj::findIntersectObjs() {
+GObj::GObjPList GObj::findIntersectObjs(std::function<bool(const GObjP &)> check) {
     auto me = shared_from_this();
-    return getRoot()->findChilds([me](const GObjP & obj){
-        return (obj != me) && me->isIntersectWith(obj);
+    return getRoot()->findChilds([me,check](const GObjP & obj){
+        return (obj != me) && me->isIntersectWith(obj) && check(obj);
     });
 }
+
+GObj::GObjPList GObj::findIntersectObjs() {
+    return findIntersectObjs([](const GObjP &){return true;});
+}
+
 
 bool GObj::isIntersectWith(const GObjP & gObj) const {
     return Tools::isIntersect(*this, *gObj);

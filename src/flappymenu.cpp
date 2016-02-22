@@ -1,10 +1,14 @@
 #include "flappymenu.h"
 #include "flappyctrl.h"
-#include "flappybutton.h"
+#include "button.h"
+
+FlappyMenu::FlappyMenu(FlappyCtrl &flappyCtrl):
+    flappyCtrl(flappyCtrl)
+{}
 
 void FlappyMenu::init() {
-    setActiveCamera(getRoot()->ADD_CHILD(GObjCamera,10,1,POS(0,0,0)));
-    getRoot()->ADD_CHILD(FlappyButton,[this](){
+    setActiveCamera(getRoot()->ADD_CHILD(GObjCamera,100,1,500,POS(0,0,0)));
+    getRoot()->ADD_CHILD(Button,[this](){
         flappyCtrl.putSymbol(FlappyCtrl::START);
     }, POS(0,0,0));
 }

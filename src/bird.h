@@ -5,27 +5,11 @@
 #include "core/gcollider.h"
 #include "core/gviewshape.h"
 
+/// A bird
 class Bird: public GObj, public GColliderCircle, public GViewCircle {
 public:
-    Bird(GPos pos):
-        GObj(pos),
-        GColliderCircle(RADIUS),
-        GViewCircle(CIRCLE_VERTEX_CNT, RADIUS) {}
-
-    void recalc(DeltaT deltaT, GContext gContext) override {
-        if (gContext.getMouseEvent() == GContext::CLICK)
-            flap();
-        if (findIntersectObjs().size() > 0)
-            setColorRGBA({1.0f, 0, 0, 0});
-        else
-            setColorRGBA({1.0f, 1.0f, 1.0f, 1.0f});
-        speed = speed + GRAVITY * deltaT;
-        this->getPos().move({0, speed * deltaT,0});
-    }
-
-    void flap() {
-        speed = FLAP_SPEED;
-    }
+    Bird(GPos pos);
+    void recalc(DeltaT deltaT, GContext gContext) override;
 
 private:
     float speed = 0;

@@ -16,7 +16,6 @@ void GWorldView::init() {
     LOGI("OpenGL Version: %s\n", glGetString(GL_VERSION));
 
     glClearColor(0, 0, 0, 0);
-    glEnable(GL_MULTISAMPLE);
     glEnable(GL_DEPTH_TEST);
     CHECK_GL_ERROR;
     resize(width, height);
@@ -24,7 +23,6 @@ void GWorldView::init() {
 
 GWorldView::~GWorldView() {
     glDisable(GL_DEPTH_TEST);
-    glDisable(GL_MULTISAMPLE);
 }
 
 void GWorldView::setGWorldModel(GWorldModelP gWorldModel) {
@@ -36,8 +34,9 @@ void GWorldView::resize(double width, double height) {
     this->width = width;
     this->height = height;
     glViewport(0, 0, width, height);
-    if (gWorld != nullptr)
-        gWorld->getActiveCamera()->setRatio(width / height);
+    if (gWorld != nullptr) {
+        gWorld->getActiveCamera()->resize(width, height);
+    }
 }
 
 void GWorldView::redraw() {

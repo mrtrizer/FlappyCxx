@@ -7,26 +7,9 @@
 
 #include "tools.h"
 #include "gpos.h"
+#include "gcontext.h"
 
 class GWorldModel;
-
-/// Context contains current input controllers state.
-/// It is passed to GObj::recalc method. So, all objects
-/// can use it.
-struct GContext {
-    enum MouseEvent {EMPTY, CLICK, PRESS, RELEASE};
-    GContext(int x, int y, MouseEvent mouseEvent):
-        x(x), y(y),
-        mouseEvent(mouseEvent)
-    {}
-    inline int getX() const {return x;}
-    inline int getY() const {return y;}
-    inline MouseEvent getMouseEvent() const {return mouseEvent;}
-private:
-    int x;
-    int y;
-    MouseEvent mouseEvent;
-};
 
 /// @brief Game object
 /// @details Component in Composite.
@@ -40,6 +23,7 @@ public:
     explicit GObj(GPos = {0,0,0});
     virtual ~GObj(){}
 
+    GObjPList findIntersectObjs(std::function<bool (const GObjP &)> check);
     GObjPList findIntersectObjs();
     virtual bool isIntersectWith(const GObjP &) const;
     std::shared_ptr<GObj> getRoot() const;

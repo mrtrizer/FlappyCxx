@@ -5,14 +5,16 @@
 #include "gcollider.h"
 #include "gviewshape.h"
 
-class GObjPointer: GObj, GColliderCircle, GViewCircle {
+class GObjPointer: public GObj, public GColliderCircle, public GViewCircle {
+    friend class GObjCamera;
 public:
-    GObjPointer(int x, int y, MouseEvent mouseEvent):
-        GObj(GPos(x,y,0)),
-        GColliderCircle(1),
-        GViewCircle(10,1)
+    GObjPointer():
+        GObj(GPos(0,0,0)),
+        GColliderCircle(0.1),
+        GViewCircle(10,0.1)
     {}
     inline GContext getContext() {return context;}
+
 private:
     GContext context;
 };

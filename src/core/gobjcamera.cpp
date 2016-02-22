@@ -1,9 +1,10 @@
 #include "gobjcamera.h"
 
-GObjCamera::GObjCamera(Size height, Ratio ratio, GPos pos):
+GObjCamera::GObjCamera(Size height, Ratio ratio, WindowHeight windowHeight, GPos pos):
     GObj(pos),
     height(height),
-    ratio(ratio) {
+    ratio(ratio),
+    coeff(height / windowHeight) {
 }
 
 Tools::Rect GObjCamera::getRect() const {
@@ -15,6 +16,11 @@ Tools::Rect GObjCamera::getRect() const {
         offset * ratio - pos.getX(),
         -offset - pos.getY(),
     };
+}
+
+void GObjCamera::resize(double width, double height) {
+    this->ratio = width / height;
+    this->coeff = this->height / height;
 }
 
 GObjCamera::PMatrix GObjCamera::getPMatrix() const {

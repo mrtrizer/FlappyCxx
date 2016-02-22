@@ -5,10 +5,11 @@
 
 class FlappyCtrl;
 
+/// Main menu world (scene)
 class FlappyMenu :public GWorldModel
 {
 public:
-    FlappyMenu(FlappyCtrl & flappyCtrl):flappyCtrl(flappyCtrl){}
+    FlappyMenu(FlappyCtrl & flappyCtrl);
     void init();
 
 private:
