@@ -1,3 +1,5 @@
+#include <cstdlib>
+
 #include "flappyworld.h"
 #include "flappyctrl.h"
 
