@@ -5,6 +5,7 @@
 #include "tools.h"
 #include "gobjpointer.h"
 
+
 class GObjCamera : public GObj
 {
 public:
@@ -19,16 +20,8 @@ public:
     void resize(double width, double height);
     Tools::Rect getRect() const;
     virtual PMatrix getPMatrix() const;
-    void init() override final {
-        gObjPointer = ADD_CHILD(GObjPointer);
-    }
-    void recalc(DeltaT, GContext context) {
-        gObjPointer->context = context;
-        double width = height * ratio;
-        double x = (double)context.getX() * coeff - width / 2;
-        double y = -((double)context.getY() * coeff - height / 2);
-        gObjPointer->setPos(GPos(x,y,0));
-    }
+    void init() override final;
+    void recalc(DeltaT, GContext context);
 
 private:
     Size height;

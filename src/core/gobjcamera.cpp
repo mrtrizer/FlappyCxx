@@ -35,3 +35,15 @@ GObjCamera::PMatrix GObjCamera::getPMatrix() const {
            (rect.x2 + rect.x1) / (rect.x2 - rect.x1), (rect.y1 + rect.y2) / (rect.y1 - rect.y2), (far + near) / (far - near), 1.0f
     });
 }
+
+void GObjCamera::init() {
+    gObjPointer = ADD_CHILD(GObjPointer);
+}
+
+void GObjCamera::recalc(GObj::DeltaT, GContext context) {
+    gObjPointer->context = context;
+    double width = height * ratio;
+    double x = (double)context.getX() * coeff - width / 2;
+    double y = -((double)context.getY() * coeff - height / 2);
+    gObjPointer->setPos(GPos(x,y,0));
+}
