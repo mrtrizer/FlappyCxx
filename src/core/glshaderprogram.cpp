@@ -1,7 +1,7 @@
 #include <string>
 #include <iostream>
 
-#include "shader.h"
+#include "glshaderprogram.h"
 
 using namespace std;
 
@@ -19,7 +19,7 @@ using namespace std;
 /// Takes GLSL sources from nullterm strings.
 /// Prints logs if build problems.
 /// @throw shader_init_failed Initialization filed. See debug output.
-Shader::Shader(VertexSource vertexSource, FragmentSource fragmentSource) {
+GLShaderProgram::GLShaderProgram(VertexSource vertexSource, FragmentSource fragmentSource) {
     vertexShader = loadShader(GL_VERTEX_SHADER, vertexSource);
     fragmentShader = loadShader(GL_FRAGMENT_SHADER, fragmentSource);
 
@@ -41,7 +41,7 @@ Shader::Shader(VertexSource vertexSource, FragmentSource fragmentSource) {
     }
 }
 
-Shader::~Shader() {
+GLShaderProgram::~GLShaderProgram() {
     //TODO: Is it proper cleanup?
     glDetachShader(program, vertexShader);
     CHECK_GL_ERROR;
@@ -51,20 +51,20 @@ Shader::~Shader() {
     CHECK_GL_ERROR;
 }
 
-Shader::AttribLocation Shader::findAttr(Name name) const {
+GLShaderProgram::AttribLocation GLShaderProgram::findAttr(Name name) const {
     return glGetAttribLocation(getProgram(), name);
 }
 
-Shader::AttribLocation Shader::findUniform(Name name) const {
+GLShaderProgram::AttribLocation GLShaderProgram::findUniform(Name name) const {
     return glGetUniformLocation(getProgram(), name);
 }
 
-void Shader::bind() const {
+void GLShaderProgram::bind() const {
     glUseProgram(getProgram());
     CHECK_GL_ERROR;
 }
 
-void Shader::unbind() const {
+void GLShaderProgram::unbind() const {
     glUseProgram(0);
 }
 
@@ -72,7 +72,7 @@ void Shader::unbind() const {
 /// @param attribArray VBOs
 /// @param uniformFunc Define uniforms here with glUniform...() methods.
 /// @see AttribArray
-void Shader::render(const AttribArray & attribArray, UniformFunc uniformFunc = [](){}) const {
+void GLShaderProgram::render(const AttribArray & attribArray, UniformFunc uniformFunc = [](){}) const {
     bind();
     uniformFunc();
     attribArray.bind();
@@ -81,7 +81,7 @@ void Shader::render(const AttribArray & attribArray, UniformFunc uniformFunc = [
     unbind();
 }
 
-GLuint Shader::loadShader(ShaderType shaderType, ShaderSource source) {
+GLuint GLShaderProgram::loadShader(ShaderType shaderType, ShaderSource source) {
     GLuint shader = glCreateShader(shaderType);
     if (shader == 0)
         throw shader_init_failed();

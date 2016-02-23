@@ -1,7 +1,7 @@
 #ifndef GVIEW_H
 #define GVIEW_H
 
-#include "shader.h"
+#include "glshaderprogram.h"
 #include "tools.h"
 
 /// Interface for all object views.

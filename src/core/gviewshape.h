@@ -20,11 +20,11 @@ public:
     GViewShape();
     void draw(const PMatrix, const MVMatrix) override;
     virtual const AttribArray & getAttribArray() const = 0;
-    const Shader & getShader() const {return shader;}
+    const GLShaderProgram & getShader() const {return shader;}
     void setColorRGBA(ColorRGBA colorRGBA){this->colorRGBA = colorRGBA;}
 
 private:
-    Shader shader;
+    GLShaderProgram shader;
     ColorRGBA colorRGBA;
 };
 

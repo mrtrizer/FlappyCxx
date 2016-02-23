@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "shader.h"
+#include "glshaderprogram.h"
 #include "gworldmodel.h"
 #include "gobjcamera.h"
 #include "gviewshape.h"

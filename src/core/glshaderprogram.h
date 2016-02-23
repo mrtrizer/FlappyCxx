@@ -1,5 +1,5 @@
-#ifndef SHADER_H
-#define SHADER_H
+#ifndef GL_SHADER_PROGRAM_H
+#define GL_SHADER_PROGRAM_H
 
 
 #ifdef QT_CORE_LIB
@@ -15,7 +15,7 @@
 #include "attribarray.h"
 
 //TODO: Rename to GLShaderProgram
-class Shader {
+class GLShaderProgram {
 public:
     typedef const char * VertexSource;
     typedef const char * FragmentSource;
@@ -24,8 +24,8 @@ public:
     typedef const char * Name;
     typedef const std::function<void()>& UniformFunc;
 
-    Shader(VertexSource, FragmentSource);
-    ~Shader();
+    GLShaderProgram(VertexSource, FragmentSource);
+    ~GLShaderProgram();
     void render(const AttribArray &, UniformFunc) const;
     AttribLocation findAttr(Name) const;
     AttribLocation findUniform(Name) const;
@@ -48,4 +48,4 @@ private:
     GLuint loadShader(ShaderType, ShaderSource);
 };
 
-#endif // SHADER_H
+#endif // GL_SHADER_PROGRAM_H

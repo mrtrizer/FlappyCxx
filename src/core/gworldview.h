@@ -10,12 +10,12 @@
 #endif
 #include <vector>
 
-#include "shader.h"
+#include "glshaderprogram.h"
 #include "gltools.h"
 #include "attribarray.h"
 
 class GObjCamera;
-class Shader;
+class GLShaderProgram;
 class GWorldModel;
 
 /// View in MVC terms.
