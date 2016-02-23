@@ -24,7 +24,9 @@ HEADERS += \
     $$PWD/core/gcontext.h \
     $$PWD/core/glshaderprogram.h \
     $$PWD/core/glattribarray.h \
-    $$PWD/core/gtools.h
+    $$PWD/core/gtools.h \
+    $$PWD/core/gltexture.h \
+    $$PWD/core/gviewsprite.h
 
 
 SOURCES += \
@@ -44,6 +46,8 @@ SOURCES += \
     $$PWD/button.cpp \
     $$PWD/core/glshaderprogram.cpp \
     $$PWD/core/glattribarray.cpp \
-    $$PWD/core/gtools.cpp
+    $$PWD/core/gtools.cpp \
+    $$PWD/core/gltexture.cpp \
+    $$PWD/core/gviewsprite.cpp
 
 LIBS += -lGL -lglut -lGLEW -lGLU

@@ -6,7 +6,7 @@
 /// @brief Interface for all object views.
 /// Contains abstract draw() method for implementation in
 /// derived classes.
-class GView : public GTools::enable_shared_from_this_virtual<GView> {
+class GView : public GTools::enable_sptr<GView> {
 public:
     typedef float * PMatrix;
     typedef float * MVMatrix;

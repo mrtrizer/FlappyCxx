@@ -14,6 +14,7 @@ public:
     typedef const char * FragmentSource;
     typedef GLuint Program;
     typedef GLint AttribLocation;
+    typedef GLint UniformLocation;
     typedef const char * Name;
     typedef const std::function<void()>& UniformFunc;
 
@@ -21,7 +22,7 @@ public:
     ~GLShaderProgram();
     void render(const GLAttribArray &, UniformFunc) const;
     AttribLocation findAttr(Name) const;
-    AttribLocation findUniform(Name) const;
+    UniformLocation findUniform(Name) const;
     inline Program getProgram() const {return program;}
 
     class shader_init_failed {};

@@ -14,7 +14,7 @@ class GWorldModel;
 /// @brief Game object
 /// @details Component in Composite.
 /// @see GObj
-class GObj : public GTools::enable_shared_from_this_virtual<GObj> {
+class GObj : public GTools::enable_sptr<GObj> {
 public:
     typedef std::list<std::shared_ptr<GObj>> GObjPList;
     typedef std::shared_ptr<GObj> GObjP;

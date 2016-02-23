@@ -53,11 +53,15 @@ GLShaderProgram::~GLShaderProgram() {
 }
 
 GLShaderProgram::AttribLocation GLShaderProgram::findAttr(Name name) const {
-    return glGetAttribLocation(getProgram(), name);
+    AttribLocation result = glGetAttribLocation(getProgram(), name);
+    CHECK_GL_ERROR;
+    return result;
 }
 
-GLShaderProgram::AttribLocation GLShaderProgram::findUniform(Name name) const {
-    return glGetUniformLocation(getProgram(), name);
+GLShaderProgram::UniformLocation GLShaderProgram::findUniform(Name name) const {
+    UniformLocation result = glGetUniformLocation(getProgram(), name);
+    CHECK_GL_ERROR;
+    return result;
 }
 
 void GLShaderProgram::bind() const {

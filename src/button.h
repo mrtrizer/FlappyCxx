@@ -5,10 +5,10 @@
 
 #include "core/gobj.h"
 #include "core/gcollider.h"
-#include "core/gviewshape.h"
+#include "core/gviewsprite.h"
 
 /// Round button used in FlappyMenu
-class Button : public GObj, public GColliderCircle, public GViewCircle {
+class Button : public GObj, public GColliderCircle, public GViewSprite {
 public:
     typedef std::function<void()> OnClick;
 
