@@ -29,6 +29,7 @@ static void printGLString(const char *name, GLenum s) {
 }
 #endif
 
+/// Contains tools for working with OpenGL
 namespace GLTools {
 
 typedef float R;

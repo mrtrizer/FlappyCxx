@@ -8,7 +8,7 @@ GObjCamera::GObjCamera(Size height, Ratio ratio, WindowHeight windowHeight, GPos
     coeff(height / windowHeight) {
 }
 
-Tools::Rect GObjCamera::getRect() const {
+GObjCamera::Rect GObjCamera::getRect() const {
     GPos pos = getPosAbsolute();
     float offset = height / 2;
     return {

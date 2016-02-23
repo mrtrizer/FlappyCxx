@@ -1,12 +1,12 @@
 #ifndef GVIEW_H
 #define GVIEW_H
 
-#include "tools.h"
+#include "gtools.h"
 
-/// Interface for all object views.
+/// @brief Interface for all object views.
 /// Contains abstract draw() method for implementation in
 /// derived classes.
-class GView : public Tools::enable_shared_from_this_virtual<GView> {
+class GView : public GTools::enable_shared_from_this_virtual<GView> {
 public:
     typedef float * PMatrix;
     typedef float * MVMatrix;

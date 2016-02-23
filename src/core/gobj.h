@@ -5,7 +5,7 @@
 #include <memory>
 #include <vector>
 
-#include "tools.h"
+#include "gtools.h"
 #include "gpos.h"
 
 class GContext;
@@ -14,7 +14,7 @@ class GWorldModel;
 /// @brief Game object
 /// @details Component in Composite.
 /// @see GObj
-class GObj : public Tools::enable_shared_from_this_virtual<GObj> {
+class GObj : public GTools::enable_shared_from_this_virtual<GObj> {
 public:
     typedef std::list<std::shared_ptr<GObj>> GObjPList;
     typedef std::shared_ptr<GObj> GObjP;
@@ -23,19 +23,27 @@ public:
     explicit GObj(GPos = {0,0,0});
     virtual ~GObj(){}
 
+    void removeChild(const GObjP &gObj);
+    GObjP findChild(std::function<bool(const GObjP &)>) const;
+    GObjPList findChilds(std::function<bool(const GObjP &)>, bool recursive = true) const;
+    GObjPList findChilds(bool recursive = true) const;
     GObjPList findIntersectObjs(std::function<bool (const GObjP &)> check);
     GObjPList findIntersectObjs();
     virtual bool isIntersectWith(const GObjP &) const;
-    std::shared_ptr<GObj> getRoot() const;
+
+    inline const GObjP getParent() const {return parent.lock();}
+    GObjP getRoot();
 
     GPos getPosAbsolute() const;
     inline GPos & getPos() {return pos;}
     inline void setPos(const GPos & pos) {this->pos = pos;}
-    inline const GObjP getParent() const {return parent.lock();}
+
     virtual void recalc(DeltaT, const GContext &) {}
     virtual void init() {}
 
     /// Add child. Returns pointer to added object casted to needed type.
+    /// It is a template cuz ADD_CHILD macro hides only addChild method and can't affect
+    /// on returning type this way "someGObj->ADD_CHILD(SomeGObjT)"
     template<typename TCastTo = GObj>
     std::shared_ptr<TCastTo> addChild(const GObjP & child) {
         child->setParent(shared_from_this());
@@ -43,14 +51,6 @@ public:
         child->init();
         return std::dynamic_pointer_cast<TCastTo>(child);
     }
-    void removeChild(const GObjP &gObj);
-    GObjP findChild(std::function<bool(const GObjP &)>) const;
-    GObjPList findChilds(std::function<bool(const GObjP &)>, bool recursive = true) const;
-    GObjPList findChilds(bool recursive = true) const {
-        return findChilds([](const GObjP &){return true;}, recursive);
-    }
-
-    GObjP getRoot();
 
     class cant_find_child{};
     class no_valid_root{};

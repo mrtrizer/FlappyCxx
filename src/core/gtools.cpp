@@ -1,12 +1,12 @@
 #include <cmath>
 #include <functional>
 
-#include "tools.h"
+#include "gtools.h"
 #include "gcollider.h"
 #include "gobj.h"
 
 /// Common tools for model
-namespace Tools {
+namespace GTools {
 using namespace std;
 
 /// Intersect checking for two circles

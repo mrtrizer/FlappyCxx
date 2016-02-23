@@ -1,12 +1,12 @@
 #ifndef GCOLLIDER_H
 #define GCOLLIDER_H
 
-#include "tools.h"
+#include "gtools.h"
 
 /// Contains shape properties of an object.
 /// All objects implementing intersection processing has to be inherited from it.
 /// See intersection finding in the Tools namespace.
-class GCollider : public Tools::enable_shared_from_this_virtual<GCollider> {
+class GCollider : public GTools::enable_shared_from_this_virtual<GCollider> {
 public:
     GCollider();
     virtual ~GCollider(){}

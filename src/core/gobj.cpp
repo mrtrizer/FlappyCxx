@@ -1,5 +1,5 @@
 #include "gobj.h"
-#include "tools.h"
+#include "gtools.h"
 
 using namespace std;
 
@@ -19,9 +19,8 @@ GObj::GObjPList GObj::findIntersectObjs() {
     return findIntersectObjs([](const GObjP &){return true;});
 }
 
-
 bool GObj::isIntersectWith(const GObjP & gObj) const {
-    return Tools::isIntersect(*this, *gObj);
+    return GTools::isIntersect(*this, *gObj);
 }
 
 GPos GObj::getPosAbsolute() const {
@@ -47,6 +46,10 @@ GObj::GObjPList GObj::findChilds(std::function<bool(const GObjP &)> check, bool 
     GObjPList objList;
     addChildsToListR(objList, check, recursive);
     return objList;
+}
+
+GObj::GObjPList GObj::findChilds(bool recursive) const {
+    return findChilds([](const GObjP &){return true;}, recursive);
 }
 
 /// Compiles a tree to the list
