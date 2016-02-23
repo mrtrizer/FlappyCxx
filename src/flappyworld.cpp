@@ -4,7 +4,7 @@
 #include "flappyctrl.h"
 
 FlappyWorld::FlappyWorld(FlappyCtrl &flappyCtrl):flappyCtrl(flappyCtrl) {
-    std::srand(std::time(0));
+    srand48(std::time(0));
 }
 
 void FlappyWorld::recalc(GObj::DeltaT, const GContext &) {
@@ -19,6 +19,6 @@ void FlappyWorld::init() {
     for (int i = 0; i < 50; i++)
         getRoot()->ADD_CHILD(TubePair,POS(
                                  STEP * i, //x
-                                 std::rand() % 10 * 5.0f - 20.0f, //y
+                                 lrand48() % 10 * 5.0f - 20.0f, //y
                                  0));
 }
