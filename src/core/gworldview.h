@@ -12,7 +12,7 @@
 
 #include "glshaderprogram.h"
 #include "gltools.h"
-#include "attribarray.h"
+#include "glattribarray.h"
 
 class GObjCamera;
 class GLShaderProgram;

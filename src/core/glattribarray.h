@@ -1,5 +1,5 @@
-#ifndef ATTRIBARRAY_H
-#define ATTRIBARRAY_H
+#ifndef GL_ATTRIBARRAY_H
+#define GL_ATTRIBARRAY_H
 
 
 #ifdef QT_CORE_LIB
@@ -12,17 +12,16 @@
 
 #include "gltools.h"
 
-//TODO: Rename to GLAttribArray
 /// Contains VBOs, draw method and item count for drawArrays().
 /// Kinda mesh object.
 /// @see Shader
-class AttribArray {
+class GLAttribArray {
 public:
     typedef int Size;
     typedef unsigned int Method;
 
-    explicit AttribArray(Method = GL_TRIANGLES, Size = -1);
-    ~AttribArray();
+    explicit GLAttribArray(Method = GL_TRIANGLES, Size = -1);
+    ~GLAttribArray();
 
     void bind() const;
     void unbind() const;
@@ -66,4 +65,4 @@ private:
     Method method;
 };
 
-#endif // ATTRIBARRAY_H
+#endif // GL_ATTRIBARRAY_H

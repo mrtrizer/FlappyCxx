@@ -12,9 +12,8 @@
 #include <functional>
 
 #include "gltools.h"
-#include "attribarray.h"
+#include "glattribarray.h"
 
-//TODO: Rename to GLShaderProgram
 class GLShaderProgram {
 public:
     typedef const char * VertexSource;
@@ -26,7 +25,7 @@ public:
 
     GLShaderProgram(VertexSource, FragmentSource);
     ~GLShaderProgram();
-    void render(const AttribArray &, UniformFunc) const;
+    void render(const GLAttribArray &, UniformFunc) const;
     AttribLocation findAttr(Name) const;
     AttribLocation findUniform(Name) const;
     inline Program getProgram() const {return program;}

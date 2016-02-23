@@ -19,7 +19,7 @@ public:
 
     GViewShape();
     void draw(const PMatrix, const MVMatrix) override;
-    virtual const AttribArray & getAttribArray() const = 0;
+    virtual const GLAttribArray & getAttribArray() const = 0;
     const GLShaderProgram & getShader() const {return shader;}
     void setColorRGBA(ColorRGBA colorRGBA){this->colorRGBA = colorRGBA;}
 
@@ -32,11 +32,11 @@ private:
 class GViewCircle: public GViewShape {
 public:
     GViewCircle(int vertexCnt, double r);
-    const AttribArray & getAttribArray() const override {return circle; }
+    const GLAttribArray & getAttribArray() const override {return circle; }
 
 private:
     int vertexCnt;
-    AttribArray circle;
+    GLAttribArray circle;
 
     std::vector<GLTools::Vertex> circleTriangleFan(float r, int count);
 };
@@ -45,10 +45,10 @@ private:
 class GViewRect: public GViewShape {
 public:
     GViewRect(float width, float height);
-    const AttribArray & getAttribArray() const override {return rect;}
+    const GLAttribArray & getAttribArray() const override {return rect;}
 
 private:
-    AttribArray rect;
+    GLAttribArray rect;
 };
 
 #endif // GVIEWSHAPE_H

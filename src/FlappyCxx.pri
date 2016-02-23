@@ -6,7 +6,6 @@ HEADERS += \
     $$PWD/shapes/gobjrect.h \
     $$PWD/shapes/gobjcircle.h \
     $$PWD/core/tools.h \
-    $$PWD/core/attribarray.h \
     $$PWD/core/gltools.h \
     $$PWD/core/gobjcamera.h \
     $$PWD/core/gcollider.h \
@@ -24,14 +23,14 @@ HEADERS += \
     $$PWD/flappyslider.h \
     $$PWD/button.h \
     $$PWD/core/gcontext.h \
-    $$PWD/core/glshaderprogram.h
+    $$PWD/core/glshaderprogram.h \
+    $$PWD/core/glattribarray.h
 
 
 SOURCES += \
     $$PWD/core/gctrl.cpp \
     $$PWD/core/gobj.cpp \
     $$PWD/core/tools.cpp \
-    $$PWD/core/attribarray.cpp \
     $$PWD/core/gltools.cpp \
     $$PWD/core/gobjcamera.cpp \
     $$PWD/core/gcollider.cpp \
@@ -44,6 +43,7 @@ SOURCES += \
     $$PWD/flappyctrl.cpp \
     $$PWD/bird.cpp \
     $$PWD/button.cpp \
-    $$PWD/core/glshaderprogram.cpp
+    $$PWD/core/glshaderprogram.cpp \
+    $$PWD/core/glattribarray.cpp
 
 LIBS += -lGL -lglut -lGLEW -lGLU

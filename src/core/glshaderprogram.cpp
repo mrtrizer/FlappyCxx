@@ -72,7 +72,7 @@ void GLShaderProgram::unbind() const {
 /// @param attribArray VBOs
 /// @param uniformFunc Define uniforms here with glUniform...() methods.
 /// @see AttribArray
-void GLShaderProgram::render(const AttribArray & attribArray, UniformFunc uniformFunc = [](){}) const {
+void GLShaderProgram::render(const GLAttribArray & attribArray, UniformFunc uniformFunc = [](){}) const {
     bind();
     uniformFunc();
     attribArray.bind();

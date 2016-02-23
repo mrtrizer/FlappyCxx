@@ -1,17 +1,17 @@
-#include "attribarray.h"
+#include "glattribarray.h"
 
 ///@param size Count of items for glDrawArrays()
-AttribArray::AttribArray(Method method, Size size):
+GLAttribArray::GLAttribArray(Method method, Size size):
     size(size),
     method(method){
 }
 
-AttribArray::~AttribArray() {
+GLAttribArray::~GLAttribArray() {
     //TODO: Do I need unbind VBOs? How to do it properly?
     //glDeleteBuffers(vboBufs.size(),vboBufs.data());
 }
 
-void AttribArray::bind() const {
+void GLAttribArray::bind() const {
     for (auto vbo: vboBufs) {
         glBindBuffer(GL_ARRAY_BUFFER, vbo.id);
         CHECK_GL_ERROR;
@@ -23,7 +23,7 @@ void AttribArray::bind() const {
     }
 }
 
-void AttribArray::unbind() const {
+void GLAttribArray::unbind() const {
     for (auto vbo: vboBufs) {
         glDisableVertexAttribArray(vbo.attr);
         CHECK_GL_ERROR;
