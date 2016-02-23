@@ -1,7 +1,6 @@
 #ifndef GVIEW_H
 #define GVIEW_H
 
-#include "glshaderprogram.h"
 #include "tools.h"
 
 /// Interface for all object views.
@@ -9,8 +8,8 @@
 /// derived classes.
 class GView : public Tools::enable_shared_from_this_virtual<GView> {
 public:
-    typedef GLfloat * PMatrix;
-    typedef GLfloat * MVMatrix;
+    typedef float * PMatrix;
+    typedef float * MVMatrix;
     virtual ~GView(){}
     virtual void draw(const PMatrix, const MVMatrix) = 0;
 };

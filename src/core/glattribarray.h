@@ -1,13 +1,6 @@
 #ifndef GL_ATTRIBARRAY_H
 #define GL_ATTRIBARRAY_H
 
-
-#ifdef QT_CORE_LIB
-#include <GL/glew.h>
-#else
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#endif
 #include <vector>
 
 #include "gltools.h"

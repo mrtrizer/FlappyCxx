@@ -1,18 +1,12 @@
 #ifndef GL_SHADER_PROGRAM_H
 #define GL_SHADER_PROGRAM_H
 
-
-#ifdef QT_CORE_LIB
-#include <GL/glew.h>
-#else
-#include <GLES2/gl2.h>
-#include <GLES2/gl2ext.h>
-#endif
 #include <iostream>
 #include <functional>
 
 #include "gltools.h"
-#include "glattribarray.h"
+
+class GLAttribArray;
 
 class GLShaderProgram {
 public:

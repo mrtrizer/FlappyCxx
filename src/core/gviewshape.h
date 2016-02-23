@@ -5,6 +5,9 @@
 
 #include "gview.h"
 #include "gcollider.h"
+#include "glshaderprogram.h"
+#include "glattribarray.h"
+#include "gltools.h"
 
 /// Contains shader for all shapes and draw implementation.
 /// All derived classes have to impmelent getAttribArray().

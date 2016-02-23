@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "glshaderprogram.h"
+#include "glattribarray.h"
 
 using namespace std;
 
