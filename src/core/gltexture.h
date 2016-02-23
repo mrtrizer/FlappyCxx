@@ -7,9 +7,7 @@
 class GLTexture
 {
 public:
-    typedef char * Path;
-
-    GLTexture(const Path &);
+    GLTexture();
     ~GLTexture() {} //TODO: glDeleteTexture
     void bind(GLShaderProgram::UniformLocation uniformLoc, int n);
 

@@ -17,7 +17,7 @@ static const char gFragmentShader[] =
     "uniform vec4 uColor;\n"
     "varying vec2 vTexCoord;\n"
     "void main() {\n"
-    "   gl_FragColor = texture(uTex,vTexCoord);\n"
+    "   gl_FragColor = texture2D(uTex,vTexCoord);\n"
     "}\n";
 
 GViewSprite::GViewSprite(float width, float height, const GLTexture & texture) :

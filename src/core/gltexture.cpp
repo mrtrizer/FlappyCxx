@@ -1,15 +1,16 @@
 #include "gltexture.h"
 
-struct Image {
-    unsigned int width;
-    unsigned int height;
-};
-Image image = {128,128};
 
-unsigned int data [128 * 128];
-
-GLTexture::GLTexture(const Path & path)
+GLTexture::GLTexture()
 {
+    struct Image {
+        unsigned int width;
+        unsigned int height;
+    };
+    Image image = {128,128};
+
+    unsigned int data [128 * 128];
+
     for (int i = 0; i < image.width * image.height;i++)
         data[i] = 0xFF0000FF + i;
 

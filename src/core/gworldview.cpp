@@ -17,14 +17,14 @@ void GWorldView::init() {
 
     glClearColor(0, 0, 0, 0);
     glEnable(GL_DEPTH_TEST);
-    glEnable(GL_TEXTURE_2D);
+    //glEnable(GL_TEXTURE_2D);
     CHECK_GL_ERROR;
     resize(width, height);
 }
 
 GWorldView::~GWorldView() {
     glDisable(GL_DEPTH_TEST);
-    glDisable(GL_TEXTURE_2D);
+    //glDisable(GL_TEXTURE_2D);
 }
 
 void GWorldView::setGWorldModel(GWorldModelP gWorldModel) {
