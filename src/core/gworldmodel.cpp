@@ -15,7 +15,7 @@ void GWorldModel::initWorld() {
     init();
 }
 
-void GWorldModel::run(GContext context) {
+void GWorldModel::run(const GContext & context) {
     auto newTime = chrono::steady_clock::now();
     float deltaT = chrono::duration <float, milli> (newTime - lastTime).count() / 1000.0f;
     lastTime = newTime;

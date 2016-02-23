@@ -1,5 +1,6 @@
 #include "button.h"
 #include "core/gobjpointer.h"
+#include "core/gcontext.h"
 
 Button::Button(const Button::OnClick &onClick, GPos pos):
     GObj(pos),
@@ -8,7 +9,7 @@ Button::Button(const Button::OnClick &onClick, GPos pos):
     onClick(onClick)
 {}
 
-void Button::recalc(GObj::DeltaT, GContext context) {
+void Button::recalc(GObj::DeltaT, const GContext & context) {
     auto pointers = findIntersectObjs([](const GObj::GObjP & i){return typeid(*i) == typeid(GObjPointer);});
     if (pointers.size() == 1) {
         setColorRGBA({1.0,0,0,1.0});

@@ -3,6 +3,8 @@
 
 #include <vector>
 
+/// GPos determines coordinates of an object.
+/// Can be extended to work with matrixes.
 class GPos {
 public:
     typedef std::vector<float> MvMatrix;

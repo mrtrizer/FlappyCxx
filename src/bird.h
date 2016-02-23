@@ -9,7 +9,7 @@
 class Bird: public GObj, public GColliderCircle, public GViewCircle {
 public:
     Bird(GPos pos);
-    void recalc(DeltaT deltaT, GContext gContext) override;
+    void recalc(DeltaT deltaT, const GContext &) override;
 
 private:
     float speed = 0;

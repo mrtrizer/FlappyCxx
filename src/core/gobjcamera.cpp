@@ -1,4 +1,5 @@
 #include "gobjcamera.h"
+#include "gcontext.h"
 
 GObjCamera::GObjCamera(Size height, Ratio ratio, WindowHeight windowHeight, GPos pos):
     GObj(pos),
@@ -40,8 +41,7 @@ void GObjCamera::init() {
     gObjPointer = ADD_CHILD(GObjPointer);
 }
 
-void GObjCamera::recalc(GObj::DeltaT, GContext context) {
-    gObjPointer->context = context;
+void GObjCamera::recalc(GObj::DeltaT, const GContext & context) {
     double width = height * ratio;
     double x = (double)context.getX() * coeff - width / 2;
     double y = -((double)context.getY() * coeff - height / 2);

@@ -13,7 +13,7 @@ public:
     typedef std::function<void()> OnClick;
 
     explicit Button(const OnClick & onClick, GPos pos = {0,0,0});
-    void recalc(DeltaT, GContext context);
+    void recalc(DeltaT, const GContext &) override;
 
 private:
     OnClick onClick;

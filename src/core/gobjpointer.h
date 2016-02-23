@@ -5,18 +5,14 @@
 #include "gcollider.h"
 #include "gviewshape.h"
 
-class GObjPointer: public GObj, public GColliderCircle, public GViewCircle {
-    friend class GObjCamera;
+/// Mouse pointer in a game world. It is created and managerd by
+/// GObjCamera, because it knows about screen parameters.
+class GObjPointer: public GObj, public GColliderCircle {
 public:
     GObjPointer():
         GObj(GPos(0,0,0)),
-        GColliderCircle(0.1),
-        GViewCircle(10,0.1)
+        GColliderCircle(0.1)
     {}
-    inline GContext getContext() {return context;}
-
-private:
-    GContext context;
 };
 
 #endif // GOBJPOINTER_H

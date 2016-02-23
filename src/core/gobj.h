@@ -7,8 +7,8 @@
 
 #include "tools.h"
 #include "gpos.h"
-#include "gcontext.h"
 
+class GContext;
 class GWorldModel;
 
 /// @brief Game object
@@ -32,7 +32,7 @@ public:
     inline GPos & getPos() {return pos;}
     inline void setPos(const GPos & pos) {this->pos = pos;}
     inline const GObjP getParent() const {return parent.lock();}
-    virtual void recalc(DeltaT, GContext) {}
+    virtual void recalc(DeltaT, const GContext &) {}
     virtual void init() {}
 
     /// Add child. Returns pointer to added object casted to needed type.

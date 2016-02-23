@@ -6,6 +6,7 @@
 #include "flappyworld.h"
 #include "flappymenu.h"
 #include "core/gworldview.h"
+#include "core/gcontext.h"
 
 class FlappyCtrl {
 public:

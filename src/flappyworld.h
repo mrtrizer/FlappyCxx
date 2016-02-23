@@ -17,7 +17,7 @@ public:
     FlappyWorld(FlappyCtrl & flappyCtrl);
 
 protected:
-    void recalc(GObj::DeltaT, GContext) override;
+    void recalc(GObj::DeltaT, const GContext &) override;
     virtual void init() override;
 
 private:

@@ -5,7 +5,10 @@
 #include "tools.h"
 #include "gobjpointer.h"
 
-
+/// Game camera. Contains screen parameters.
+/// A camera can be set as active in GWordCtrl and used by View
+/// to get a perspective transformation matrix. Also camera
+/// manages coordinates of GObjPointer object.
 class GObjCamera : public GObj
 {
 public:
@@ -21,7 +24,7 @@ public:
     Tools::Rect getRect() const;
     virtual PMatrix getPMatrix() const;
     void init() override final;
-    void recalc(DeltaT, GContext context);
+    void recalc(DeltaT, const GContext &);
 
 private:
     Size height;

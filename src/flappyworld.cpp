@@ -7,7 +7,7 @@ FlappyWorld::FlappyWorld(FlappyCtrl &flappyCtrl):flappyCtrl(flappyCtrl) {
     std::srand(std::time(0));
 }
 
-void FlappyWorld::recalc(GObj::DeltaT, GContext) {
+void FlappyWorld::recalc(GObj::DeltaT, const GContext &) {
     auto intersectList = flappySlider->getBird()->findIntersectObjs([](const GObj::GObjP & i){return typeid(*i) == typeid(Tube);});
     if (intersectList.size() > 0)
         flappyCtrl.putSymbol(FlappyCtrl::STOP);
