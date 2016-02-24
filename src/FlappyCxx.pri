@@ -26,7 +26,9 @@ HEADERS += \
     $$PWD/core/glattribarray.h \
     $$PWD/core/gtools.h \
     $$PWD/core/gltexture.h \
-    $$PWD/core/gviewsprite.h
+    $$PWD/core/gviewsprite.h \
+    $$PWD/core/gviewfactory.h \
+    $$PWD/core/gpresenter.h
 
 
 SOURCES += \
@@ -48,6 +50,8 @@ SOURCES += \
     $$PWD/core/glattribarray.cpp \
     $$PWD/core/gtools.cpp \
     $$PWD/core/gltexture.cpp \
-    $$PWD/core/gviewsprite.cpp
+    $$PWD/core/gviewsprite.cpp \
+    $$PWD/core/gviewfactory.cpp \
+    $$PWD/core/gpresenter.cpp
 
 LIBS += -lGL -lglut -lGLEW -lGLU

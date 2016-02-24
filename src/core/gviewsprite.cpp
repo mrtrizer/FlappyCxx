@@ -20,16 +20,15 @@ static const char gFragmentShader[] =
     "   gl_FragColor = texture2D(uTex,vTexCoord);\n"
     "}\n";
 
-GViewSprite::GViewSprite(float width, float height, const GLTexture & texture) :
+GViewSprite::GViewSprite(const std::shared_ptr<GLTexture> &glTexture) :
     shader(gVertexShader, gFragmentShader),
-    rect(GL_TRIANGLE_STRIP),
-    texture(texture) {
+    rect(GL_TRIANGLE_STRIP) {
 
     std::vector<GLTools::Vertex> vertexList({
                                                 {0,0},
-                                                {0,height},
-                                                {width,0},
-                                                {width,height}
+                                                {0,10},
+                                                {10,0},
+                                                {10,10}
                                             });
     std::vector<GLTools::Vertex> textureCoordList({{0,0},{0,1},{1,0},{1,1}});
     rect.addVBO<GLTools::Vertex>(vertexList.data(),
