@@ -27,6 +27,12 @@ GLTexture::GLTexture(const uchar *bits, int width, int height):
             oldWidth >>= 1;
             oldHeight >>= 1;
         } while (oldWidth || oldHeight);
+
+        uvs[2].u = (float)width / newWidth;
+        uvs[3].u = (float)width / newWidth;
+        uvs[1].v = (float)height / newWidth;
+        uvs[3].v = (float)height / newWidth;
+
         //data buffer for square image
         char * newPixBuf = new char[newWidth * newWidth * 4]();
         //image will be located at the top left corner of newPixBuf
