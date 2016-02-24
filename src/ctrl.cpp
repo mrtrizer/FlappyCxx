@@ -1,12 +1,12 @@
-#include "flappyctrl.h"
+#include "ctrl.h"
 #include "core/gviewfactory.h"
 
-FlappyCtrl::FlappyCtrl(const std::shared_ptr<IGViewFactory> & factory){
-    gWorldView = std::make_shared<GWorldView>(factory);
-}
+Ctrl::Ctrl(const std::shared_ptr<GWorldView> &gWorldView):
+    gWorldView(gWorldView)
+{}
 
 /// Switch current world. It's used to switch between FlappyMenu and FlappyWorld
-void FlappyCtrl::setWorld(std::shared_ptr<GWorldModel> gWorld) {
+void Ctrl::setWorld(std::shared_ptr<GWorldModel> gWorld) {
     curWorld = gWorld;
     curWorld->initWorld();
     gWorldView->setGWorldModel(curWorld);
@@ -15,18 +15,18 @@ void FlappyCtrl::setWorld(std::shared_ptr<GWorldModel> gWorld) {
 
 /// World initialization
 /// @see setWorld()
-void FlappyCtrl::init() {
-    setWorld(std::make_shared<FlappyMenu>(*this));
+void Ctrl::init() {
+    setWorld(std::make_shared<Menu>(*this));
 }
 
 /// Mouse click event
-void FlappyCtrl::mouseClick(int x, int y) {
+void Ctrl::mouseClick(int x, int y) {
     mouseMove(x,y);
     gContext.setMouseEvent(GContext::CLICK);
 }
 
 /// Mouse move event
-void FlappyCtrl::mouseMove(int x, int y) {
+void Ctrl::mouseMove(int x, int y) {
     gContext.setX(x);
     gContext.setY(y);
 }
@@ -34,40 +34,40 @@ void FlappyCtrl::mouseMove(int x, int y) {
 /// Resize View
 /// @see GObjCamera
 /// @see GWorldView
-void FlappyCtrl::resize(int width, int height) {
+void Ctrl::resize(int width, int height) {
     gWorldView->resize(width, height);
 }
 
 /// Call a game loop step
-void FlappyCtrl::step() {
+void Ctrl::step() {
     curWorld->run(gContext);
     gContext.setMouseEvent(GContext::EMPTY);
 }
 
 /// Redraw View
-void FlappyCtrl::glRedraw() {
+void Ctrl::glRedraw() {
     gWorldView->redraw();
 }
 
 /// Pass new symbol to the state machine.
 /// @see FlappyMenu
 /// @see FlappyWorld
-void FlappyCtrl::putSymbol(FlappyCtrl::Symbol symbol) {
+void Ctrl::putSymbol(Ctrl::Symbol symbol) {
     state = automat(symbol);
 }
 
 /// Handle new symbol and return new state
-FlappyCtrl::State FlappyCtrl::automat(FlappyCtrl::Symbol symbol) {
+Ctrl::State Ctrl::automat(Ctrl::Symbol symbol) {
     switch (state) {
     case MENU: switch (symbol) {
         case START:
-            setWorld(std::make_shared<FlappyWorld>(*this));
+            setWorld(std::make_shared<World>(*this));
             return GAME;
         default:;
         }
     case GAME: switch (symbol) {
         case STOP:
-            setWorld(std::make_shared<FlappyMenu>(*this));
+            setWorld(std::make_shared<Menu>(*this));
             return MENU;
         default:;
         }

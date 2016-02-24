@@ -1,13 +1,13 @@
 #include <cstdlib>
 
-#include "flappyworld.h"
-#include "flappyctrl.h"
+#include "world.h"
+#include "ctrl.h"
 
-FlappyWorld::FlappyWorld(FlappyCtrl &flappyCtrl):flappyCtrl(flappyCtrl) {
+World::World(Ctrl &flappyCtrl):flappyCtrl(flappyCtrl) {
     srand48(std::time(0));
 }
 
-void FlappyWorld::recalc(GObj::DeltaT, const GContext &) {
+void World::recalc(GObj::DeltaT, const GContext &) {
 
     auto intersectList = flappySlider->getBird()->findIntersectObjs([](const GObj::GObjP & i){
         return typeid(*i) == typeid(Coin);});
@@ -28,11 +28,11 @@ void FlappyWorld::recalc(GObj::DeltaT, const GContext &) {
         return typeid(*i) == typeid(Tube) ||
                 typeid(*i) == typeid(Floor);});
     if (intersectList.size() > 0) //TODO: Move up and fix segfault
-        flappyCtrl.putSymbol(FlappyCtrl::STOP);
+        flappyCtrl.putSymbol(Ctrl::STOP);
 }
 
-void FlappyWorld::init() {
-    flappySlider = getRoot()->ADD_CHILD(FlappySlider,POS(-100,0,0));
+void World::init() {
+    flappySlider = getRoot()->ADD_CHILD(Slider,POS(-100,0,0));
     setActiveCamera(flappySlider->ADD_CHILD(GObjCamera,100,1.0,500,POS(0,0,0)));
     for (int i = 0; i < 50; i++)
         getRoot()->ADD_CHILD(TubePair,POS(

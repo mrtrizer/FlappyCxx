@@ -1,7 +1,7 @@
 #ifndef GVIEWSPRITE_H
 #define GVIEWSPRITE_H
 
-#include "gview.h"
+#include "core/gview.h"
 #include "glshaderprogram.h"
 #include "glattribarray.h"
 #include "gltexture.h"

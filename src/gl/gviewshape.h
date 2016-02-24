@@ -3,8 +3,7 @@
 
 #include <memory>
 
-#include "gview.h"
-#include "gcollider.h"
+#include "core/gview.h"
 #include "glshaderprogram.h"
 #include "glattribarray.h"
 #include "gltools.h"

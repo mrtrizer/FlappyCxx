@@ -9,7 +9,7 @@
 #include "floor.h"
 
 /// Contains a bird and an instance of GObjCamera (added in FlappyWorld::init)
-class FlappySlider: public GObj {
+class Slider: public GObj {
 public:
     using GObj::GObj;
 
@@ -25,8 +25,8 @@ protected:
         ADD_CHILD(Floor,300,POS(-150,-60,0));
         ADD_CHILD(Floor,300,POS(-150,50,0));
         bird = ADD_CHILD(Bird,POS(0,0,1));
-        for (int i = 0; i < 30; i++)
-            ADD_CHILD(GDecor,"ground",10,10,POS(-200 + i * 9.9,-50,1));
+//        for (int i = 0; i < 30; i++)
+//            ADD_CHILD(GDecor,"ground",10,10,POS(-200 + i * 9.9,-50,1));
     }
 
 private:

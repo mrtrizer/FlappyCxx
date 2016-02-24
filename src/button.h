@@ -7,7 +7,6 @@
 #include "core/gcollider.h"
 #include "core/gpresenter.h"
 
-/// Round button used in FlappyMenu
 class Button : public GObj, public GColliderRect, public GPresenterSprite {
 public:
     typedef std::function<void()> OnClick;

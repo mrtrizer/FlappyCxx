@@ -1,12 +1,14 @@
 #include "glviewfactoryqt.h"
+#include "gl/gltexture.h"
 
-GLViewFactoryQt::GLViewFactoryQt()
+GLViewFactoryQt::GLViewFactoryQt(QString path):
+    path(path)
 {
 
 }
 
-std::shared_ptr<GLTexture> GLViewFactoryQt::getGLTexture(std::string path) const {
-    QImage image(QString("../test/") + QString::fromStdString(path) + QString(".png"));
+std::shared_ptr<GLTexture> GLViewFactoryQt::getGLTexture(std::string name) const {
+    QImage image(path + QString::fromStdString(name) + QString(".png"));
     const uchar * bits = image.bits();
     auto result = std::make_shared<GLTexture>(bits, image.width(), image.height());
     return result;

@@ -1,10 +1,9 @@
 #include <cstring>
 
 #include "gltexture.h"
-#include "gtools.h"
+#include "core/gtools.h"
 
 GLTexture::GLTexture(const uchar *bits, int width, int height):
-    //uvs({{0,0},{0,1},{1,0},{1,1}}),
     uvs({{0,1},{0,0},{1,1},{1,0}})
 {
     glPixelStorei(GL_UNPACK_ALIGNMENT,1);

@@ -5,17 +5,17 @@
 
 #include "core/gworldmodel.h"
 #include "core/gobjcamera.h"
-#include "flappyslider.h"
+#include "slider.h"
 #include "bird.h"
 #include "tube.h"
 #include "floor.h"
 
-class FlappyCtrl;
+class Ctrl;
 
-class FlappyWorld: public GWorldModel
+class World: public GWorldModel
 {
 public:
-    FlappyWorld(FlappyCtrl & flappyCtrl);
+    World(Ctrl & flappyCtrl);
 
 protected:
     void recalc(GObj::DeltaT, const GContext &) override;
@@ -23,8 +23,8 @@ protected:
 
 private:
     double speed;
-    FlappyCtrl & flappyCtrl;
-    std::shared_ptr<FlappySlider> flappySlider;
+    Ctrl & flappyCtrl;
+    std::shared_ptr<Slider> flappySlider;
     static constexpr float STEP = 50.0f;
     std::queue<std::shared_ptr<GDecor>> groundQueue;
     float lastX = 0;

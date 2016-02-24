@@ -1,5 +1,4 @@
 #include "gviewshape.h"
-#include "gobj.h"
 
 static const char gVertexShader[] =
     "attribute vec2 aPosition;\n"

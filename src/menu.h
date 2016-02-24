@@ -3,17 +3,17 @@
 
 #include "core/gworldmodel.h"
 
-class FlappyCtrl;
+class Ctrl;
 
 /// Main menu world (scene)
-class FlappyMenu :public GWorldModel
+class Menu :public GWorldModel
 {
 public:
-    FlappyMenu(FlappyCtrl & flappyCtrl);
+    Menu(Ctrl & flappyCtrl);
     void init();
 
 private:
-    FlappyCtrl & flappyCtrl;
+    Ctrl & flappyCtrl;
 };
 
 #endif // FLAPPYMENU_H

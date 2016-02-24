@@ -10,8 +10,8 @@
 #endif
 #include <vector>
 
-#include "glshaderprogram.h"
-#include "gltools.h"
+#include "gl/glshaderprogram.h"
+#include "gl/gltools.h"
 #include "glattribarray.h"
 
 class GObjCamera;

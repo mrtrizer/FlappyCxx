@@ -9,43 +9,47 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 
-#include <core/gworldview.h>
+#include <gl/gworldview.h>
 #include <core/gworldmodel.h>
 #include <shapes/gobjcircle.h>
 #include <core/gobjcamera.h>
 #include <shapes/gobjrect.h>
-#include <flappyworld.h>
-#include <flappyctrl.h>
+#include <world.h>
+#include <ctrl.h>
 
 #include "test_gobj.h"
 #include "glviewfactoryqt.h"
 
-FlappyCtrl flappyCtrl(std::make_shared<GLViewFactoryQt>());
+std::shared_ptr<GWorldView> gWorld;
+std::shared_ptr<Ctrl> flappyCtrl;
 
 void render() {
-    flappyCtrl.glRedraw();
+    flappyCtrl->glRedraw();
     glutSwapBuffers();
     glutPostRedisplay();
-    flappyCtrl.step(); //only for test
+    flappyCtrl->step(); //only for test
 }
 
 void resizeWindow(int width, int height) {
-    flappyCtrl.resize(width, height);
+    flappyCtrl->resize(width, height);
 }
 
 void mouseFunc(int button, int state,
                int x, int y) {
     (void)button;
     (void)state;
-    flappyCtrl.mouseClick(x,y);
+    flappyCtrl->mouseClick(x,y);
 }
 
 void passiveMotionFunc(int x, int y) {
-    flappyCtrl.mouseMove(x,y);
+    flappyCtrl->mouseMove(x,y);
 }
 
 int main(int argc, char** argv)
 {
+    gWorld = std::make_shared<GWorldView>(std::make_shared<GLViewFactoryQt>("../res/"));
+    flappyCtrl = std::make_shared<Ctrl>(gWorld);
+
     int status = 0;
 
     glutInit(&argc, argv);
@@ -54,7 +58,7 @@ int main(int argc, char** argv)
     glutCreateWindow("FlappyCxx");
     glewInit();
 
-    flappyCtrl.init();
+    flappyCtrl->init();
 
     const auto RUN_TEST = [&status, argc, argv] (QObject * obj) {
         status |= QTest::qExec(obj, argc, argv);

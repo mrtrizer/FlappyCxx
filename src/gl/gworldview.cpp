@@ -6,10 +6,10 @@
 #include <sstream>
 
 #include "glshaderprogram.h"
-#include "gworldmodel.h"
-#include "gobjcamera.h"
-#include "gview.h"
-#include "gpresenter.h"
+#include "core/gworldmodel.h"
+#include "core/gobjcamera.h"
+#include "core/gview.h"
+#include "core/gpresenter.h"
 
 using namespace std;
 

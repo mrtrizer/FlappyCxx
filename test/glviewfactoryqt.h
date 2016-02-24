@@ -3,13 +3,15 @@
 
 #include <QImage>
 
-#include <core/gviewfactory.h>
+#include <gl/glviewfactory.h>
 
 class GLViewFactoryQt :public GLViewFactory
 {
 public:
-    GLViewFactoryQt();
-    virtual std::shared_ptr<GLTexture> getGLTexture(std::string path) const override;
+    GLViewFactoryQt(QString path);
+    virtual std::shared_ptr<GLTexture> getGLTexture(std::string name) const override;
+private:
+    QString path;
 };
 
 #endif // GLVIEWFACTORYQT_H

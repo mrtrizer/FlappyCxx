@@ -3,17 +3,17 @@
 
 #include <memory>
 
-#include "flappyworld.h"
-#include "flappymenu.h"
-#include "core/gworldview.h"
+#include "world.h"
+#include "menu.h"
+#include "gl/gworldview.h"
 #include "core/gcontext.h"
 
-class FlappyCtrl {
+class Ctrl {
 public:
     enum State {MENU, GAME};
     enum Symbol {START, STOP};
 
-    FlappyCtrl(const std::shared_ptr<IGViewFactory> &factory);
+    Ctrl(const std::shared_ptr<GWorldView> &gWorldView);
     void init();
     void mouseClick(int x, int y);
     void mouseMove(int x, int y);
@@ -26,7 +26,7 @@ private:
     std::shared_ptr<GWorldModel> curWorld;
     std::shared_ptr<GWorldView> gWorldView;
     GContext gContext;
-    State state;
+    State state = MENU;
 
     void setWorld(std::shared_ptr<GWorldModel> gWorld);
     State automat(Symbol symbol);
