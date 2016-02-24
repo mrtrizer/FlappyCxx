@@ -1,4 +1,4 @@
-#include "gworldview.h"
+#include "glworldview.h"
 
 #include <string>
 #include <iostream>
@@ -10,41 +10,26 @@
 #include "core/gobjcamera.h"
 #include "core/gview.h"
 #include "core/gpresenter.h"
+#include "glshaderprogram.h"
+#include "gltools.h"
+#include "glattribarray.h"
 
 using namespace std;
 
-void GWorldView::init() {
+void GLWorldView::init() {
     LOGI("OpenGL Version: %s\n", glGetString(GL_VERSION));
-
     glClearColor(0.0, 0.0, 0.0, 0.0);
-    //glEnable(GL_DEPTH_TEST);
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable (GL_BLEND);
-    //glEnable(GL_TEXTURE_2D);
     CHECK_GL_ERROR;
-    resize(width, height);
+    resize(lastWidth, lastHeight);
 }
 
-GWorldView::~GWorldView() {
+GLWorldView::~GLWorldView() {
     glDisable(GL_DEPTH_TEST);
-    //glDisable(GL_TEXTURE_2D);
 }
 
-void GWorldView::setGWorldModel(GWorldModelP gWorldModel) {
-    this->gWorld = gWorldModel;
-    resize(width, height);
-}
-
-void GWorldView::resize(double width, double height) {
-    this->width = width;
-    this->height = height;
-    glViewport(0, 0, width, height);
-    if (gWorld != nullptr) {
-        gWorld->getActiveCamera()->resize(width, height);
-    }
-}
-
-void GWorldView::redraw() {
+void GLWorldView::redraw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if (gWorld == nullptr)
@@ -67,4 +52,8 @@ void GWorldView::redraw() {
 
         presenter->getGView(*factory)->draw(pMatrix.data(), mvMatrix.data());
     }
+}
+
+void GLWorldView::updateViewPort() {
+    glViewport(0, 0, lastWidth, lastHeight);
 }

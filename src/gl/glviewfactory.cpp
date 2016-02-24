@@ -1,10 +1,10 @@
 #include "glviewfactory.h"
-#include "gviewshape.h"
-#include "gviewsprite.h"
+#include "glviewshape.h"
+#include "glviewsprite.h"
 
 IGViewFactory::GViewP GLViewFactory::getGViewSprite(const GPresenter &presenter) const {
     auto presenterSprite = dynamic_cast<const GPresenterSprite &>(presenter);
-    return std::make_shared<GViewSprite>(getGLTexture(presenterSprite.getPath()),
+    return std::make_shared<GLViewSprite>(getGLTexture(presenterSprite.getPath()),
                                          presenterSprite.getWidth(),
                                          presenterSprite.getHeight());
 }

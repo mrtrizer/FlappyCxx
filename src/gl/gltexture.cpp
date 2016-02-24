@@ -48,7 +48,7 @@ GLTexture::GLTexture(const uchar *bits, int width, int height):
         for (int i = 0; i < height; i++)
             std::memcpy(&newPixBuf[i * newWidth * 4], &bits[i * width * 4], width * 4);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-                     newWidth, newWidth, 0, GL_RGBA, GL_UNSIGNED_BYTE,
+                     newWidth, newWidth, 0, GL_BGRA, GL_UNSIGNED_BYTE,
                      static_cast<const GLvoid*>(newPixBuf));
         CHECK_GL_ERROR;
         delete newPixBuf;

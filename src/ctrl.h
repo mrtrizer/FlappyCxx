@@ -5,7 +5,7 @@
 
 #include "world.h"
 #include "menu.h"
-#include "gl/gworldview.h"
+#include "gl/glworldview.h"
 #include "core/gcontext.h"
 
 class Ctrl {
@@ -13,7 +13,7 @@ public:
     enum State {MENU, GAME};
     enum Symbol {START, STOP};
 
-    Ctrl(const std::shared_ptr<GWorldView> &gWorldView);
+    Ctrl(const std::shared_ptr<GLWorldView> &gWorldView);
     void init();
     void mouseClick(int x, int y);
     void mouseMove(int x, int y);
@@ -24,7 +24,7 @@ public:
 
 private:
     std::shared_ptr<GWorldModel> curWorld;
-    std::shared_ptr<GWorldView> gWorldView;
+    std::shared_ptr<GLWorldView> gWorldView;
     GContext gContext;
     State state = MENU;
 

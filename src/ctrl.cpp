@@ -1,7 +1,7 @@
 #include "ctrl.h"
 #include "core/gviewfactory.h"
 
-Ctrl::Ctrl(const std::shared_ptr<GWorldView> &gWorldView):
+Ctrl::Ctrl(const std::shared_ptr<GLWorldView> &gWorldView):
     gWorldView(gWorldView)
 {}
 

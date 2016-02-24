@@ -1,4 +1,4 @@
-#include "gviewshape.h"
+#include "glviewshape.h"
 
 static const char gVertexShader[] =
     "attribute vec2 aPosition;\n"
@@ -16,7 +16,7 @@ static const char gFragmentShader[] =
     "   gl_FragColor = uColor;\n"
     "}\n";
 
-GViewShape::GViewShape() :
+GLViewShape::GLViewShape() :
     shader(gVertexShader, gFragmentShader),
     colorRGBA({1.0f, 1.0f, 1.0f, 1.0f}){
 
@@ -35,7 +35,7 @@ std::vector<GLTools::Vertex> GViewCircle::circleTriangleFan(float r, int count) 
     return vertexList;
 }
 
-void GViewShape::draw(const PMatrix pMatrix, const MVMatrix mvMatrix) {
+void GLViewShape::draw(const PMatrix pMatrix, const MVMatrix mvMatrix) {
     shader.render(getAttribArray(), [this, mvMatrix, pMatrix](){
         glUniformMatrix4fv(shader.findUniform("uMVMatrix"),1,false,mvMatrix);
         glUniformMatrix4fv(shader.findUniform("uPMatrix"),1,false,pMatrix);

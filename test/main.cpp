@@ -9,7 +9,7 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 
-#include <gl/gworldview.h>
+#include <gl/glworldview.h>
 #include <core/gworldmodel.h>
 #include <shapes/gobjcircle.h>
 #include <core/gobjcamera.h>
@@ -20,7 +20,7 @@
 #include "test_gobj.h"
 #include "glviewfactoryqt.h"
 
-std::shared_ptr<GWorldView> gWorld;
+std::shared_ptr<GLWorldView> gWorld;
 std::shared_ptr<Ctrl> flappyCtrl;
 
 void render() {
@@ -47,7 +47,7 @@ void passiveMotionFunc(int x, int y) {
 
 int main(int argc, char** argv)
 {
-    gWorld = std::make_shared<GWorldView>(std::make_shared<GLViewFactoryQt>("../res/"));
+    gWorld = std::make_shared<GLWorldView>(std::make_shared<GLViewFactoryQt>("../res/"));
     flappyCtrl = std::make_shared<Ctrl>(gWorld);
 
     int status = 0;

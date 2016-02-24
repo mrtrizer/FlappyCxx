@@ -3,7 +3,7 @@
 
 #include <functional>
 
-class GWorldView;
+class GLWorldView;
 class GWorldFlappy;
 
 /// @brief Game Controller
@@ -21,7 +21,7 @@ private:
     GCtrl(const GCtrl &){}
     ~GCtrl(){}
     static GCtrl * instance;
-    GWorldView * gView = nullptr;
+    GLWorldView * gView = nullptr;
     GWorldFlappy * gWorld = nullptr;
     std::function<void()> finishCb;
 };

@@ -1,2 +1,0 @@
-#include "gviewfactory.h"
-
