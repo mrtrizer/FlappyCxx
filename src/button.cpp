@@ -2,9 +2,9 @@
 #include "core/gobjpointer.h"
 #include "core/gcontext.h"
 
-Button::Button(const Button::OnClick &onClick, GPos pos):
+Button::Button(const Button::OnClick &onClick, int width, int height, GPos pos):
     GObj(pos),
-    GColliderCircle(3),
+    GColliderRect(width,height),
     GPresenterSprite("test"),
     onClick(onClick)
 {}

@@ -1,18 +1,19 @@
 #include "gltexture.h"
 
 
-GLTexture::GLTexture()
+GLTexture::GLTexture(const uchar *bits, int width, int height):
+    uvs({{0,0},{0,1},{1,0},{1,1}})
 {
-    struct Image {
-        unsigned int width;
-        unsigned int height;
-    };
-    Image image = {128,128};
+//    struct Image {
+//        unsigned int width;
+//        unsigned int height;
+//    };
+//    Image image = {128,128};
 
-    unsigned int data [128 * 128];
+//    unsigned int data [128 * 128];
 
-    for (int i = 0; i < image.width * image.height;i++)
-        data[i] = 0xFF0000FF + i;
+//    for (int i = 0; i < image.width * image.height;i++)
+//        data[i] = 0xFF0000FF + i;
 
     glPixelStorei(GL_UNPACK_ALIGNMENT,1);
     CHECK_GL_ERROR;
@@ -24,7 +25,7 @@ GLTexture::GLTexture()
     CHECK_GL_ERROR;
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     CHECK_GL_ERROR;
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)bits);
     CHECK_GL_ERROR;
     glBindTexture(GL_TEXTURE_2D,0);
     CHECK_GL_ERROR;
@@ -38,3 +39,5 @@ void GLTexture::bind(GLShaderProgram::UniformLocation uniformLoc, int n) {
     glUniform1i(uniformLoc, 0);
     CHECK_GL_ERROR;
 }
+
+

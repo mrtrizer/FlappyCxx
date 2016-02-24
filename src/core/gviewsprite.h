@@ -15,7 +15,7 @@ public:
 private:
     GLShaderProgram shader;
     GLAttribArray rect;
-    GLTexture texture;
+    std::shared_ptr<GLTexture> texture;
 };
 
 #endif // GVIEWSPRITE_H

@@ -24,7 +24,7 @@ class GWorldView {
 public:
     typedef std::shared_ptr<GWorldModel> GWorldModelP;
 
-    GWorldView(std::shared_ptr<IGViewFactory> factory):
+    GWorldView(const std::shared_ptr<IGViewFactory> & factory):
         factory(factory)
     {}
     ~GWorldView();

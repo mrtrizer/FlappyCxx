@@ -10,5 +10,5 @@ void FlappyMenu::init() {
     setActiveCamera(getRoot()->ADD_CHILD(GObjCamera,100,1,500,POS(0,0,0)));
     getRoot()->ADD_CHILD(Button,[this](){
         flappyCtrl.putSymbol(FlappyCtrl::START);
-    }, POS(0,0,0));
+    }, 10, 10, POS(0,0,0));
 }

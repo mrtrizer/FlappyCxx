@@ -13,7 +13,7 @@ public:
     enum State {MENU, GAME};
     enum Symbol {START, STOP};
 
-    FlappyCtrl();
+    FlappyCtrl(const std::shared_ptr<IGViewFactory> &factory);
     void init();
     void mouseClick(int x, int y);
     void mouseMove(int x, int y);

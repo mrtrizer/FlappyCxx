@@ -8,11 +8,11 @@
 #include "core/gpresenter.h"
 
 /// Round button used in FlappyMenu
-class Button : public GObj, public GColliderCircle, public GPresenterSprite {
+class Button : public GObj, public GColliderRect, public GPresenterSprite {
 public:
     typedef std::function<void()> OnClick;
 
-    explicit Button(const OnClick & onClick, GPos pos = {0,0,0});
+    explicit Button(const OnClick & onClick, int width, int height, GPos pos = {0,0,0});
     void recalc(DeltaT, const GContext &) override;
 
 private:

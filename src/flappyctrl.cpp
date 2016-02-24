@@ -1,8 +1,8 @@
 #include "flappyctrl.h"
 #include "core/gviewfactory.h"
 
-FlappyCtrl::FlappyCtrl(){
-    gWorldView = std::make_shared<GWorldView>(std::make_shared<GLViewFactoryDesktop>());
+FlappyCtrl::FlappyCtrl(const std::shared_ptr<IGViewFactory> & factory){
+    gWorldView = std::make_shared<GWorldView>(factory);
 }
 
 /// Switch current world. It's used to switch between FlappyMenu and FlappyWorld

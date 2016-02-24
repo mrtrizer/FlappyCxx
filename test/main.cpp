@@ -18,8 +18,9 @@
 #include <flappyctrl.h>
 
 #include "test_gobj.h"
+#include "glviewfactoryqt.h"
 
-FlappyCtrl flappyCtrl;
+FlappyCtrl flappyCtrl(std::make_shared<GLViewFactoryQt>());
 
 void render() {
     flappyCtrl.glRedraw();

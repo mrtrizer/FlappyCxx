@@ -1,18 +1,26 @@
 #ifndef GLTEXTURE_H
 #define GLTEXTURE_H
 
+#include <vector>
+
 #include "gltools.h"
 #include "glshaderprogram.h"
 
-class GLTexture
-{
+class GLTexture {
 public:
-    GLTexture();
+    struct UV {
+        GLfloat u;
+        GLfloat v;
+    };
+
+    GLTexture(const uchar * bits, int width, int height);
     ~GLTexture() {} //TODO: glDeleteTexture
     void bind(GLShaderProgram::UniformLocation uniformLoc, int n);
+    inline std::vector<UV> getUVs() const { return uvs; }
 
 private:
     GLuint texture;
+    std::vector<UV> uvs;
 };
 
 #endif // GLTEXTURE_H

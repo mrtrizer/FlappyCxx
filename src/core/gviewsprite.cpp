@@ -22,7 +22,8 @@ static const char gFragmentShader[] =
 
 GViewSprite::GViewSprite(const std::shared_ptr<GLTexture> &glTexture) :
     shader(gVertexShader, gFragmentShader),
-    rect(GL_TRIANGLE_STRIP) {
+    rect(GL_TRIANGLE_STRIP),
+    texture(glTexture){
 
     std::vector<GLTools::Vertex> vertexList({
                                                 {0,0},
@@ -30,13 +31,13 @@ GViewSprite::GViewSprite(const std::shared_ptr<GLTexture> &glTexture) :
                                                 {10,0},
                                                 {10,10}
                                             });
-    std::vector<GLTools::Vertex> textureCoordList({{0,0},{0,1},{1,0},{1,1}});
+
     rect.addVBO<GLTools::Vertex>(vertexList.data(),
                                  vertexList.size() * sizeof(GLTools::Vertex),
                                  GL_FLOAT,
                                  shader.findAttr("aPosition"));
-    rect.addVBO<GLTools::Vertex>(textureCoordList.data(),
-                                 textureCoordList.size() * sizeof(GLTools::Vertex),
+    rect.addVBO<GLTexture::UV>(texture->getUVs().data(),
+                                 texture->getUVs().size() * sizeof(GLTools::Vertex),
                                  GL_FLOAT,
                                  shader.findAttr("aTexCoord"));
 }
@@ -46,7 +47,7 @@ void GViewSprite::draw(const PMatrix pMatrix, const MVMatrix mvMatrix) {
         glUniformMatrix4fv(shader.findUniform("uMVMatrix"),1,false,mvMatrix);
         glUniformMatrix4fv(shader.findUniform("uPMatrix"),1,false,pMatrix);
         glUniform4f(shader.findUniform("uColor"),0,0,0,1);
-        texture.bind(shader.findUniform("uTex"), 0);
+        texture->bind(shader.findUniform("uTex"), 0);
     });
 }
 

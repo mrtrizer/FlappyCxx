@@ -1,5 +1,4 @@
 QT += core testlib
-QT -= gui
 
 TARGET = test
 CONFIG += console
@@ -14,7 +13,9 @@ QMAKE_CXXFLAGS += -std=c++1y
 
 DEFINES += VIEW_TYPE=GL
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    glviewfactoryqt.cpp
 HEADERS += \
-    test_gobj.h
+    test_gobj.h \
+    glviewfactoryqt.h
 

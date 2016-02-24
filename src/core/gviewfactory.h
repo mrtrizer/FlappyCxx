@@ -42,10 +42,4 @@ private:
     const int CIRCLE_VERTEX_CNT = 30;
 };
 
-class GLViewFactoryDesktop: public GLViewFactory {
-    virtual std::shared_ptr<GLTexture> getGLTexture(std::string path) const override {
-        return std::make_shared<GLTexture>();
-    }
-};
-
 #endif // GVIEWFACTORY_H
