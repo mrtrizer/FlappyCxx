@@ -50,8 +50,8 @@ int main(int argc, char** argv)
 
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGBA | GLUT_ALPHA | GLUT_DOUBLE | GLUT_MULTISAMPLE);
-    glutInitWindowSize(800, 600);
-    glutCreateWindow("Simple shaders");
+    glutInitWindowSize(400, 600);
+    glutCreateWindow("FlappyCxx");
     glewInit();
 
     flappyCtrl.init();

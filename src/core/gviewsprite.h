@@ -9,7 +9,7 @@
 class GViewSprite : public GView
 {
 public:
-    GViewSprite(const std::shared_ptr<GLTexture> &glTexture);
+    GViewSprite(const std::shared_ptr<GLTexture> &glTexture, float width, float height);
     void draw(const PMatrix, const MVMatrix) override;
 
 private:

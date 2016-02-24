@@ -16,8 +16,10 @@ using namespace std;
 void GWorldView::init() {
     LOGI("OpenGL Version: %s\n", glGetString(GL_VERSION));
 
-    glClearColor(0.3, 0.3, 0.3, 0);
-    glEnable(GL_DEPTH_TEST);
+    glClearColor(0.0, 0.0, 0.0, 0.0);
+    //glEnable(GL_DEPTH_TEST);
+    glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable (GL_BLEND);
     //glEnable(GL_TEXTURE_2D);
     CHECK_GL_ERROR;
     resize(width, height);

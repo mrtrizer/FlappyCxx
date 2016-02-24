@@ -31,7 +31,7 @@ GPos GObj::getPosAbsolute() const {
 }
 
 void GObj::removeChild(const std::shared_ptr<GObj> & gObj) {
-    children.remove(findChild([gObj](const std::shared_ptr<GObj> & i){return i == gObj;}));
+    gObj->getParent()->children.remove(gObj);
 }
 
 /// Search a child recursively using check callback for validation.

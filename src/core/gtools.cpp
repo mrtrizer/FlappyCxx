@@ -23,7 +23,7 @@ bool isIntersect(const GColliderCircle & gCollider1, const GColliderCircle & gCo
 
 /// Intersect checking for circle and rect
 bool isIntersect(const GColliderRect & rect, const GColliderCircle & circle, const GObj & gObj1, const GObj & gObj2) {
-    //see http://yal.cc/rectangle-circle-intersection-test/
+    //http://yal.cc/rectangle-circle-intersection-test/
     auto r = circle.getR();
     auto width = rect.getWidth();
     auto height = rect.getHeight();
@@ -82,6 +82,11 @@ bool isIntersect(const GObj &gObj1, const GObj &gObj2) {
         return done.getResult();
     }
     return false;
+}
+
+//http://stackoverflow.com/questions/108318/whats-the-simplest-way-to-test-whether-a-number-is-a-power-of-2-in-c
+bool isPowOfTwo(int x) {
+    return !(x == 0) && !(x & (x - 1));
 }
 
 }

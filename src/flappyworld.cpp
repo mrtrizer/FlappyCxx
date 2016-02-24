@@ -8,8 +8,26 @@ FlappyWorld::FlappyWorld(FlappyCtrl &flappyCtrl):flappyCtrl(flappyCtrl) {
 }
 
 void FlappyWorld::recalc(GObj::DeltaT, const GContext &) {
-    auto intersectList = flappySlider->getBird()->findIntersectObjs([](const GObj::GObjP & i){return typeid(*i) == typeid(Tube);});
-    if (intersectList.size() > 0)
+
+    auto intersectList = flappySlider->getBird()->findIntersectObjs([](const GObj::GObjP & i){
+        return typeid(*i) == typeid(Coin);});
+    if (intersectList.size() > 0) {
+        getRoot()->removeChild(intersectList.front());
+        score++;
+    }
+//    float x = flappySlider->getPosAbsolute().getX() + 300;
+//    if (lastX < x) {
+//        groundQueue.push(getRoot()->ADD_CHILD(GDecor,"ground",10,10,POS(lastX - 200,-50,1)));
+//        lastX = x + 9.9;
+//    }
+//    if (groundQueue.size() > 30) {
+//        getRoot()->removeChild(groundQueue.front());
+//        groundQueue.pop();
+//    }
+    intersectList = flappySlider->getBird()->findIntersectObjs([](const GObj::GObjP & i){
+        return typeid(*i) == typeid(Tube) ||
+                typeid(*i) == typeid(Floor);});
+    if (intersectList.size() > 0) //TODO: Move up and fix segfault
         flappyCtrl.putSymbol(FlappyCtrl::STOP);
 }
 
@@ -20,5 +38,7 @@ void FlappyWorld::init() {
         getRoot()->ADD_CHILD(TubePair,POS(
                                  STEP * i, //x
                                  lrand48() % 10 * 5.0f - 20.0f, //y
-                                 0));
+                                 1));
+//    for (int i = 0; i < 30; i++)
+//        groundQueue.push(getRoot()->ADD_CHILD(GDecor,"ground",10,10,POS(-200 + i * 9.9,-50,1)));
 }

@@ -21,15 +21,21 @@ private:
 
 class GPresenterSprite : public GPresenter {
 public:
-    GPresenterSprite(std::string path):
-        path(path)
+    GPresenterSprite(std::string path, float width, float height):
+        path(path),
+        width(width),
+        height(height)
     {}
     virtual ~GPresenterSprite(){}
     inline std::string getPath() const { return path; }
+    inline float getWidth() const { return width; }
+    inline float getHeight() const { return height; }
 protected:
     virtual std::shared_ptr<GView> makeGView(const IGViewFactory & factory) override;
 private:
     std::string path;
+    float width;
+    float height;
 };
 
 class GPresenterCircle : public GPresenter {

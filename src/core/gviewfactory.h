@@ -27,7 +27,9 @@ public:
     virtual ~GLViewFactory() {}
     virtual GViewP getGViewSprite(const GPresenter & presenter) const override {
         auto presenterSprite = dynamic_cast<const GPresenterSprite &>(presenter);
-        return std::make_shared<GViewSprite>(getGLTexture(presenterSprite.getPath()));
+        return std::make_shared<GViewSprite>(getGLTexture(presenterSprite.getPath()),
+                                             presenterSprite.getWidth(),
+                                             presenterSprite.getHeight());
     }
     virtual GViewP getGViewCircle(const GPresenter & presenter) const override {
         auto presenterCircle = dynamic_cast<const GPresenterCircle &>(presenter);

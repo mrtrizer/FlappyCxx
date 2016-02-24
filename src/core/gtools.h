@@ -24,6 +24,8 @@ namespace GTools
     };
 
     bool isIntersect(const GObj &, const GObj &);
+    bool isPowOfTwo(int x);
+
     class not_implemented {};
     class unknown_intersect_obj {};
 }
