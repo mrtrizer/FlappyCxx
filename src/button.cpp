@@ -5,7 +5,7 @@
 Button::Button(const Button::OnClick &onClick, GPos pos):
     GObj(pos),
     GColliderCircle(3),
-    GViewSprite(std::make_shared<GLTexture>()),
+    GPresenterSprite("test"),
     onClick(onClick)
 {}
 

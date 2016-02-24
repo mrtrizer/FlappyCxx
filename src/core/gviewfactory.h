@@ -31,7 +31,7 @@ public:
     }
     virtual GViewP getGViewCircle(const GPresenter & presenter) const override {
         auto presenterCircle = dynamic_cast<const GPresenterCircle &>(presenter);
-        return std::make_shared<GViewCircle>(CIRCLE_VERTEX_CNT, presenterCircle.getR());
+        return std::make_shared<GViewCircle>(CIRCLE_VERTEX_CNT, presenterCircle.getR_());
     }
     virtual GViewP getGViewRect(const GPresenter & presenter) const override {
         auto presenterRect = dynamic_cast<const GPresenterRect &>(presenter);
@@ -40,6 +40,12 @@ public:
     virtual std::shared_ptr<GLTexture> getGLTexture(std::string path) const = 0;
 private:
     const int CIRCLE_VERTEX_CNT = 30;
+};
+
+class GLViewFactoryDesktop: public GLViewFactory {
+    virtual std::shared_ptr<GLTexture> getGLTexture(std::string path) const override {
+        return std::make_shared<GLTexture>();
+    }
 };
 
 #endif // GVIEWFACTORY_H

@@ -8,7 +8,8 @@
 #include "glshaderprogram.h"
 #include "gworldmodel.h"
 #include "gobjcamera.h"
-#include "gviewshape.h"
+#include "gview.h"
+#include "gpresenter.h"
 
 using namespace std;
 
@@ -55,13 +56,13 @@ void GWorldView::redraw() {
     for (std::shared_ptr<GObj> gObj: root) {
 
         //If it's a visible object
-        auto view = std::dynamic_pointer_cast<GView>(gObj);
-        if (view == nullptr)
+        auto presenter = std::dynamic_pointer_cast<GPresenter>(gObj);
+        if (presenter == nullptr)
             continue;
 
         //Get move matrix of the object
         auto mvMatrix = gObj->getPosAbsolute().getMvMatrix();
 
-        view->draw(pMatrix.data(), mvMatrix.data());
+        presenter->getGView(*factory)->draw(pMatrix.data(), mvMatrix.data());
     }
 }

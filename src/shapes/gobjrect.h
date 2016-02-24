@@ -3,14 +3,14 @@
 
 #include "core/gobj.h"
 #include "core/gcollider.h"
-#include "core/gview.h"
+#include "core/gpresenter.h"
 
-class GObjRect: public GObj, public GColliderRect, public GViewRect {
+class GObjRect: public GObj, public GColliderRect, public GPresenterRect {
 public:
     explicit GObjRect(Size width, Size height, GPos pos):
         GObj(pos),
         GColliderRect(width,height),
-        GViewRect(width, height)
+        GPresenterRect(width, height)
     {}
     virtual ~GObjRect(){}
 };

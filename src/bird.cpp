@@ -4,7 +4,7 @@
 Bird::Bird(GPos pos):
     GObj(pos),
     GColliderCircle(RADIUS),
-    GViewCircle(CIRCLE_VERTEX_CNT, RADIUS) {}
+    GPresenterCircle(RADIUS) {}
 
 void Bird::recalc(GObj::DeltaT deltaT, const GContext &gContext) {
     if (gContext.getMouseEvent() == GContext::CLICK)

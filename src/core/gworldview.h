@@ -17,12 +17,16 @@
 class GObjCamera;
 class GLShaderProgram;
 class GWorldModel;
+class IGViewFactory;
 
 /// View in MVC terms.
 class GWorldView {
 public:
     typedef std::shared_ptr<GWorldModel> GWorldModelP;
 
+    GWorldView(std::shared_ptr<IGViewFactory> factory):
+        factory(factory)
+    {}
     ~GWorldView();
     void setGWorldModel(GWorldModelP gWorldModel);
     void redraw();
@@ -31,6 +35,7 @@ public:
 
 private:
     GWorldModelP gWorld;
+    std::shared_ptr<IGViewFactory> factory;
 
     std::vector<GLfloat> getPMatrix(const std::shared_ptr<GObjCamera> &);
 
