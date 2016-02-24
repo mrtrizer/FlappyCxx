@@ -3,7 +3,7 @@
 
 #include "core/gviewfactory.h"
 
-class GLViewFactory: public IGViewFactory {
+class GLViewFactory: public GViewFactory {
 public:
     virtual ~GLViewFactory() {}
     virtual GViewP getGViewSprite(const GPresenter & presenter) const override;

@@ -6,15 +6,15 @@
 
 #include "gtools.h"
 
-class IGViewFactory;
+class GViewFactory;
 class GView;
 
 class GPresenter : public GTools::enable_sptr<GPresenter> {
 public:
     virtual ~GPresenter(){}
-    std::shared_ptr<GView> getGView(const IGViewFactory & factory);
+    std::shared_ptr<GView> getGView(const GViewFactory & factory);
 protected:
-    virtual std::shared_ptr<GView> makeGView(const IGViewFactory & factory) = 0;
+    virtual std::shared_ptr<GView> makeGView(const GViewFactory & factory) = 0;
 private:
     std::shared_ptr<GView> gView;
 };
@@ -31,7 +31,7 @@ public:
     inline float getWidth() const { return width; }
     inline float getHeight() const { return height; }
 protected:
-    virtual std::shared_ptr<GView> makeGView(const IGViewFactory & factory) override;
+    virtual std::shared_ptr<GView> makeGView(const GViewFactory & factory) override;
 private:
     std::string path;
     float width;
@@ -46,7 +46,7 @@ public:
     virtual ~GPresenterCircle(){}
     inline float getR_() const { return r; }
 protected:
-    virtual std::shared_ptr<GView> makeGView(const IGViewFactory & factory) override;
+    virtual std::shared_ptr<GView> makeGView(const GViewFactory & factory) override;
 private:
     float r;
 };
@@ -61,7 +61,7 @@ public:
     inline float getWidth() const { return width; }
     inline float getHeight() const { return height; }
 protected:
-    virtual std::shared_ptr<GView> makeGView(const IGViewFactory & factory) override;
+    virtual std::shared_ptr<GView> makeGView(const GViewFactory & factory) override;
 private:
     float width;
     float height;

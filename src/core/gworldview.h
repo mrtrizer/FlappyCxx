@@ -6,13 +6,13 @@
 #include "gviewfactory.h"
 
 class GWorldModel;
-class IGViewFactory;
+class GViewFactory;
 
 class GWorldView {
 public:
     typedef std::shared_ptr<GWorldModel> GWorldModelP;
 
-    GWorldView(const std::shared_ptr<IGViewFactory> & factory):
+    GWorldView(const std::shared_ptr<GViewFactory> & factory):
         factory(factory)
     {}
     virtual ~GWorldView(){}
@@ -25,7 +25,7 @@ protected:
     int lastWidth = 100;
     int lastHeight = 100;
     GWorldModelP gWorld;
-    std::shared_ptr<IGViewFactory> factory;
+    std::shared_ptr<GViewFactory> factory;
 
     virtual void updateViewPort() = 0;
 };

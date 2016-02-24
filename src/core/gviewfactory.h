@@ -9,12 +9,12 @@
 class GView;
 class GLTexture;
 
-class IGViewFactory
+class GViewFactory
 {
 public:
     typedef std::shared_ptr<GView> GViewP;
 
-    virtual ~IGViewFactory() {}
+    virtual ~GViewFactory() {}
     virtual GViewP getGViewSprite(const GPresenter &) const = 0;
     virtual GViewP getGViewCircle(const GPresenter & ) const = 0;
     virtual GViewP getGViewRect(const GPresenter & ) const = 0;
