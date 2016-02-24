@@ -5,7 +5,7 @@
 Button::Button(const Button::OnClick &onClick, int width, int height, GPos pos):
     GObj(pos),
     GColliderRect(width,height),
-    GPresenterSprite("test"),
+    GPresenterSprite("test2"),
     onClick(onClick)
 {}
 

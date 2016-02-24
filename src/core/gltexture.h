@@ -14,7 +14,7 @@ public:
     };
 
     GLTexture(const uchar * bits, int width, int height);
-    ~GLTexture() {} //TODO: glDeleteTexture
+    ~GLTexture();
     void bind(GLShaderProgram::UniformLocation uniformLoc, int n);
     inline std::vector<UV> getUVs() const { return uvs; }
 

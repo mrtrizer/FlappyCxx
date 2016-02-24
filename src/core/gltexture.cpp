@@ -1,19 +1,27 @@
+#include <cstring>
+
 #include "gltexture.h"
 
 
 GLTexture::GLTexture(const uchar *bits, int width, int height):
     uvs({{0,0},{0,1},{1,0},{1,1}})
 {
-//    struct Image {
-//        unsigned int width;
-//        unsigned int height;
-//    };
-//    Image image = {128,128};
+    int oldWidth = width;
+    int oldHeight = height;
+    //max and nearest power of two
+    int newWidth = 1;
+    do {
+        newWidth <<= 1;
+        oldWidth >>= 1;
+        oldHeight >>= 1;
+    } while (oldWidth || oldHeight);
 
-//    unsigned int data [128 * 128];
+    //data buffer for square image
+    char * newPixBuf = new char[newWidth * newWidth * 4]();
 
-//    for (int i = 0; i < image.width * image.height;i++)
-//        data[i] = 0xFF0000FF + i;
+    //image will be located at the top left corner of newPixBuf
+    for (int i = 0; i < height; i++)
+        std::memcpy(&newPixBuf[i * newWidth * 4], &bits[i * width * 4], width * 4);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT,1);
     CHECK_GL_ERROR;
@@ -25,9 +33,14 @@ GLTexture::GLTexture(const uchar *bits, int width, int height):
     CHECK_GL_ERROR;
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     CHECK_GL_ERROR;
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)bits);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, newWidth, newWidth, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)newPixBuf);
     CHECK_GL_ERROR;
     glBindTexture(GL_TEXTURE_2D,0);
+    CHECK_GL_ERROR;
+}
+
+GLTexture::~GLTexture() {
+    glDeleteTextures(1,&texture);
     CHECK_GL_ERROR;
 }
 
