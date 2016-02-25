@@ -4,7 +4,16 @@
 
 GViewFactory::GViewP GLViewFactory::getGViewSprite(const GPresenter &presenter) const {
     auto presenterSprite = dynamic_cast<const GPresenterSprite &>(presenter);
-    return std::make_shared<GLViewSprite>(getGLTexture(presenterSprite.getPath()),
+    std::shared_ptr<GLTexture> texture;
+    auto texturePath = presenterSprite.getPath();
+    auto mapIter = textureMap.find(texturePath);
+    if (mapIter == textureMap.end()) {
+        texture = getGLTexture(presenterSprite.getPath());
+        textureMap[texturePath] = texture;
+    } else {
+        texture = mapIter->second;
+    }
+    return std::make_shared<GLViewSprite>(texture,
                                          presenterSprite.getWidth(),
                                          presenterSprite.getHeight());
 }
