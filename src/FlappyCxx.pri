@@ -32,7 +32,8 @@ HEADERS += \
     $$PWD/gl/glworldview.h \
     $$PWD/gl/glviewshape.h \
     $$PWD/gl/glviewsprite.h \
-    $$PWD/core/gworldview.h
+    $$PWD/core/gworldview.h \
+    $$PWD/gl/glview.h
 
 
 SOURCES += \

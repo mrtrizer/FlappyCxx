@@ -5,7 +5,7 @@
 
 namespace GLTools {
 
-//TODO: Get error description without GLUT
+//TODO: Error description without GLUT for Android
 void checkOpenGLerror(const char * file, const char * func, int line) {
     GLenum errCode = glGetError();
     if(errCode != GL_NO_ERROR)

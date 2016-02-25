@@ -1,6 +1,6 @@
 #include "glviewshape.h"
 
-static const char gVertexShader[] =
+static const char shapeVShader[] =
     "attribute vec2 aPosition;\n"
     "uniform mat4 uMVMatrix;\n"
     "uniform mat4 uPMatrix;\n"
@@ -9,7 +9,7 @@ static const char gVertexShader[] =
     "   gl_Position = uPMatrix * uMVMatrix * vec4(aPosition,0,1);\n"
     "}\n";
 
-static const char gFragmentShader[] =
+static const char shapeFShader[] =
     "precision mediump float;\n"
     "uniform vec4 uColor;\n"
     "void main() {\n"
@@ -17,7 +17,7 @@ static const char gFragmentShader[] =
     "}\n";
 
 GLViewShape::GLViewShape() :
-    shader(gVertexShader, gFragmentShader),
+    GLView(shapeVShader, shapeFShader),
     colorRGBA({1.0f, 1.0f, 1.0f, 1.0f}){
 
 }
@@ -36,10 +36,10 @@ std::vector<GLTools::Vertex> GViewCircle::circleTriangleFan(float r, int count) 
 }
 
 void GLViewShape::draw(const PMatrix pMatrix, const MVMatrix mvMatrix) {
-    shader.render(getAttribArray(), [this, mvMatrix, pMatrix](){
-        glUniformMatrix4fv(shader.findUniform("uMVMatrix"),1,false,mvMatrix);
-        glUniformMatrix4fv(shader.findUniform("uPMatrix"),1,false,pMatrix);
-        glUniform4fv(shader.findUniform("uColor"),1, reinterpret_cast<GLfloat *>(&colorRGBA));
+    getShader()->render(getAttribArray(), [this, mvMatrix, pMatrix](){
+        glUniformMatrix4fv(getShader()->findUniform("uMVMatrix"),1,false,mvMatrix);
+        glUniformMatrix4fv(getShader()->findUniform("uPMatrix"),1,false,pMatrix);
+        glUniform4fv(getShader()->findUniform("uColor"),1, reinterpret_cast<GLfloat *>(&colorRGBA));
     });
 }
 
@@ -50,7 +50,7 @@ GViewCircle::GViewCircle(int vertexCnt, double r):
     circle.addVBO<GLTools::Vertex>(vertexList.data(),                           //data array
                                    vertexList.size() * sizeof(GLTools::Vertex), //size
                                    GL_FLOAT,                                    //item format
-                                   getShader().findAttr("aPosition")            //attribute id
+                                   getShader()->findAttr("aPosition")            //attribute id
                                    );
 }
 
@@ -66,5 +66,5 @@ GViewRect::GViewRect(float width, float height):
     rect.addVBO<GLTools::Vertex>(vertexList.data(),
                                  vertexList.size() * sizeof(GLTools::Vertex),
                                  GL_FLOAT,
-                                 getShader().findAttr("aPosition"));
+                                 getShader()->findAttr("aPosition"));
 }

@@ -1,6 +1,6 @@
 #include "glviewsprite.h"
 
-static const char gVertexShader[] =
+static const char spriteVShader[] =
     "attribute vec2 aPosition;\n"
     "attribute vec2 aTexCoord;\n"
     "uniform mat4 uMVMatrix;\n"
@@ -11,7 +11,7 @@ static const char gVertexShader[] =
     "   gl_Position = uPMatrix * uMVMatrix * vec4(aPosition,0,1);\n"
     "}\n";
 
-static const char gFragmentShader[] =
+static const char spriteFShader[] =
     "precision mediump float;\n"
     "uniform sampler2D uTex;\n"
     "uniform vec4 uColor;\n"
@@ -21,7 +21,7 @@ static const char gFragmentShader[] =
     "}\n";
 
 GLViewSprite::GLViewSprite(const std::shared_ptr<GLTexture> &glTexture, float width, float height) :
-    shader(gVertexShader, gFragmentShader),
+    GLView<GLViewSprite>(spriteVShader, spriteFShader),
     rect(GL_TRIANGLE_STRIP),
     texture(glTexture){
 
@@ -35,19 +35,19 @@ GLViewSprite::GLViewSprite(const std::shared_ptr<GLTexture> &glTexture, float wi
     rect.addVBO<GLTools::Vertex>(vertexList.data(),
                                  vertexList.size() * sizeof(GLTools::Vertex),
                                  GL_FLOAT,
-                                 shader.findAttr("aPosition"));
+                                 getShader()->findAttr("aPosition"));
     rect.addVBO<GLTexture::UV>(texture->getUVs().data(),
                                  texture->getUVs().size() * sizeof(GLTools::Vertex),
                                  GL_FLOAT,
-                                 shader.findAttr("aTexCoord"));
+                                 getShader()->findAttr("aTexCoord"));
 }
 
 void GLViewSprite::draw(const PMatrix pMatrix, const MVMatrix mvMatrix) {
-    shader.render(rect, [this, mvMatrix, pMatrix](){
-        glUniformMatrix4fv(shader.findUniform("uMVMatrix"),1,false,mvMatrix);
-        glUniformMatrix4fv(shader.findUniform("uPMatrix"),1,false,pMatrix);
-        glUniform4f(shader.findUniform("uColor"),0,0,0,1);
-        texture->bind(shader.findUniform("uTex"), 0);
+    getShader()->render(rect, [this, mvMatrix, pMatrix](){
+        glUniformMatrix4fv(getShader()->findUniform("uMVMatrix"),1,false,mvMatrix);
+        glUniformMatrix4fv(getShader()->findUniform("uPMatrix"),1,false,pMatrix);
+        glUniform4f(getShader()->findUniform("uColor"),0,0,0,1);
+        texture->bind(getShader()->findUniform("uTex"), 0);
     });
 }
 

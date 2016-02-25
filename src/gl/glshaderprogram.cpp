@@ -43,7 +43,7 @@ GLShaderProgram::GLShaderProgram(VertexSource vertexSource, FragmentSource fragm
 }
 
 GLShaderProgram::~GLShaderProgram() {
-    //TODO: Is it proper cleanup?
+    //TODO: Is it a proper cleanup?
     glDetachShader(program, vertexShader);
     CHECK_GL_ERROR;
     glDetachShader(program, fragmentShader);

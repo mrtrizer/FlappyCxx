@@ -51,7 +51,7 @@ GLTexture::GLTexture(const char *bits, int width, int height):
                      newWidth, newWidth, 0, GL_RGBA, GL_UNSIGNED_BYTE,
                      static_cast<const GLvoid*>(newPixBuf));
         CHECK_GL_ERROR;
-        delete newPixBuf;
+        delete []newPixBuf;
     }
 
     glBindTexture(GL_TEXTURE_2D,0);

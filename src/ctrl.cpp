@@ -19,7 +19,7 @@ void Ctrl::init() {
 void Ctrl::mouseClick(int x, int y) {
     mouseMove(x,y);
     gContext.setMouseEvent(GContext::CLICK);
-    curWorld->run(gContext);
+    //curWorld->run(gContext);
 }
 
 /// Mouse move event
@@ -30,7 +30,9 @@ void Ctrl::mouseMove(int x, int y) {
 
 /// Call a game loop step
 void Ctrl::step() {
-    curWorld->run(gContext);
+    //lock the word to not be deleted while the loop step is processing
+    std::shared_ptr<GWorldModel> worldLock = curWorld;
+    worldLock->run(gContext);
     gContext.setMouseEvent(GContext::EMPTY);
 }
 

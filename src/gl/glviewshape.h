@@ -3,14 +3,14 @@
 
 #include <memory>
 
-#include "core/gview.h"
+#include "glview.h"
 #include "glshaderprogram.h"
 #include "glattribarray.h"
 #include "gltools.h"
 
 /// Contains shader for all shapes and draw implementation.
 /// All derived classes have to impmelent getAttribArray().
-class GLViewShape: public GView {
+class GLViewShape: public GLView<GLViewShape> {
 public:
     struct ColorRGBA {
       GLfloat r;
@@ -22,11 +22,9 @@ public:
     GLViewShape();
     void draw(const PMatrix, const MVMatrix) override;
     virtual const GLAttribArray & getAttribArray() const = 0;
-    const GLShaderProgram & getShader() const {return shader;}
     void setColorRGBA(ColorRGBA colorRGBA){this->colorRGBA = colorRGBA;}
 
 private:
-    GLShaderProgram shader;
     ColorRGBA colorRGBA;
 };
 

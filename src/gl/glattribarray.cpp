@@ -7,8 +7,8 @@ GLAttribArray::GLAttribArray(Method method, Size size):
 }
 
 GLAttribArray::~GLAttribArray() {
-    //TODO: Do I need unbind VBOs? How to do it properly?
-    //glDeleteBuffers(vboBufs.size(),vboBufs.data());
+    for (VBO i: vboBufs)
+        glDeleteBuffers(1,&i.id);
 }
 
 void GLAttribArray::bind() const {

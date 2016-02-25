@@ -2,8 +2,7 @@
 #include "gl/gltexture.h"
 
 GLViewFactoryQt::GLViewFactoryQt(QString path):
-    path(path)
-{
+    path(path) {
 
 }
 

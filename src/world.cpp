@@ -8,8 +8,13 @@ World::World(Ctrl &flappyCtrl):flappyCtrl(flappyCtrl) {
 }
 
 void World::recalc(GObj::DeltaT, const GContext &) {
-
     auto intersectList = flappySlider->getBird()->findIntersectObjs([](const GObj::GObjP & i){
+        return typeid(*i) == typeid(Tube) ||
+                typeid(*i) == typeid(Floor);});
+    if (intersectList.size() > 0)
+        flappyCtrl.putSymbol(Ctrl::STOP);
+
+    intersectList = flappySlider->getBird()->findIntersectObjs([](const GObj::GObjP & i){
         return typeid(*i) == typeid(Coin);});
     if (intersectList.size() > 0) {
         getRoot()->removeChild(intersectList.front());
@@ -24,11 +29,6 @@ void World::recalc(GObj::DeltaT, const GContext &) {
 //        getRoot()->removeChild(groundQueue.front());
 //        groundQueue.pop();
 //    }
-    intersectList = flappySlider->getBird()->findIntersectObjs([](const GObj::GObjP & i){
-        return typeid(*i) == typeid(Tube) ||
-                typeid(*i) == typeid(Floor);});
-    if (intersectList.size() > 0) //TODO: Move up and fix segfault
-        flappyCtrl.putSymbol(Ctrl::STOP);
 }
 
 void World::init() {
