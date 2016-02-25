@@ -7,6 +7,10 @@ std::shared_ptr<GView> GPresenter::getGView(const GViewFactory &factory) {
     return gView;
 }
 
+void GPresenter::cleanGView(){
+    gView = nullptr;
+}
+
 std::shared_ptr<GView> GPresenterSprite::makeGView(const GViewFactory &factory) {
     return factory.getGViewSprite(*this);
 }

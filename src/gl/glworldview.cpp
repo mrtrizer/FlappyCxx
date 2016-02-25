@@ -13,6 +13,7 @@
 #include "glshaderprogram.h"
 #include "gltools.h"
 #include "glattribarray.h"
+#include "glviewfactory.h"
 
 using namespace std;
 
@@ -27,6 +28,15 @@ void GLWorldView::init() {
 
 GLWorldView::~GLWorldView() {
     glDisable(GL_DEPTH_TEST);
+    //clean presenters
+    auto root = gWorld->getRoot()->findChilds();
+    for (std::shared_ptr<GObj> gObj: root) {
+        //If it's a visible object
+        auto presenter = std::dynamic_pointer_cast<GPresenter>(gObj);
+        if (presenter == nullptr)
+            continue;
+        presenter->cleanGView();
+    }
 }
 
 void GLWorldView::redraw() {
@@ -38,7 +48,7 @@ void GLWorldView::redraw() {
     //Calc ortho matrix, using GObjCamera
     auto pMatrix = gWorld->getActiveCamera()->getPMatrix();
 
-    //TODO: Do it recursively
+    //TODO: z-sort
     auto root = gWorld->getRoot()->findChilds();
     for (std::shared_ptr<GObj> gObj: root) {
 

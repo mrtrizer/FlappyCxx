@@ -1,16 +1,12 @@
 #include "ctrl.h"
 #include "core/gviewfactory.h"
 
-Ctrl::Ctrl(const std::shared_ptr<GLWorldView> &gWorldView):
-    gWorldView(gWorldView)
-{}
-
 /// Switch current world. It's used to switch between FlappyMenu and FlappyWorld
 void Ctrl::setWorld(std::shared_ptr<GWorldModel> gWorld) {
     curWorld = gWorld;
     curWorld->initWorld();
-    gWorldView->setGWorldModel(curWorld);
-    gWorldView->init();
+    if (gWorldView != nullptr)
+        setView(gWorldView);
 }
 
 /// World initialization
@@ -23,6 +19,7 @@ void Ctrl::init() {
 void Ctrl::mouseClick(int x, int y) {
     mouseMove(x,y);
     gContext.setMouseEvent(GContext::CLICK);
+    curWorld->run(gContext);
 }
 
 /// Mouse move event
@@ -31,22 +28,10 @@ void Ctrl::mouseMove(int x, int y) {
     gContext.setY(y);
 }
 
-/// Resize View
-/// @see GObjCamera
-/// @see GWorldView
-void Ctrl::resize(int width, int height) {
-    gWorldView->resize(width, height);
-}
-
 /// Call a game loop step
 void Ctrl::step() {
     curWorld->run(gContext);
     gContext.setMouseEvent(GContext::EMPTY);
-}
-
-/// Redraw View
-void Ctrl::glRedraw() {
-    gWorldView->redraw();
 }
 
 /// Pass new symbol to the state machine.
@@ -54,6 +39,12 @@ void Ctrl::glRedraw() {
 /// @see FlappyWorld
 void Ctrl::putSymbol(Ctrl::Symbol symbol) {
     state = automat(symbol);
+}
+
+void Ctrl::setView(const GWorldViewP &gWorldView){
+    this->gWorldView = gWorldView;
+    this->gWorldView->setGWorldModel(curWorld);
+    this->gWorldView->init();
 }
 
 /// Handle new symbol and return new state

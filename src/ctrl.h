@@ -10,21 +10,20 @@
 
 class Ctrl {
 public:
+    typedef std::shared_ptr<GWorldView> GWorldViewP;
     enum State {MENU, GAME};
     enum Symbol {START, STOP};
 
-    Ctrl(const std::shared_ptr<GLWorldView> &gWorldView);
     void init();
     void mouseClick(int x, int y);
     void mouseMove(int x, int y);
-    void resize(int width, int height);
     void step();
-    void glRedraw();
     void putSymbol(Symbol symbol);
+    inline void setView(const GWorldViewP &gWorldView);
 
 private:
     std::shared_ptr<GWorldModel> curWorld;
-    std::shared_ptr<GLWorldView> gWorldView;
+    GWorldViewP gWorldView;
     GContext gContext;
     State state = MENU;
 

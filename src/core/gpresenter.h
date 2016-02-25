@@ -13,6 +13,7 @@ class GPresenter : public GTools::enable_sptr<GPresenter> {
 public:
     virtual ~GPresenter(){}
     std::shared_ptr<GView> getGView(const GViewFactory & factory);
+    void cleanGView();
 protected:
     virtual std::shared_ptr<GView> makeGView(const GViewFactory & factory) = 0;
 private:

@@ -20,18 +20,20 @@
 #include "test_gobj.h"
 #include "glviewfactoryqt.h"
 
-std::shared_ptr<GLWorldView> gWorld;
+std::shared_ptr<GLWorldView> gWorldView;
 std::shared_ptr<Ctrl> flappyCtrl;
 
 void render() {
-    flappyCtrl->glRedraw();
+    gWorldView->redraw();
     glutSwapBuffers();
     glutPostRedisplay();
     flappyCtrl->step(); //only for test
 }
 
 void resizeWindow(int width, int height) {
-    flappyCtrl->resize(width, height);
+    gWorldView = std::make_shared<GLWorldView>(std::make_shared<GLViewFactoryQt>("../res/"));
+    flappyCtrl->setView(gWorldView);
+    gWorldView->resize(width, height);
 }
 
 void mouseFunc(int button, int state,
@@ -47,8 +49,7 @@ void passiveMotionFunc(int x, int y) {
 
 int main(int argc, char** argv)
 {
-    gWorld = std::make_shared<GLWorldView>(std::make_shared<GLViewFactoryQt>("../res/"));
-    flappyCtrl = std::make_shared<Ctrl>(gWorld);
+    flappyCtrl = std::make_shared<Ctrl>();
 
     int status = 0;
 
