@@ -11,8 +11,14 @@ void Bird::recalc(GObj::DeltaT deltaT, const GContext &gContext) {
         speed = FLAP_SPEED;
     speed = speed + GRAVITY * deltaT;
     this->move({0, speed * deltaT,0});
+    n++;
+    if (n > 20) {
+        n = 0;
+        flag = flag == 1?0:1;
+        birdSprite->setFrameN(flag);
+    }
 }
 
 void Bird::init() {
-    ADD_CHILD(GDecor,"bird", RADIUS * 2, RADIUS * 2, POS(-RADIUS, -RADIUS, 20));
+    birdSprite = ADD_CHILD(GDecor,"bird_anim", RADIUS * 2, RADIUS * 2, POS(-RADIUS, -RADIUS, 20),2);
 }

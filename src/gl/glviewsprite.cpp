@@ -1,4 +1,5 @@
 #include "glviewsprite.h"
+#include "core/gpresenter.h"
 
 static const char spriteVShader[] =
     "attribute vec2 aPosition;\n"
@@ -23,14 +24,12 @@ static const char spriteFShader[] =
 GLViewSprite::GLViewSprite(const std::shared_ptr<GLTexture> &glTexture, float width, float height) :
     GLView<GLViewSprite>(spriteVShader, spriteFShader),
     rect(GL_TRIANGLE_STRIP),
-    texture(glTexture){
-
-    std::vector<GLTools::Vertex> vertexList({
-                                                {0,0},
-                                                {0,height},
-                                                {width,0},
-                                                {width,height}
-                                            });
+    texture(glTexture),
+    vertexList({
+                {0,0},
+                {0,height},
+                {width,0},
+                {width,height} }){
 
     rect.addVBO<GLTools::Vertex>(vertexList.data(),
                                  vertexList.size() * sizeof(GLTools::Vertex),
@@ -49,6 +48,34 @@ void GLViewSprite::draw(const PMatrix pMatrix, const MVMatrix mvMatrix) {
         glUniform4f(getShader()->findUniform("uColor"),0,0,0,1);
         texture->bind(getShader()->findUniform("uTex"), 0);
     });
+}
+
+void GLViewSprite::update(const GPresenter & presenter){
+    auto presenterSprite = dynamic_cast<const GPresenterSprite &>(presenter);
+    int frameCnt = presenterSprite.getFrameCnt();
+    int frameN = presenterSprite.getFrameN();
+    float relWidth = texture->getRelWidth();
+    float relHeight = texture->getRelHeight();
+    float newRelWidth = relWidth / frameCnt;
+    float newRelHeight = relHeight;
+    float relX = newRelWidth * frameN;
+    float relY = 0;
+    std::vector<GLTexture::UV> uvs({
+            {relX,relY + newRelHeight},
+            {relX,relY},
+            {relX + newRelWidth,relY + newRelHeight},
+            {relX + newRelWidth,relY}});
+
+    rect = GLAttribArray(GL_TRIANGLE_STRIP);
+    rect.addVBO<GLTools::Vertex>(vertexList.data(),
+                                 vertexList.size() * sizeof(GLTools::Vertex),
+                                 GL_FLOAT,
+                                 getShader()->findAttr("aPosition"));
+
+    rect.addVBO<GLTexture::UV>(uvs.data(),
+                                uvs.size() * sizeof(GLTools::Vertex),
+                                GL_FLOAT,
+                                getShader()->findAttr("aTexCoord"));
 }
 
 

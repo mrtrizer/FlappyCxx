@@ -36,11 +36,14 @@ GLTexture::GLTexture(const char *bits, int width, int height):
             oldHeight >>= 1;
         } while (oldWidth || oldHeight);
 
+        relWidth = (float)width / newWidth;
+        relHeight = (float)height / newWidth;
+
         //recalculate UVs
-        uvs[2].u = (float)width / newWidth;
-        uvs[3].u = (float)width / newWidth;
-        uvs[0].v = (float)height / newWidth;
-        uvs[2].v = (float)height / newWidth;
+        uvs[2].u = relWidth;
+        uvs[3].u = relWidth;
+        uvs[0].v = relHeight;
+        uvs[2].v = relHeight;
 
         //data buffer for square image
         char * newPixBuf = new char[newWidth * newWidth * 4]();

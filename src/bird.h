@@ -5,6 +5,8 @@
 #include "core/gcollider.h"
 #include "core/gpresenter.h"
 
+class GDecor;
+
 /// A bird
 class Bird: public GObj, public GColliderCircle {
 public:
@@ -17,6 +19,9 @@ private:
     static constexpr float GRAVITY = -100.0;
     static constexpr float FLAP_SPEED = 50.0;
     static constexpr float RADIUS = 4.0;
+    std::shared_ptr<GDecor> birdSprite;
+    int n = 0;
+    int flag = 0;
 };
 
 #endif // BIRD_H

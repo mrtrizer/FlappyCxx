@@ -61,6 +61,7 @@ Ctrl::State Ctrl::automat(Ctrl::Symbol symbol) {
         break;
     case GAME: switch (symbol) {
         case STOP:
+            score = std::dynamic_pointer_cast<World>(curWorld)->getScore();
             setWorld(std::make_shared<Menu>(*this));
             return MENU;
         default:;

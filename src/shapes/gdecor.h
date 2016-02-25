@@ -9,10 +9,10 @@
 
 class GDecor: public GObj, public GColliderRect, public GPresenterSprite {
 public:
-    GDecor(std::string path, float width, float height, GPos pos = {0,0,0}):
+    GDecor(std::string path, float width, float height, GPos pos = {0,0,0}, int frameCnt = 1):
         GObj(pos),
         GColliderRect(width, height),
-        GPresenterSprite(path,width,height)
+        GPresenterSprite(path,width,height,frameCnt)
     {}
 };
 

@@ -3,6 +3,8 @@
 
 #include "gtools.h"
 
+class GPresenter;
+
 /// @brief Interface for all object views.
 /// Contains abstract draw() method for implementation in
 /// derived classes.
@@ -12,6 +14,7 @@ public:
     typedef float * MVMatrix;
     virtual ~GView(){}
     virtual void draw(const PMatrix, const MVMatrix) = 0;
+    virtual void update(const GPresenter &) {}
 };
 
 #endif // GVIEW_H

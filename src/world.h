@@ -16,6 +16,7 @@ class World: public GWorldModel
 {
 public:
     World(Ctrl & flappyCtrl);
+    inline int getScore() const {return score;}
 
 protected:
     void recalc(GObj::DeltaT, const GContext &) override;

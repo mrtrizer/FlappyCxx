@@ -1,5 +1,6 @@
 #include "gpresenter.h"
 #include "gviewfactory.h"
+#include "gview.h"
 
 std::shared_ptr<GView> GPresenter::getGView(const GViewFactory &factory) {
     if (gView == nullptr)
@@ -11,9 +12,16 @@ void GPresenter::cleanGView(){
     gView = nullptr;
 }
 
+void GPresenter::updateView(){
+    if (gView != nullptr)
+        gView->update(*this);
+}
+
 std::shared_ptr<GView> GPresenterSprite::makeGView(const GViewFactory &factory) {
     return factory.getGViewSprite(*this);
 }
+
+
 
 std::shared_ptr<GView> GPresenterCircle::makeGView(const GViewFactory &factory) {
     return factory.getGViewCircle(*this);

@@ -14,6 +14,7 @@ public:
     virtual ~GPresenter(){}
     std::shared_ptr<GView> getGView(const GViewFactory & factory);
     void cleanGView();
+    void updateView();
 protected:
     virtual std::shared_ptr<GView> makeGView(const GViewFactory & factory) = 0;
 private:
@@ -22,21 +23,28 @@ private:
 
 class GPresenterSprite : public GPresenter {
 public:
-    GPresenterSprite(std::string path, float width, float height):
+    GPresenterSprite(std::string path, float width, float height, int frameCnt = 1):
         path(path),
         width(width),
-        height(height)
+        height(height),
+        frameCnt(frameCnt)
     {}
     virtual ~GPresenterSprite(){}
     inline std::string getPath() const { return path; }
     inline float getWidth() const { return width; }
     inline float getHeight() const { return height; }
+    inline int getFrameCnt() const { return frameCnt; }
+    inline void setFrameN(int frameN) { this->frameN = frameN; updateView(); }
+    int getFrameN() const { return frameN; }
+
 protected:
     virtual std::shared_ptr<GView> makeGView(const GViewFactory & factory) override;
 private:
     std::string path;
     float width;
     float height;
+    int frameN;
+    int frameCnt;
 };
 
 class GPresenterCircle : public GPresenter {

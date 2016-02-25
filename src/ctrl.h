@@ -20,12 +20,14 @@ public:
     void step();
     void putSymbol(Symbol symbol);
     void setView(const GWorldViewP &gWorldView);
+    inline int getScore() const {return score;}
 
 private:
     std::shared_ptr<GWorldModel> curWorld;
     GWorldViewP gWorldView;
     GContext gContext;
     State state = MENU;
+    int score;
 
     void setWorld(std::shared_ptr<GWorldModel> gWorld);
     State automat(Symbol symbol);

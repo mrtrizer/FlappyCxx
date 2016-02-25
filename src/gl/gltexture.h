@@ -17,10 +17,14 @@ public:
     ~GLTexture();
     void bind(GLShaderProgram::UniformLocation uniformLoc, int n);
     inline std::vector<UV> getUVs() const { return uvs; }
+    inline float getRelWidth() const {return relWidth;}
+    inline float getRelHeight() const {return relHeight;}
 
 private:
     GLuint texture;
     std::vector<UV> uvs;
+    float relWidth;
+    float relHeight;
 };
 
 #endif // GLTEXTURE_H
