@@ -19,7 +19,7 @@ public:
     void mouseMove(int x, int y);
     void step();
     void putSymbol(Symbol symbol);
-    inline void setView(const GWorldViewP &gWorldView);
+    void setView(const GWorldViewP &gWorldView);
 
 private:
     std::shared_ptr<GWorldModel> curWorld;

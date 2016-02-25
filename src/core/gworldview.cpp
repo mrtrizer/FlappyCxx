@@ -4,7 +4,6 @@
 
 void GWorldView::setGWorldModel(GWorldModelP gWorldModel) {
     this->gWorld = gWorldModel;
-    resize(lastWidth, lastHeight);
 }
 
 void GWorldView::resize(int width, int height) {

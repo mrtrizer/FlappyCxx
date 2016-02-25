@@ -56,12 +56,14 @@ Ctrl::State Ctrl::automat(Ctrl::Symbol symbol) {
             return GAME;
         default:;
         }
+        break;
     case GAME: switch (symbol) {
         case STOP:
             setWorld(std::make_shared<Menu>(*this));
             return MENU;
         default:;
         }
+        break;
     default: throw std::runtime_error("Invalid state.");
     }
     throw std::runtime_error("Invalid symbol.");
