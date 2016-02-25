@@ -13,7 +13,7 @@ public:
         GLfloat v;
     };
 
-    GLTexture(const uchar * bits, int width, int height);
+    GLTexture(const char * bits, int width, int height);
     ~GLTexture();
     void bind(GLShaderProgram::UniformLocation uniformLoc, int n);
     inline std::vector<UV> getUVs() const { return uvs; }

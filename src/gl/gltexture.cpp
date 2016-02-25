@@ -3,7 +3,7 @@
 #include "gltexture.h"
 #include "core/gtools.h"
 
-GLTexture::GLTexture(const uchar *bits, int width, int height):
+GLTexture::GLTexture(const char *bits, int width, int height):
     uvs({{0,1},{0,0},{1,1},{1,0}})
 {
     glPixelStorei(GL_UNPACK_ALIGNMENT,1);
@@ -20,7 +20,7 @@ GLTexture::GLTexture(const uchar *bits, int width, int height):
     //check width and height
     if ((width == height) && GTools::isPowOfTwo(width) && GTools::isPowOfTwo(height)) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-                     width, width, 0, GL_BGRA, GL_UNSIGNED_BYTE,
+                     width, width, 0, GL_RGBA, GL_UNSIGNED_BYTE,
                      static_cast<const GLvoid*>(bits));
         CHECK_GL_ERROR;
 
@@ -48,7 +48,7 @@ GLTexture::GLTexture(const uchar *bits, int width, int height):
         for (int i = 0; i < height; i++)
             std::memcpy(&newPixBuf[i * newWidth * 4], &bits[i * width * 4], width * 4);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA,
-                     newWidth, newWidth, 0, GL_BGRA, GL_UNSIGNED_BYTE,
+                     newWidth, newWidth, 0, GL_RGBA, GL_UNSIGNED_BYTE,
                      static_cast<const GLvoid*>(newPixBuf));
         CHECK_GL_ERROR;
         delete newPixBuf;
