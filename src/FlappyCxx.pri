@@ -1,7 +1,6 @@
 INCLUDEPATH  += $$PWD
 
 HEADERS += \
-    $$PWD/core/gctrl.h \
     $$PWD/core/gobj.h \
     $$PWD/shapes/gobjrect.h \
     $$PWD/shapes/gobjcircle.h \
@@ -37,7 +36,6 @@ HEADERS += \
 
 
 SOURCES += \
-    $$PWD/core/gctrl.cpp \
     $$PWD/core/gobj.cpp \
     $$PWD/gl/gltools.cpp \
     $$PWD/core/gobjcamera.cpp \
