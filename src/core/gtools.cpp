@@ -11,8 +11,8 @@ using namespace std;
 
 /// Intersect checking for two circles
 bool isIntersect(const GColliderCircle & gCollider1, const GColliderCircle & gCollider2, const GObj &gObj1, const GObj &gObj2) {
-    auto pos1 = gObj1.getPosAbsolute();
-    auto pos2 = gObj2.getPosAbsolute();
+    auto pos1 = gObj1.getAPos();
+    auto pos2 = gObj2.getAPos();
     double dX = pos1.getX() - pos2.getX();
     double dY = pos1.getY() - pos2.getY();
     int sumR = gCollider1.getR() + gCollider2.getR();
@@ -27,8 +27,8 @@ bool isIntersect(const GColliderRect & rect, const GColliderCircle & circle, con
     auto r = circle.getR();
     auto width = rect.getWidth();
     auto height = rect.getHeight();
-    auto ciclePos = gObj2.getPosAbsolute();
-    auto rectPos = gObj1.getPosAbsolute();
+    auto ciclePos = gObj2.getAPos();
+    auto rectPos = gObj1.getAPos();
     double dX = ciclePos.getX() - std::max(rectPos.getX(), std::min(ciclePos.getX(), rectPos.getX() + width));
     double dY = ciclePos.getY() - std::max(rectPos.getY(), std::min(ciclePos.getY(), rectPos.getY() + height));
     return (dX * dX + dY * dY) < (r * r);

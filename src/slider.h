@@ -17,7 +17,7 @@ public:
 
 protected:
     void recalc(DeltaT deltaT, const GContext &) override {
-        getPos().move({SPEED * deltaT,0,0});
+        move({SPEED * deltaT,0,0});
     }
 
     void init() {

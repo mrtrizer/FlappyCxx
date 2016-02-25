@@ -48,20 +48,23 @@ void GLWorldView::redraw() {
     //Calc ortho matrix, using GObjCamera
     auto pMatrix = gWorld->getActiveCamera()->getPMatrix();
 
-    //TODO: z-sort
-    auto root = gWorld->getRoot()->findChilds();
-    for (std::shared_ptr<GObj> gObj: root) {
+    //TODO: Optimize GObj::getPosAbsolute()
+    GObj::GObjPList objects = gWorld->getRoot()->findChilds();
+    objects.sort([](const GObj::GObjP & first, const GObj::GObjP & second) {
+        return first->getStaticZ() < second->getStaticZ();
+    });
 
-        //If it's a visible object
+    for (auto gObj: objects) {
         auto presenter = std::dynamic_pointer_cast<GPresenter>(gObj);
         if (presenter == nullptr)
             continue;
 
         //Get move matrix of the object
-        auto mvMatrix = gObj->getPosAbsolute().getMvMatrix();
+        auto mvMatrix = gObj->getAPos().getMvMatrix();
 
         presenter->getGView(*factory)->draw(pMatrix.data(), mvMatrix.data());
     }
+
 }
 
 void GLWorldView::updateViewPort() {

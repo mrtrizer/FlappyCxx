@@ -10,7 +10,7 @@ void Bird::recalc(GObj::DeltaT deltaT, const GContext &gContext) {
     if (gContext.getMouseEvent() == GContext::CLICK)
         speed = FLAP_SPEED;
     speed = speed + GRAVITY * deltaT;
-    this->getPos().move({0, speed * deltaT,0});
+    this->move({0, speed * deltaT,0});
 }
 
 void Bird::init() {

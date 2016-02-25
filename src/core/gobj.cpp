@@ -3,10 +3,10 @@
 
 using namespace std;
 
-GObj::GObj(GPos pos):pos(pos)
-{
-
-}
+GObj::GObj(GPos pos):
+    pos(pos),
+    aPos(pos)
+{}
 
 GObj::GObjPList GObj::findIntersectObjs(std::function<bool(const GObjP &)> check) {
     auto me = shared_from_this();
@@ -23,11 +23,32 @@ bool GObj::isIntersectWith(const GObjP & gObj) const {
     return GTools::isIntersect(*this, *gObj);
 }
 
-GPos GObj::getPosAbsolute() const {
+/// Returns cached position, or calls getAPosRecursive if need
+GPos GObj::getAPos() const {
+    if (updateAPosFlag)
+        aPos = getAPosRecursive();
+    updateAPosFlag = false;
+    return aPos;
+}
+
+/// Sets flag need update absolute position to all children
+void GObj::updateAPos() {
+    updateAPosFlag = true;
+    for (auto i: children)
+        i->updateAPos();
+}
+
+/// Recursive up to root
+GPos GObj::getAPosRecursive() const {
     if (getParent() != nullptr)
-        return getParent()->getPosAbsolute() * this->pos;
+        return getParent()->getAPos() * this->pos;
     else
         return pos;
+}
+
+void GObj::setParent(const GObj::GObjP &parent) {
+    this->parent = parent;
+    staticZ = getAPos().getZ();
 }
 
 void GObj::removeChild(const std::shared_ptr<GObj> & gObj) {

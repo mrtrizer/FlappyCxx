@@ -34,9 +34,11 @@ public:
     inline const GObjP getParent() const {return parent.lock();}
     GObjP getRoot();
 
-    GPos getPosAbsolute() const;
-    inline GPos & getPos() {return pos;}
-    inline void setPos(const GPos & pos) {this->pos = pos;}
+    inline const GPos & getPos() const {return pos;}
+    inline void move(const GPos & offset){ pos.move(offset); updateAPos(); }
+    inline void setPos(const GPos & pos) {this->pos = pos; updateAPos(); }
+    inline float getStaticZ() const {return staticZ;}
+    GPos getAPos() const;
 
     virtual void recalc(DeltaT, const GContext &) {}
     virtual void init() {}
@@ -56,12 +58,17 @@ public:
     class no_valid_root{};
 
 private:
+    float staticZ = 0;
     GPos pos;
     std::weak_ptr<GObj> parent;
     GObjPList children;
+    mutable bool updateAPosFlag = true;
+    mutable GPos aPos;
 
+    void updateAPos();
+    GPos getAPosRecursive() const;
     void addChildsToListR(GObjPList &, std::function<bool(const std::shared_ptr<GObj> &)>, bool recursive = true) const;
-    inline void setParent(const GObjP & parent) {this->parent = parent;}
+    void setParent(const GObjP & parent);
 };
 
 #define ADD_CHILD(type,...)addChild<type>(std::make_shared<type>(__VA_ARGS__))

@@ -41,8 +41,8 @@ private slots:
         auto gObjSubContainer1 = gObjContainer->addChild<GObj>(std::make_shared<GObj>(GPos({10,0,0})));
         auto gObjSubContainer2 = gObjSubContainer1->addChild<GObj>(std::make_shared<GObj>(GPos({0,10,0})));
         auto gObjCircle = gObjSubContainer2->addChild<GObjCircle>(std::make_shared<GObjCircle>(10,GPos({10,10,0})));
-        QVERIFY(gObjCircle->getPosAbsolute().getX() == 20);
-        QVERIFY(gObjCircle->getPosAbsolute().getY() == 20);
+        QVERIFY(gObjCircle->getAPos().getX() == 20);
+        QVERIFY(gObjCircle->getAPos().getY() == 20);
     }
 
     void isIntersectWith() {
