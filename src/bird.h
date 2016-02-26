@@ -7,7 +7,6 @@
 
 class GDecor;
 
-/// A bird
 class Bird: public GObj, public GColliderCircle {
 public:
     Bird(GPos pos);

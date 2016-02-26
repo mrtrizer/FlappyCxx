@@ -8,6 +8,7 @@
 
 class GPresenterSprite;
 
+/// Contains shaders and vbos to draw textures on a rectangle.
 class GLViewSprite : public GLView<GLViewSprite>
 {
 public:

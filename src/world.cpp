@@ -40,7 +40,7 @@ void World::init() {
     info = getRoot()->ADD_CHILD(GDecor,"tutor",30,30,POS(-15,-15,10));
     bird = getRoot()->ADD_CHILD(Bird,POS(0,0,1));
     getRoot()->ADD_CHILD(GDecor,"background",200,200,POS(-100,-100,0));
-    flappySlider = getRoot()->ADD_CHILD(Slider,POS(20,0,0));
+    flappySlider = getRoot()->ADD_CHILD(Slider,POS(20,0,2));
     scorePanel = getRoot()->ADD_CHILD(Score,POS(-6.5, 43 -4, 5));
     getRoot()->ADD_CHILD(Floor, 200, POS(-50,-50,0));
     setActiveCamera(getRoot()->ADD_CHILD(GObjCamera,100,1.0,500,POS(0,0,0)));

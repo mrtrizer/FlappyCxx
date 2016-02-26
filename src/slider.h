@@ -10,7 +10,8 @@
 #include "tube.h"
 #include "floor.h"
 
-/// Contains a bird and an instance of GObjCamera (added in FlappyWorld::init)
+/// Contains a field moving under the bird and camera.
+/// Automatic removed and adds new tubes and blocks of ground.
 class Slider: public GObj {
 public:
     using GObj::GObj;

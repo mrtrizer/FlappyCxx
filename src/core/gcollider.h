@@ -3,9 +3,10 @@
 
 #include "gtools.h"
 
-/// Contains shape properties of an object.
-/// All objects implementing intersection processing has to be inherited from it.
-/// See intersection finding in the Tools namespace.
+/// @brief Contains shape properties of an object.
+/// @details All objects implementing intersection processing
+/// has to be inherited from it.
+/// See intersection search in the Tools namespace.
 class GCollider : public GTools::enable_sptr<GCollider> {
 public:
     GCollider();

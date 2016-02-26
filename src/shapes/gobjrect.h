@@ -5,6 +5,7 @@
 #include "core/gcollider.h"
 #include "core/gpresenter.h"
 
+/// A rectangle with intersection processing.
 class GObjRect: public GObj, public GColliderRect, public GPresenterRect {
 public:
     explicit GObjRect(Size width, Size height, GPos pos):

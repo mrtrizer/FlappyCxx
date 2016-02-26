@@ -14,7 +14,7 @@
 
 #include "core/gtools.h"
 
-/// Contains tools for working with OpenGL
+/// Contains tools for work with OpenGL
 namespace GLTools {
 
 typedef float R;

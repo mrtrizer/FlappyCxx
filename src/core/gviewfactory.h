@@ -9,6 +9,10 @@
 class GView;
 class GLTexture;
 
+/// @brief Abstract fabric of GView
+/// @details Implementations of this class creates
+/// instatances of GView implementations.
+/// Constructor methods are called by GPresenter::makeGView()
 class GViewFactory
 {
 public:

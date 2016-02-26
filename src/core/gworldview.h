@@ -8,6 +8,8 @@
 class GWorldModel;
 class GViewFactory;
 
+/// @brief Abstract base for View implementations in MVC terms.
+/// @details Holds a pointer to GWorldModel.
 class GWorldView {
 public:
     typedef std::shared_ptr<GWorldModel> GWorldModelP;
@@ -19,6 +21,7 @@ public:
     virtual void init() = 0;
 
 protected:
+    //TODO: Move to private, add getters
     int lastWidth = 100;
     int lastHeight = 100;
     GWorldModelP gWorld;

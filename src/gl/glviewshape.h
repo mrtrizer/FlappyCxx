@@ -8,7 +8,7 @@
 #include "glattribarray.h"
 #include "gltools.h"
 
-/// Contains shader for all shapes and draw implementation.
+/// Contains a shader for all shapes and draw implementation.
 /// All derived classes have to impmelent getAttribArray().
 class GLViewShape: public GLView<GLViewShape> {
 public:

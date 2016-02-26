@@ -4,6 +4,10 @@
 #include "core/gviewfactory.h"
 #include <map>
 
+/// @brief GLView factory creates views working with OpenGL.
+/// @details A method for texture loading getGLTexture() has to be implemented
+/// to work with GViewSprite. But can be stubed and return
+/// something like little black square if not used.
 class GLViewFactory: public GViewFactory {
 public:
     virtual ~GLViewFactory() {}

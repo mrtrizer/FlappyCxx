@@ -7,7 +7,8 @@
 
 class GLViewFactory;
 
-/// View in MVC terms.
+/// View implementation for work with OpenGL.
+/// Definitly supports GLES 2.0 (Android) and OpenGL 4.5.
 class GLWorldView : public GWorldView {
 public:
     GLWorldView(const std::shared_ptr<GLViewFactory> & factory):

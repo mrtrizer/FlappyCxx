@@ -63,6 +63,7 @@ SOURCES += \
     $$PWD/gl/glviewsprite.cpp \
     $$PWD/core/gworldview.cpp \
     $$PWD/score.cpp \
-    $$PWD/shapes/ganimation.cpp
+    $$PWD/shapes/ganimation.cpp \
+    $$PWD/core/gview.cpp
 
 LIBS += -lGL -lglut -lGLEW -lGLU

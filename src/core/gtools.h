@@ -19,6 +19,7 @@ class GObj;
 class GColliderCircle;
 class GColliderRect;
 
+/// Gives some common tools
 namespace GTools
 {
     /// Solution of diamond problem.

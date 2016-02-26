@@ -3,9 +3,11 @@
 
 #include "gdecor.h"
 
+/// Extends GDecor and allows automatic frame switching with predifined period.
 class GAnimation: public GDecor
 {
 public:
+    /// @param period Period in seconds
     GAnimation(std::string path, float width, float height, GPos pos, int frameCnt, float period);
     void recalc(DeltaT, const GContext &) override;
 private:

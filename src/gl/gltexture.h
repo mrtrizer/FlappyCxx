@@ -6,6 +6,10 @@
 #include "gltools.h"
 #include "glshaderprogram.h"
 
+/// @brief Holds and manages texture id.
+/// @details Auto resizes an image if not fit to
+/// w == h == x^2 and saves uv coordinates
+/// of image corners.
 class GLTexture {
 public:
     struct UV {
@@ -22,8 +26,11 @@ public:
 
 private:
     GLuint texture;
+    /// Saved UVs after auto resize
     std::vector<UV> uvs;
+    /// Relative width (0.0 to 1.0)
     float relWidth = 1.0;
+    /// Relative height (0.0 to 1.0)
     float relHeight = 1.0;
 };
 

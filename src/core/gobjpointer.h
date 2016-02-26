@@ -5,7 +5,7 @@
 #include "gcollider.h"
 
 /// Mouse pointer in a game world. It is created and managerd by
-/// GObjCamera, because it knows about screen parameters.
+/// GObjCamera, because it knows screen parameters.
 class GObjPointer: public GObj, public GColliderCircle {
 public:
     GObjPointer():
