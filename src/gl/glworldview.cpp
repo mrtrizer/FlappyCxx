@@ -20,7 +20,9 @@ using namespace std;
 void GLWorldView::init() {
     LOGI("OpenGL Version: %s\n", glGetString(GL_VERSION));
     glClearColor(0.0, 0.0, 0.0, 0.0);
+    CHECK_GL_ERROR;
     glBlendFunc (GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    CHECK_GL_ERROR;
     glEnable (GL_BLEND);
     CHECK_GL_ERROR;
     resize(lastWidth, lastHeight);
@@ -28,6 +30,7 @@ void GLWorldView::init() {
 
 GLWorldView::~GLWorldView() {
     glDisable(GL_DEPTH_TEST);
+    CHECK_GL_ERROR;
     //clean presenters
     auto root = gWorld->getRoot()->findChilds();
     for (std::shared_ptr<GObj> gObj: root) {
@@ -41,6 +44,7 @@ GLWorldView::~GLWorldView() {
 
 void GLWorldView::redraw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    CHECK_GL_ERROR;
 
     if (gWorld == nullptr)
         return;
@@ -69,4 +73,5 @@ void GLWorldView::redraw() {
 
 void GLWorldView::updateViewPort() {
     glViewport(0, 0, lastWidth, lastHeight);
+    CHECK_GL_ERROR;
 }

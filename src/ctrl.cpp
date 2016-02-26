@@ -3,10 +3,12 @@
 
 /// Switch current world. It's used to switch between FlappyMenu and FlappyWorld
 void Ctrl::setWorld(std::shared_ptr<GWorldModel> gWorld) {
+    LOGI("setWorld +");
     curWorld = gWorld;
     curWorld->initWorld();
     if (gWorldView != nullptr)
         setView(gWorldView);
+    LOGI("setWorld -");
 }
 
 /// World initialization
@@ -17,40 +19,48 @@ void Ctrl::init() {
 
 /// Mouse click event
 void Ctrl::mouseClick(int x, int y) {
-    mouseMove(x,y);
-    gContext.setMouseEvent(GContext::CLICK);
-    curWorld->run(gContext);
+    LOGI("mouseClick + %d",events.size());
+    events.push(GContext(x,y,GContext::CLICK));
+    LOGI("mouseClick - %d",events.size());
 }
 
 /// Mouse move event
 void Ctrl::mouseMove(int x, int y) {
-    gContext.setX(x);
-    gContext.setY(y);
+    events.push(GContext(x,y,GContext::EMPTY));
 }
 
 /// Call a game loop step
 void Ctrl::step() {
-    //lock the word to not be deleted while the loop step is processing
-    std::shared_ptr<GWorldModel> worldLock = curWorld;
-    worldLock->run(gContext);
-    gContext.setMouseEvent(GContext::EMPTY);
+    //lock the word to be not deleted while the loop step is in progress
+    LOGI("Ctrl::step+");
+    LOGI("symbols.size() = %d",symbols.size());
+    while (symbols.size() > 0) {
+        state = automat(symbols.front());
+        LOGI("automat- State:%d",state);
+        symbols.pop();
+    }
+    while (events.size() > 0) {
+        curWorld->run(events.front());
+        events.pop();
+    }
+    curWorld->run(GContext(0,0,GContext::EMPTY));
 }
 
 /// Pass new symbol to the state machine.
 /// @see FlappyMenu
 /// @see FlappyWorld
 void Ctrl::putSymbol(Ctrl::Symbol symbol) {
-    state = automat(symbol);
+    symbols.push(symbol);
 }
 
 void Ctrl::setView(const GWorldViewP &gWorldView){
     this->gWorldView = gWorldView;
     this->gWorldView->setGWorldModel(curWorld);
-    this->gWorldView->init();
 }
 
 /// Handle new symbol and return new state
 Ctrl::State Ctrl::automat(Ctrl::Symbol symbol) {
+    LOGI("automat+ Symbol:%d",symbol);
     switch (state) {
     case MENU: switch (symbol) {
         case START:

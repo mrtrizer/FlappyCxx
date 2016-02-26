@@ -15,8 +15,10 @@ public:
     virtual ~GView(){}
     void redraw(const PMatrix & pMartrix, const MVMatrix & mvMatrix) {
         auto gPresenterLock = gPresenter.lock();
-        if (gPresenterLock != nullptr)
+        if (gPresenterLock != nullptr) {
             update(*gPresenterLock);
+            gPresenter.reset();
+        }
         draw(pMartrix, mvMatrix);
     }
     void externUpdate(const std::shared_ptr<GPresenter> & gPresenter) {

@@ -25,7 +25,8 @@ public:
 private:
     std::shared_ptr<GWorldModel> curWorld;
     GWorldViewP gWorldView;
-    GContext gContext;
+    std::queue<GContext> events;
+    std::queue<Symbol> symbols;
     State state = MENU;
     int score;
 
