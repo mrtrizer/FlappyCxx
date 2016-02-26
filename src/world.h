@@ -11,6 +11,7 @@
 #include "floor.h"
 
 class Ctrl;
+class Score;
 
 class World: public GWorldModel
 {
@@ -30,6 +31,7 @@ private:
     std::queue<std::shared_ptr<GDecor>> groundQueue;
     float lastX = 0;
     int score = 0;
+    std::shared_ptr<Score> scorePanel;
 };
 
 #endif // FLAPPYWORLD_H

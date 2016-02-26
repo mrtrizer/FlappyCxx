@@ -2,14 +2,19 @@
 
 Score::Score(const GPos & pos):
     GObj(pos),
-    numbers(3){
+    numbers(CAPACITY){
 
 }
 
 void Score::init(){
-    numbers[0] = ADD_CHILD(GDecor,"numbers", 5, 5, POS(0,0,0),10);
+    for (int i = 0; i < CAPACITY; i++)
+        numbers[i] = ADD_CHILD(GDecor,"numbers", 5, 5, POS(i * 4,0,0),10);
 }
 
 void Score::recalc(DeltaT, const GContext &){
-    numbers[0]->setFrameN(score % 10);
+    int scoreTmp = score;
+    for (int i = CAPACITY - 1; i >= 0; i--) {
+        numbers[i]->setFrameN(scoreTmp % 10);
+        scoreTmp /= 10;
+    }
 }

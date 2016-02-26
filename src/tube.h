@@ -24,4 +24,17 @@ public:
 
 };
 
+class MovingTubePair: public TubePair {
+public:
+    using TubePair::TubePair;
+    void recalc(DeltaT deltaT, const GContext &) {
+        if ((getPos().getY() > 30.0) || (getPos().getY() < -30))
+            dir = -dir;
+        move(GPos(0,dir * SPEED * deltaT,0));
+    }
+private:
+    float dir = 1;
+    static constexpr float SPEED = 5.0;
+};
+
 #endif // TUBE_H

@@ -43,8 +43,8 @@ private:
     std::string path;
     float width;
     float height;
-    int frameN;
-    int frameCnt;
+    int frameN = 0;
+    int frameCnt = 1;
 };
 
 class GPresenterCircle : public GPresenter {

@@ -34,7 +34,8 @@ HEADERS += \
     $$PWD/gl/glviewsprite.h \
     $$PWD/core/gworldview.h \
     $$PWD/gl/glview.h \
-    $$PWD/score.h
+    $$PWD/score.h \
+    $$PWD/shapes/ganimation.h
 
 
 SOURCES += \
@@ -61,6 +62,7 @@ SOURCES += \
     $$PWD/gl/glviewshape.cpp \
     $$PWD/gl/glviewsprite.cpp \
     $$PWD/core/gworldview.cpp \
-    $$PWD/score.cpp
+    $$PWD/score.cpp \
+    $$PWD/shapes/ganimation.cpp
 
 LIBS += -lGL -lglut -lGLEW -lGLU

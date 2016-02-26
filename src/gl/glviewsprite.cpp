@@ -21,24 +21,27 @@ static const char spriteFShader[] =
     "   gl_FragColor = texture2D(uTex,vTexCoord).bgra;\n"
     "}\n";
 
-GLViewSprite::GLViewSprite(const std::shared_ptr<GLTexture> &glTexture, float width, float height) :
+GLViewSprite::GLViewSprite(const std::shared_ptr<GLTexture> &glTexture, const GPresenterSprite & presenter) :
     GLView<GLViewSprite>(spriteVShader, spriteFShader),
     rect(GL_TRIANGLE_STRIP),
     texture(glTexture),
     vertexList({
                 {0,0},
-                {0,height},
-                {width,0},
-                {width,height} }){
+                {0,presenter.getHeight()},
+                {presenter.getWidth(),0},
+                {presenter.getWidth(),presenter.getHeight()} }){
 
-    rect.addVBO<GLTools::Vertex>(vertexList.data(),
-                                 vertexList.size() * sizeof(GLTools::Vertex),
-                                 GL_FLOAT,
-                                 getShader()->findAttr("aPosition"));
-    rect.addVBO<GLTexture::UV>(texture->getUVs().data(),
-                                 texture->getUVs().size() * sizeof(GLTools::Vertex),
-                                 GL_FLOAT,
-                                 getShader()->findAttr("aTexCoord"));
+//    rect.addVBO<GLTools::Vertex>(vertexList.data(),
+//                                 vertexList.size() * sizeof(GLTools::Vertex),
+//                                 GL_FLOAT,
+//                                 getShader()->findAttr("aPosition"));
+
+//    rect.addVBO<GLTexture::UV>(texture->getUVs().data(),
+//                                texture->getUVs().size() * sizeof(GLTexture::UV),
+//                                GL_FLOAT,
+//                                getShader()->findAttr("aTexCoord"));
+
+    update(presenter);
 }
 
 void GLViewSprite::draw(const PMatrix pMatrix, const MVMatrix mvMatrix) {
@@ -73,7 +76,7 @@ void GLViewSprite::update(const GPresenter & presenter){
                                  getShader()->findAttr("aPosition"));
 
     rect.addVBO<GLTexture::UV>(uvs.data(),
-                                uvs.size() * sizeof(GLTools::Vertex),
+                                uvs.size() * sizeof(GLTexture::UV),
                                 GL_FLOAT,
                                 getShader()->findAttr("aTexCoord"));
 }

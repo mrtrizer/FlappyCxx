@@ -19,7 +19,7 @@ void Ctrl::init() {
 void Ctrl::mouseClick(int x, int y) {
     mouseMove(x,y);
     gContext.setMouseEvent(GContext::CLICK);
-    //curWorld->run(gContext);
+    curWorld->run(gContext);
 }
 
 /// Mouse move event

@@ -14,6 +14,8 @@ public:
 private:
     int score = 0;
     std::vector<std::shared_ptr<GDecor>> numbers;
+    static constexpr int CAPACITY = 3;
+    static constexpr float WIDTH = 5;
 };
 
 #endif // SCORE_H

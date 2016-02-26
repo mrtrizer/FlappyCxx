@@ -6,10 +6,12 @@
 #include "glattribarray.h"
 #include "gltexture.h"
 
+class GPresenterSprite;
+
 class GLViewSprite : public GLView<GLViewSprite>
 {
 public:
-    GLViewSprite(const std::shared_ptr<GLTexture> &glTexture, float width, float height);
+    GLViewSprite(const std::shared_ptr<GLTexture> &glTexture, const GPresenterSprite &presenter);
     void draw(const PMatrix, const MVMatrix) override;
     void update(const GPresenter &) override;
 private:

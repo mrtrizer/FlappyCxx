@@ -13,9 +13,7 @@ GViewFactory::GViewP GLViewFactory::getGViewSprite(const GPresenter &presenter) 
     } else {
         texture = mapIter->second;
     }
-    return std::make_shared<GLViewSprite>(texture,
-                                         presenterSprite.getWidth(),
-                                         presenterSprite.getHeight());
+    return std::make_shared<GLViewSprite>(texture,presenterSprite);
 }
 
 GViewFactory::GViewP GLViewFactory::getGViewCircle(const GPresenter &presenter) const {

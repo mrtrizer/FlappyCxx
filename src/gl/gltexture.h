@@ -23,8 +23,8 @@ public:
 private:
     GLuint texture;
     std::vector<UV> uvs;
-    float relWidth;
-    float relHeight;
+    float relWidth = 1.0;
+    float relHeight = 1.0;
 };
 
 #endif // GLTEXTURE_H
