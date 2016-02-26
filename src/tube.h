@@ -16,6 +16,7 @@ public:
 class TubePair : public GObj {
 public:
     using GObj::GObj;
+    virtual ~TubePair(){}
     void init() override {
         ADD_CHILD(Tube,POS(0,10,0));
         ADD_CHILD(Tube,POS(0,-90,0));

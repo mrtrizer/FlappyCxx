@@ -7,8 +7,6 @@
 #include "core/gobjcamera.h"
 #include "slider.h"
 #include "bird.h"
-#include "tube.h"
-#include "floor.h"
 
 class Ctrl;
 class Score;
@@ -24,10 +22,10 @@ protected:
     virtual void init() override;
 
 private:
+    std::shared_ptr<Bird> bird;
     double speed = 0.0;
     Ctrl & flappyCtrl;
     std::shared_ptr<Slider> flappySlider;
-    static constexpr float STEP = 50.0f;
     std::queue<std::shared_ptr<GDecor>> groundQueue;
     int score = 0;
     std::shared_ptr<Score> scorePanel;
