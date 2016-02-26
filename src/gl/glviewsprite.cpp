@@ -31,15 +31,15 @@ GLViewSprite::GLViewSprite(const std::shared_ptr<GLTexture> &glTexture, const GP
                 {presenter.getWidth(),0},
                 {presenter.getWidth(),presenter.getHeight()} }){
 
-//    rect.addVBO<GLTools::Vertex>(vertexList.data(),
-//                                 vertexList.size() * sizeof(GLTools::Vertex),
-//                                 GL_FLOAT,
-//                                 getShader()->findAttr("aPosition"));
+    rect.addVBO<GLTools::Vertex>(vertexList.data(),
+                                 vertexList.size() * sizeof(GLTools::Vertex),
+                                 GL_FLOAT,
+                                 getShader()->findAttr("aPosition"));
 
-//    rect.addVBO<GLTexture::UV>(texture->getUVs().data(),
-//                                texture->getUVs().size() * sizeof(GLTexture::UV),
-//                                GL_FLOAT,
-//                                getShader()->findAttr("aTexCoord"));
+    rect.addVBO<GLTexture::UV>(texture->getUVs().data(),
+                                texture->getUVs().size() * sizeof(GLTexture::UV),
+                                GL_FLOAT,
+                                getShader()->findAttr("aTexCoord"));
 
     update(presenter);
 }
@@ -68,17 +68,7 @@ void GLViewSprite::update(const GPresenter & presenter){
             {relX,relY},
             {relX + newRelWidth,relY + newRelHeight},
             {relX + newRelWidth,relY}});
-
-    rect = GLAttribArray(GL_TRIANGLE_STRIP);
-    rect.addVBO<GLTools::Vertex>(vertexList.data(),
-                                 vertexList.size() * sizeof(GLTools::Vertex),
-                                 GL_FLOAT,
-                                 getShader()->findAttr("aPosition"));
-
-    rect.addVBO<GLTexture::UV>(uvs.data(),
-                                uvs.size() * sizeof(GLTexture::UV),
-                                GL_FLOAT,
-                                getShader()->findAttr("aTexCoord"));
+    rect.getVBO(1).writeData(uvs.data(),uvs.size() * sizeof(GLTexture::UV));
 }
 
 
