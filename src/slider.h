@@ -17,7 +17,7 @@ public:
 
     void startGame() {
         gameFlag = true;
-        tubeStart = getPos().getX() + 100.0;
+        tubeStart = -getPos().getX() + 100.0;
         for (; tubeCount < TUBES_ON_SCREEN; )
             addTube();
     }
