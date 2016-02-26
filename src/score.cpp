@@ -8,7 +8,7 @@ Score::Score(const GPos & pos):
 
 void Score::init(){
     for (int i = 0; i < CAPACITY; i++)
-        numbers[i] = ADD_CHILD(GDecor,"numbers", 5, 5, POS(i * 4,0,0),10);
+        numbers[i] = ADD_CHILD(GDecor,"numbers", 5, 5, POS(i * 4.0f,0,0),10);
 }
 
 void Score::recalc(DeltaT, const GContext &){
