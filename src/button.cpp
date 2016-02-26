@@ -12,6 +12,7 @@ Button::Button(const Button::OnClick &onClick, int width, int height, GPos pos):
 void Button::recalc(GObj::DeltaT, const GContext & context) {
     auto pointers = findIntersectObjs([](const GObj::GObjP & i){return typeid(*i) == typeid(GObjPointer);});
     if (pointers.size() == 1)
-        if (context.getMouseEvent() == GContext::CLICK)
+        if (context.getMouseEvent() == GContext::CLICK) {
             onClick();
+        }
 }

@@ -27,7 +27,6 @@ void Ctrl::mouseMove(int x, int y) {
 
 /// Call a game loop step
 void Ctrl::step() {
-    //lock the word to be not deleted while the loop step is in progress
     while (symbols.size() > 0) {
         state = automat(symbols.front());
         symbols.pop();
@@ -73,12 +72,14 @@ Ctrl::State Ctrl::automat(Ctrl::Symbol symbol) {
 #ifdef QT_DEBUG
         throw std::runtime_error("Invalid state.");
 #else
-        LOGI("Invalid state.");
+        LOGI("Invalid state. %d", state);
+        return state;
 #endif
     }
 #ifdef QT_DEBUG
     throw std::runtime_error("Invalid symbol.");
 #else
-    LOGI("Invalid symbol.");
+    LOGI("Invalid symbol. %d", symbol);
+    return state;
 #endif
 }

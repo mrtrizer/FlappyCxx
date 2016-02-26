@@ -42,8 +42,8 @@ void GObjCamera::init() {
 }
 
 void GObjCamera::recalc(GObj::DeltaT, const GContext & context) {
-    double width = height * ratio;
-    double x = (double)context.getX() * coeff - width / 2;
-    double y = -((double)context.getY() * coeff - height / 2);
+    float width = height * ratio;
+    float x = (float)context.getX() * coeff - width / 2;
+    float y = -((float)context.getY() * coeff - height / 2);
     gObjPointer->setPos(GPos(x,y,0));
 }
