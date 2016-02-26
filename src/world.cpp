@@ -19,9 +19,12 @@ void World::recalc(GObj::DeltaT, const GContext &) {
     }
 
     auto tubeIntersects = bird->findIntersectObjs([](const GObj::GObjP & i){
-        return typeid(*i) == typeid(Tube) ||
-               typeid(*i) == typeid(Floor);});
+        return typeid(*i) == typeid(Tube);});
     if (tubeIntersects.size() > 0)
+        flappyCtrl.putSymbol(Ctrl::STOP);
+    auto floorIntersects = bird->findIntersectObjs([](const GObj::GObjP & i){
+        return typeid(*i) == typeid(Floor);});
+    if (floorIntersects.size() < 1)
         flappyCtrl.putSymbol(Ctrl::STOP);
 }
 
@@ -30,5 +33,6 @@ void World::init() {
     getRoot()->ADD_CHILD(GDecor,"background",200,200,POS(-100,-100,0));
     flappySlider = getRoot()->ADD_CHILD(Slider,POS(20,0,0));
     scorePanel = getRoot()->ADD_CHILD(Score,POS(-6.5, 43 -4, 5));
+    getRoot()->ADD_CHILD(Floor, 200, POS(-50,-50,0));
     setActiveCamera(getRoot()->ADD_CHILD(GObjCamera,100,1.0,500,POS(0,0,0)));
 }

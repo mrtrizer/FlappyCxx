@@ -72,9 +72,13 @@ Ctrl::State Ctrl::automat(Ctrl::Symbol symbol) {
     default:
 #ifdef QT_DEBUG
         throw std::runtime_error("Invalid state.");
+#else
+        LOGI("Invalid state.");
 #endif
     }
 #ifdef QT_DEBUG
     throw std::runtime_error("Invalid symbol.");
+#else
+    LOGI("Invalid symbol.");
 #endif
 }

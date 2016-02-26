@@ -7,6 +7,7 @@
 #include "shapes/gdecor.h"
 #include "tube.h"
 #include "floor.h"
+#include "../../../../../../../.android_sdk/ndk-bundle/platforms/android-21/arch-arm/usr/include/stdlib.h"
 
 /// Contains a bird and an instance of GObjCamera (added in FlappyWorld::init)
 class Slider: public GObj {
@@ -59,7 +60,7 @@ private:
     }
     void addGround() {
         groundQueue.push(ADD_CHILD(GDecor,"ground",(float)GROUND_WIDTH,(float)GROUND_WIDTH,POS(
-                                 ((float)GROUND_WIDTH - 0.5) * groundCount + TUBES_LEFT_OFFSET, //x
+                                 ((float)GROUND_WIDTH - 0.5f) * groundCount + TUBES_LEFT_OFFSET, //x
                                  -50.0, //y
                                  1),2));
         if (lrand48() % 2)
