@@ -64,6 +64,7 @@ SOURCES += \
     $$PWD/core/gworldview.cpp \
     $$PWD/score.cpp \
     $$PWD/shapes/ganimation.cpp \
-    $$PWD/core/gview.cpp
+    $$PWD/core/gview.cpp \
+    $$PWD/slider.cpp
 
 LIBS += -lGL -lglut -lGLEW -lGLU

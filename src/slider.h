@@ -16,34 +16,10 @@ class Slider: public GObj {
 public:
     using GObj::GObj;
 
-    void startGame() {
-        gameFlag = true;
-        tubeStart = -getPos().getX() + 100.0;
-        for (; tubeCount < TUBES_ON_SCREEN; )
-            addTube();
-    }
-
+    void startGame();
 protected:
-    void recalc(DeltaT deltaT, const GContext &) override {
-        move({-SPEED * deltaT,0,0});
-        if (gameFlag)
-            if (tubeQueue.front()->getAPos().getX() < TUBES_LEFT_OFFSET) {
-                removeChild(tubeQueue.front());
-                tubeQueue.pop();
-                addTube();
-
-            }
-        if (groundQueue.front()->getAPos().getX() < TUBES_LEFT_OFFSET) {
-            removeChild(groundQueue.front());
-            groundQueue.pop();
-            addGround();
-        }
-    }
-
-    void init() {
-        for (; groundCount < GROUND_ON_SCREEN; )
-            addGround();
-    }
+    void recalc(DeltaT deltaT, const GContext &) override;
+    void init();
 
 private:
     static constexpr float SPEED = 20.0;
@@ -60,24 +36,8 @@ private:
     bool gameFlag = false;
     float tubeStart = 0.0;
 
-    void addTube() {
-        tubeQueue.push(ADD_CHILD(MovingTubePair,POS(
-                                 STEP * tubeCount + tubeStart, //x
-                                 lrand48() % 10 * 5.0f - 20.0f, //y
-                                 1)));
-        LOGI("Pos: %f",tubeQueue.back()->getAPos().getX());
-        tubeCount++;
-
-    }
-    void addGround() {
-        groundQueue.push(ADD_CHILD(GDecor,"ground",(float)GROUND_WIDTH,(float)GROUND_WIDTH,POS(
-                                 ((float)GROUND_WIDTH - 0.5f) * groundCount + TUBES_LEFT_OFFSET, //x
-                                 -50.0, //y
-                                 1),2));
-        if (lrand48() % 2)
-            groundQueue.back()->setFrameN(1);
-        groundCount++;
-    }
+    void addTube();
+    void addGround();
 };
 
 #endif // FLAPPYSLIDER_H
