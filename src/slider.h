@@ -64,6 +64,7 @@ private:
                                  STEP * tubeCount + tubeStart, //x
                                  lrand48() % 10 * 5.0f - 20.0f, //y
                                  1)));
+        LOGI("Pos: %f",tubeQueue.back()->getAPos().getX());
         tubeCount++;
 
     }

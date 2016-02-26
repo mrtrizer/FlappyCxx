@@ -28,6 +28,7 @@ private:
     std::queue<std::shared_ptr<GDecor>> groundQueue;
     int score = 0;
     std::shared_ptr<Score> scorePanel;
+    bool gameFlag = false;
 };
 
 #endif // FLAPPYWORLD_H

@@ -10,11 +10,13 @@ World::World(Ctrl &flappyCtrl):flappyCtrl(flappyCtrl) {
 }
 
 void World::recalc(GObj::DeltaT, const GContext & gContext) {
-    if (gContext.getMouseEvent() == GContext::CLICK) {
-        bird->startGame();
-        flappySlider->startGame();
-        getRoot()->removeChild(info);
-    }
+    if (!gameFlag)
+        if (gContext.getMouseEvent() == GContext::CLICK) {
+            bird->startGame();
+            flappySlider->startGame();
+            getRoot()->removeChild(info);
+            gameFlag = true;
+        }
 
     auto coinIntersects = bird->findIntersectObjs([](const GObj::GObjP & i){
         return typeid(*i) == typeid(Coin);});
