@@ -5,12 +5,9 @@
 
 #include "gltools.h"
 
-struct VBO {
-    int itemType;
-    int componentCount;
-    GLint attr;
-    GLuint id;
-    int size;
+class VBO {
+    friend class GLAttribArray;
+public:
     ///@param bufSize buf size in bytes
     template<typename ItemType>
     void writeData(const ItemType * buf, int bufSize) {
@@ -23,6 +20,12 @@ struct VBO {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         CHECK_GL_ERROR;
     }
+private:
+    int itemType;
+    int componentCount;
+    GLint attr;
+    GLuint id;
+    int size;
 };
 
 /// Contains VBOs, draw method and item count for drawArrays().

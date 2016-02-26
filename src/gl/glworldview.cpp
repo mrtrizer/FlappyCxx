@@ -62,7 +62,7 @@ void GLWorldView::redraw() {
         //Get move matrix of the object
         auto mvMatrix = gObj->getAPos().getMvMatrix();
 
-        presenter->getGView(*factory)->draw(pMatrix.data(), mvMatrix.data());
+        presenter->getGView(*factory)->redraw(pMatrix.data(), mvMatrix.data());
     }
 
 }

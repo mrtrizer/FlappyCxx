@@ -14,7 +14,7 @@ void GPresenter::cleanGView(){
 
 void GPresenter::updateView(){
     if (gView != nullptr)
-        gView->update(*this);
+        gView->externUpdate(shared_from_this());
 }
 
 std::shared_ptr<GView> GPresenterSprite::makeGView(const GViewFactory &factory) {
