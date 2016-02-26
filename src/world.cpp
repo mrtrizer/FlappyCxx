@@ -9,7 +9,13 @@ World::World(Ctrl &flappyCtrl):flappyCtrl(flappyCtrl) {
     srand48(std::time(0));
 }
 
-void World::recalc(GObj::DeltaT, const GContext &) {
+void World::recalc(GObj::DeltaT, const GContext & gContext) {
+    if (gContext.getMouseEvent() == GContext::CLICK) {
+        bird->startGame();
+        flappySlider->startGame();
+        getRoot()->removeChild(info);
+    }
+
     auto coinIntersects = bird->findIntersectObjs([](const GObj::GObjP & i){
         return typeid(*i) == typeid(Coin);});
     if (coinIntersects.size() > 0) {
@@ -29,6 +35,7 @@ void World::recalc(GObj::DeltaT, const GContext &) {
 }
 
 void World::init() {
+    info = getRoot()->ADD_CHILD(GDecor,"tutor",30,30,POS(-15,-15,10));
     bird = getRoot()->ADD_CHILD(Bird,POS(0,0,1));
     getRoot()->ADD_CHILD(GDecor,"background",200,200,POS(-100,-100,0));
     flappySlider = getRoot()->ADD_CHILD(Slider,POS(20,0,0));

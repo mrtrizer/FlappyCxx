@@ -2,27 +2,36 @@
 #define FLAPPYSLIDER_H
 
 #include <queue>
+#include <ctime>
+#include <cstdlib>
 
 #include "core/gobj.h"
 #include "shapes/gdecor.h"
 #include "tube.h"
 #include "floor.h"
-#include "../../../../../../../.android_sdk/ndk-bundle/platforms/android-21/arch-arm/usr/include/stdlib.h"
 
 /// Contains a bird and an instance of GObjCamera (added in FlappyWorld::init)
 class Slider: public GObj {
 public:
     using GObj::GObj;
 
+    void startGame() {
+        gameFlag = true;
+        tubeStart = getPos().getX() + 100.0;
+        for (; tubeCount < TUBES_ON_SCREEN; )
+            addTube();
+    }
+
 protected:
     void recalc(DeltaT deltaT, const GContext &) override {
         move({-SPEED * deltaT,0,0});
-        if (tubeQueue.front()->getAPos().getX() < TUBES_LEFT_OFFSET) {
-            removeChild(tubeQueue.front());
-            tubeQueue.pop();
-            addTube();
+        if (gameFlag)
+            if (tubeQueue.front()->getAPos().getX() < TUBES_LEFT_OFFSET) {
+                removeChild(tubeQueue.front());
+                tubeQueue.pop();
+                addTube();
 
-        }
+            }
         if (groundQueue.front()->getAPos().getX() < TUBES_LEFT_OFFSET) {
             removeChild(groundQueue.front());
             groundQueue.pop();
@@ -31,8 +40,6 @@ protected:
     }
 
     void init() {
-        for (; tubeCount < TUBES_ON_SCREEN; )
-            addTube();
         for (; groundCount < GROUND_ON_SCREEN; )
             addGround();
     }
@@ -49,10 +56,12 @@ private:
     std::queue<std::shared_ptr<GDecor>> groundQueue;
     int tubeCount = 0;
     int groundCount = 0;
+    bool gameFlag = false;
+    float tubeStart = 0.0;
 
     void addTube() {
         tubeQueue.push(ADD_CHILD(MovingTubePair,POS(
-                                 STEP * tubeCount, //x
+                                 STEP * tubeCount + tubeStart, //x
                                  lrand48() % 10 * 5.0f - 20.0f, //y
                                  1)));
         tubeCount++;
