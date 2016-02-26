@@ -40,11 +40,9 @@ GLShaderProgram::GLShaderProgram(VertexSource vertexSource, FragmentSource fragm
             program = 0;
         }
     }
-    LOGI("GLShaderProgram %d",program);
 }
 
 GLShaderProgram::~GLShaderProgram() {
-    LOGI("~GLShaderProgram %d",program);
     //TODO: Is it a proper cleanup?
     glDetachShader(program, vertexShader);
     CHECK_GL_ERROR;

@@ -28,7 +28,7 @@ private:
     std::queue<GContext> events;
     std::queue<Symbol> symbols;
     State state = MENU;
-    int score;
+    int score = 0;
 
     void setWorld(std::shared_ptr<GWorldModel> gWorld);
     State automat(Symbol symbol);

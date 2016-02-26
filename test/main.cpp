@@ -31,16 +31,17 @@ void render() {
 }
 
 void resizeWindow(int width, int height) {
-    gWorldView = std::make_shared<GLWorldView>(std::make_shared<GLViewFactoryQt>("../res/"));
+    gWorldView = std::make_shared<GLWorldView>(std::make_shared<GLViewFactoryQt>("../res/drawable/"));
     flappyCtrl->setView(gWorldView);
+    gWorldView->init();
     gWorldView->resize(width, height);
 }
 
 void mouseFunc(int button, int state,
                int x, int y) {
     (void)button;
-    (void)state;
-    flappyCtrl->mouseClick(x,y);
+    if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+        flappyCtrl->mouseClick(x,y);
 }
 
 void passiveMotionFunc(int x, int y) {

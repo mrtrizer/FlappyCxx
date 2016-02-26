@@ -3,12 +3,10 @@
 
 /// Switch current world. It's used to switch between FlappyMenu and FlappyWorld
 void Ctrl::setWorld(std::shared_ptr<GWorldModel> gWorld) {
-    LOGI("setWorld +");
     curWorld = gWorld;
     curWorld->initWorld();
     if (gWorldView != nullptr)
         setView(gWorldView);
-    LOGI("setWorld -");
 }
 
 /// World initialization
@@ -19,9 +17,7 @@ void Ctrl::init() {
 
 /// Mouse click event
 void Ctrl::mouseClick(int x, int y) {
-    LOGI("mouseClick + %d",events.size());
     events.push(GContext(x,y,GContext::CLICK));
-    LOGI("mouseClick - %d",events.size());
 }
 
 /// Mouse move event
@@ -32,11 +28,8 @@ void Ctrl::mouseMove(int x, int y) {
 /// Call a game loop step
 void Ctrl::step() {
     //lock the word to be not deleted while the loop step is in progress
-    LOGI("Ctrl::step+");
-    LOGI("symbols.size() = %d",symbols.size());
     while (symbols.size() > 0) {
         state = automat(symbols.front());
-        LOGI("automat- State:%d",state);
         symbols.pop();
     }
     while (events.size() > 0) {
@@ -60,7 +53,6 @@ void Ctrl::setView(const GWorldViewP &gWorldView){
 
 /// Handle new symbol and return new state
 Ctrl::State Ctrl::automat(Ctrl::Symbol symbol) {
-    LOGI("automat+ Symbol:%d",symbol);
     switch (state) {
     case MENU: switch (symbol) {
         case START:
@@ -77,7 +69,12 @@ Ctrl::State Ctrl::automat(Ctrl::Symbol symbol) {
         default:;
         }
         break;
-    default: throw std::runtime_error("Invalid state.");
+    default:
+#ifdef QT_DEBUG
+        throw std::runtime_error("Invalid state.");
+#endif
     }
+#ifdef QT_DEBUG
     throw std::runtime_error("Invalid symbol.");
+#endif
 }

@@ -26,7 +26,7 @@ public:
     }
 protected:
     virtual void draw(const PMatrix, const MVMatrix) = 0;
-    virtual void update(const GPresenter & gPresenter) {}
+    virtual void update(const GPresenter &) {}
 private:
     std::weak_ptr<GPresenter> gPresenter;
 };

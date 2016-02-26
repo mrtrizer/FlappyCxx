@@ -24,12 +24,11 @@ protected:
     virtual void init() override;
 
 private:
-    double speed;
+    double speed = 0.0;
     Ctrl & flappyCtrl;
     std::shared_ptr<Slider> flappySlider;
     static constexpr float STEP = 50.0f;
     std::queue<std::shared_ptr<GDecor>> groundQueue;
-    float lastX = 0;
     int score = 0;
     std::shared_ptr<Score> scorePanel;
 };
