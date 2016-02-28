@@ -40,7 +40,6 @@ void resizeWindow(int width, int height) {
 
 void mouseFunc(int button, int state,
                int x, int y) {
-    (void)button;
     if(button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
         flappyCtrl->mouseClick(x,y);
 }

@@ -27,18 +27,26 @@ void Ctrl::mouseMove(int x, int y) {
 
 /// Call a game loop step
 void Ctrl::step() {
-    while (symbols.size() > 0) {
-        state = automat(symbols.front());
-        symbols.pop();
+    //if events not empty, repeat a game loop iteration
+    //for every event. else, run once with empty event.
+    if (events.size() == 0) {
+        curWorld->run(GContext(0,0,GContext::EMPTY));
+        while (symbols.size() > 0) {
+            state = automat(symbols.front());
+            symbols.pop();
+        }
+    } else {
+        while (events.size() > 0) {
+            curWorld->run(events.front());
+            events.pop();
+            //check symbols after iteration
+            while (symbols.size() > 0) {
+                state = automat(symbols.front());
+                symbols.pop();
+            }
+        }
     }
-    //TODO: So, it's possible to get two mouse events in
-    //an iteration and than get two similar symbols for
-    //the state machine. Now, it's okey, but need to fix.
-    while (events.size() > 0) {
-        curWorld->run(events.front());
-        events.pop();
-    }
-    curWorld->run(GContext(0,0,GContext::EMPTY));
+
 }
 
 /// Pass new symbol to the state machine.
