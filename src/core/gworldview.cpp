@@ -4,14 +4,19 @@
 
 void GWorldView::setGWorldModel(GWorldModelP gWorldModel) {
     this->gWorld = gWorldModel;
-    resize(lastWidth,lastHeight);
+    updateSize();
 }
 
 void GWorldView::resize(int width, int height) {
-    this->lastWidth = width;
-    this->lastHeight = height;
-    if (gWorld != nullptr) {
+    if (width < 1 || height < 1)
+        throw std::runtime_error("Invalid screen size. Has to be > 0.");
+    this->width = width;
+    this->height = height;
+    updateSize();
+}
+
+void GWorldView::updateSize() {
+    if (gWorld != nullptr)
         gWorld->getActiveCamera()->resize(width, height);
-    }
-    updateViewPort();
+    updateViewPort(width, height);
 }

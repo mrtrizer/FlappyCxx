@@ -31,6 +31,9 @@ void Ctrl::step() {
         state = automat(symbols.front());
         symbols.pop();
     }
+    //TODO: So, it's possible to get two mouse events in
+    //an iteration and than get two similar symbols for
+    //the state machine. Now, it's okey, but need to fix.
     while (events.size() > 0) {
         curWorld->run(events.front());
         events.pop();
@@ -63,23 +66,23 @@ Ctrl::State Ctrl::automat(Ctrl::Symbol symbol) {
     case GAME: switch (symbol) {
         case STOP:
             score = std::dynamic_pointer_cast<World>(curWorld)->getScore();
+            if (score > bestScore)
+                bestScore = score;
             setWorld(std::make_shared<Menu>(*this));
             return MENU;
         default:;
         }
         break;
     default:
-#ifdef QT_DEBUG
-        throw std::runtime_error("Invalid state.");
-#else
         LOGI("Invalid state. %d", state);
-        return state;
-#endif
-    }
 #ifdef QT_DEBUG
-    throw std::runtime_error("Invalid symbol.");
-#else
-    LOGI("Invalid symbol. %d", symbol);
-    return state;
+        throw std::runtime_error("");
 #endif
+        return state;
+    }
+    LOGI("Invalid symbol. %d", symbol);
+#ifdef QT_DEBUG
+    throw std::runtime_error("");
+#endif
+    return state;
 }

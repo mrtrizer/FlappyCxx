@@ -31,6 +31,7 @@ void render() {
 }
 
 void resizeWindow(int width, int height) {
+    //I create new view for constructor/destructor testing
     gWorldView = std::make_shared<GLWorldView>(std::make_shared<GLViewFactoryQt>("../res/drawable-hdpi/"));
     flappyCtrl->setView(gWorldView);
     gWorldView->init();

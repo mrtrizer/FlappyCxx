@@ -17,16 +17,19 @@ public:
     virtual ~GWorldView(){}
     void setGWorldModel(GWorldModelP gWorldModel);
     virtual void redraw() = 0;
-    void resize(int lastWidth, int lastHeight);
+    void resize(int width, int height);
     virtual void init() = 0;
+    void updateSize();
 
 protected:
-    //TODO: Move to private, add getters
-    int lastWidth = 100;
-    int lastHeight = 100;
+    GWorldModelP getGWorld() { return gWorld; }
+
+private:
+    int width = 1;
+    int height = 1;
     GWorldModelP gWorld;
 
-    virtual void updateViewPort() = 0;
+    virtual void updateViewPort(int width, int height) = 0;
 };
 
 #endif // GWORLDVIEW_H

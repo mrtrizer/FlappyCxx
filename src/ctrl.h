@@ -21,6 +21,7 @@ public:
     void putSymbol(Symbol symbol);
     void setView(const GWorldViewP &gWorldView);
     inline int getScore() const {return score;}
+    inline int getBestScore() const {return bestScore;}
 
 private:
     std::shared_ptr<GWorldModel> curWorld;
@@ -29,6 +30,7 @@ private:
     std::queue<Symbol> symbols;
     State state = MENU;
     int score = 0;
+    int bestScore = 0;
 
     void setWorld(std::shared_ptr<GWorldModel> gWorld);
     State automat(Symbol symbol);

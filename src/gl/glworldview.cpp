@@ -25,15 +25,13 @@ void GLWorldView::init() {
     CHECK_GL_ERROR;
     glEnable (GL_BLEND);
     CHECK_GL_ERROR;
-    resize(lastWidth, lastHeight);
+    updateSize();
 }
 
 GLWorldView::~GLWorldView() {
-    glDisable(GL_DEPTH_TEST);
-    CHECK_GL_ERROR;
     //clean presenters
-    auto root = gWorld->getRoot()->findChilds();
-    for (std::shared_ptr<GObj> gObj: root) {
+    auto objects = getGWorld()->getRoot()->findChilds();
+    for (std::shared_ptr<GObj> gObj: objects) {
         //If it's a visible object
         auto presenter = std::dynamic_pointer_cast<GPresenter>(gObj);
         if (presenter == nullptr)
@@ -46,14 +44,13 @@ void GLWorldView::redraw() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     CHECK_GL_ERROR;
 
-    if (gWorld == nullptr)
+    if (getGWorld() == nullptr)
         return;
 
     //Calc ortho matrix, using GObjCamera
-    auto pMatrix = gWorld->getActiveCamera()->getPMatrix();
+    auto pMatrix = getGWorld()->getActiveCamera()->getPMatrix();
 
-    //TODO: Optimize GObj::getPosAbsolute()
-    GObj::GObjPList objects = gWorld->getRoot()->findChilds();
+    GObj::GObjPList objects = getGWorld()->getRoot()->findChilds();
     objects.sort([](const GObj::GObjP & first, const GObj::GObjP & second) {
         return first->getStaticZ() < second->getStaticZ();
     });
@@ -71,7 +68,7 @@ void GLWorldView::redraw() {
 
 }
 
-void GLWorldView::updateViewPort() {
-    glViewport(0, 0, lastWidth, lastHeight);
+void GLWorldView::updateViewPort(int width, int height) {
+    glViewport(0, 0, width, height);
     CHECK_GL_ERROR;
 }

@@ -18,7 +18,7 @@ public:
     void redraw() override;
     void init() override;
 protected:
-    void updateViewPort() override;
+    void updateViewPort(int width, int height) override;
 private:
     std::shared_ptr<GLViewFactory> factory;
 };
