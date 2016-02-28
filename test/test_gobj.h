@@ -9,7 +9,6 @@
 #include <shapes/gobjcircle.h>
 #include <shapes/gobjrect.h>
 
-//TODO: Add test for getIntersectList()
 class Test_GObj : public QObject
 {
     Q_OBJECT
@@ -55,6 +54,21 @@ private slots:
         QVERIFY(gObjCircle->isIntersectWith(gObjCircle2) == false);
         QVERIFY(gObjCircle->isIntersectWith(gObjRect1) == true);
         QVERIFY(gObjCircle->isIntersectWith(gObjRect2) == false);
+    }
+
+    void findIntersectObjs() {
+        auto root = std::make_shared<GObj>();
+        auto mainCircle = root->ADD_CHILD(GObjCircle, 10, GPos({0,0,0}));
+        auto intersect1 = root->ADD_CHILD(GObjCircle, 5, GPos({14,0,0}));
+        auto intersect2 = root->ADD_CHILD(GObjCircle, 15, GPos({0,24,0}));
+        auto intersectNo = root->ADD_CHILD(GObjCircle, 15, GPos({0,25,0}));
+        QVERIFY(mainCircle->findIntersectObjs().size() == 2);
+        QVERIFY(mainCircle->findIntersectObjs([intersect1](const std::shared_ptr<GObj> & i){
+            return i == intersect1;}).size() == 1);
+        QVERIFY(mainCircle->findIntersectObjs([intersect2](const std::shared_ptr<GObj> & i){
+            return i == intersect2;}).size() == 1);
+        QVERIFY(mainCircle->findIntersectObjs([intersectNo](const std::shared_ptr<GObj> & i){
+            return i == intersectNo;}).size() == 0);
     }
 
     void addChild_one_item() {

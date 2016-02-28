@@ -31,7 +31,7 @@ void render() {
 }
 
 void resizeWindow(int width, int height) {
-    gWorldView = std::make_shared<GLWorldView>(std::make_shared<GLViewFactoryQt>("../res/drawable/"));
+    gWorldView = std::make_shared<GLWorldView>(std::make_shared<GLViewFactoryQt>("../res/drawable-hdpi/"));
     flappyCtrl->setView(gWorldView);
     gWorldView->init();
     gWorldView->resize(width, height);
