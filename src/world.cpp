@@ -14,14 +14,14 @@ void World::recalc(GObj::DeltaT, const GContext & gContext) {
         if (gContext.getMouseEvent() == GContext::CLICK) {
             bird->startGame();
             flappySlider->startGame();
-            getRoot()->removeChild(info);
+            info->remove();
             gameFlag = true;
         }
 
     auto coinIntersects = bird->findIntersectObjs([](const GObj::GObjP & i){
         return typeid(*i) == typeid(Coin);});
     if (coinIntersects.size() > 0) {
-        getRoot()->removeChild(coinIntersects.front());
+        coinIntersects.front()->remove();
         score++;
         scorePanel->setScore(score);
     }

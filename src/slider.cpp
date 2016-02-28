@@ -13,13 +13,13 @@ void Slider::recalc(GObj::DeltaT deltaT, const GContext &) {
     // check is front of queue is out of borders for tubes and ground
     if (gameFlag)
         if (tubeQueue.front()->getAPos().getX() < TUBES_LEFT_OFFSET) {
-            removeChild(tubeQueue.front());
+            tubeQueue.front()->remove();
             tubeQueue.pop();
             addTube();
 
         }
     if (groundQueue.front()->getAPos().getX() < TUBES_LEFT_OFFSET) {
-        removeChild(groundQueue.front());
+        groundQueue.front()->remove();
         groundQueue.pop();
         addGround();
     }
