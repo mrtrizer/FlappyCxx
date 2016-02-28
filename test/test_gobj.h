@@ -87,12 +87,16 @@ private slots:
         QVERIFY(gObjContainer->findChilds(false).size() == (unsigned int)N);
     }
 
-    void removeChild() {
+    void remove_removeChild() {
         auto gObjContainer = std::make_shared<GObj>();
-        gObjContainer->addChild<GObjCircle>(std::make_shared<GObjCircle>(R));
-        QVERIFY(gObjContainer->findChilds(false).size() == 1);
-        gObjContainer->removeChild(findByRR(gObjContainer, R));
-        QVERIFY_EXCEPTION_THROWN(findByRR(gObjContainer, R),GObj::cant_find_child);
+        gObjContainer->ADD_CHILD(GObjCircle,1);
+        gObjContainer->ADD_CHILD(GObjCircle,2);
+        QVERIFY(gObjContainer->findChilds().size() == 2);
+        gObjContainer->removeChild(findByRR(gObjContainer, 1));
+        QVERIFY_EXCEPTION_THROWN(findByRR(gObjContainer, 1),GObj::cant_find_child);
+        QVERIFY(gObjContainer->findChilds().size() == 1);
+        findByRR(gObjContainer, 2)->remove();
+        QVERIFY(gObjContainer->findChilds().size() == 0);
     }
 
     void findChildR() {

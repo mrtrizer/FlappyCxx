@@ -8,6 +8,13 @@ GObj::GObj(GPos pos):
     aPos(pos)
 {}
 
+void GObj::remove() {
+    auto parent = getParent();
+    if (parent == nullptr)
+        throw no_parrents();
+    parent->removeChild(shared_from_this());
+}
+
 GObj::GObjPList GObj::findIntersectObjs(std::function<bool(const GObjP &)> check) {
     auto me = shared_from_this();
     return getRoot()->findChilds([me,check](const GObjP & obj){

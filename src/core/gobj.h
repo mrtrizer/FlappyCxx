@@ -23,6 +23,7 @@ public:
     explicit GObj(GPos = {0,0,0});
     virtual ~GObj(){}
 
+    void remove();
     void removeChild(const GObjP &gObj);
     GObjP findChild(std::function<bool(const GObjP &)>) const;
     GObjPList findChilds(std::function<bool(const GObjP &)>, bool recursive = true) const;
@@ -55,7 +56,7 @@ public:
     }
 
     class cant_find_child{};
-    class no_valid_root{};
+    class no_parrents{};
 
 private:
     float staticZ = 0;
