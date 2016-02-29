@@ -2,7 +2,7 @@
 #define SCORE_H
 
 #include "core/gobj.h"
-#include "shapes/gdecor.h"
+#include "core/gpresenter.h"
 
 class Score: public GObj
 {
@@ -13,7 +13,7 @@ public:
     void setScore(int score){this->score = score;}
 private:
     int score = 0;
-    std::vector<std::shared_ptr<GDecor>> numbers;
+    std::vector<std::shared_ptr<GPresenterSprite>> numbers;
     static constexpr int CAPACITY = 3;
     static constexpr float WIDTH = 5;
 };

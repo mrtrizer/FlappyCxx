@@ -20,7 +20,7 @@ void GPresenter::cleanGView(){
 /// called only if frameN is changed in GPresenterSprite.
 void GPresenter::updateView(){
     if (gView != nullptr)
-        gView->externUpdate(shared_from_this());
+        gView->externUpdate(shared_from_this_cast<GPresenter>());
 }
 
 /// Changes current frame pointer and informs GView about it.

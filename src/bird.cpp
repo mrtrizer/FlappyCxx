@@ -2,9 +2,9 @@
 #include "core/gcontext.h"
 #include "shapes/ganimation.h"
 
-Bird::Bird(GPos pos):
-    GObj(pos),
-    GColliderCircle(RADIUS) {}
+Bird::Bird(const GPos & pos):
+    GColliderCircle(RADIUS,pos)
+{}
 
 void Bird::recalc(GObj::DeltaT deltaT, const GContext &gContext) {
     if (!gameFlag)

@@ -6,13 +6,27 @@
 #include "core/gpresenter.h"
 
 /// A circle with an intersection processing.
-class GObjCircle : public GObj, public GColliderCircle, public GPresenterCircle {
+template <typename Presenter>
+class GObjCircle : public GColliderCircle {
 public:
-    explicit GObjCircle(R r, GPos pos = {0,0,0}):
-        GObj(pos),
-        GColliderCircle(r),
-        GPresenterCircle(r)
+    explicit GObjCircle(R r, const GPos &  pos = {0,0,0}):
+        GColliderCircle(r,pos)
     {}
+    void init() {
+        ADD_CHILD(Presenter,getR() * 2,getR() * 2,GPos(-getR(),-getR(),0));
+    }
+};
+
+template<>
+class GObjCircle<GPresenterCircle>: public GColliderCircle {
+public:
+    explicit GObjCircle(R r, const GPos &  pos = {0,0,0}):
+        GColliderCircle(r,pos)
+    {}
+
+    void init() {
+        ADD_CHILD(GPresenterCircle,getR(),GPos(0,0,0));
+    }
 };
 
 #endif // GOBJCIRCLE_H

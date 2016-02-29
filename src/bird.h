@@ -7,9 +7,9 @@
 
 class GDecor;
 
-class Bird: public GObj, public GColliderCircle {
+class Bird: public GColliderCircle {
 public:
-    Bird(GPos pos);
+    Bird(const GPos &pos);
     void recalc(DeltaT deltaT, const GContext &) override;
     void init() override;
     void startGame();

@@ -25,7 +25,7 @@ public:
         float y2;
     };
 
-    GObjCamera(Size, Ratio, WindowHeight windowHeight, GPos);
+    GObjCamera(Size, Ratio, WindowHeight windowHeight, const GPos &);
     void resize(double width, double height);
     Rect getRect() const;
     virtual PMatrix getPMatrix() const;

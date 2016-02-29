@@ -14,13 +14,18 @@ class GWorldModel;
 /// @brief Game object
 /// @details Component in Composite.
 /// @see GObj
-class GObj : public GTools::enable_sptr<GObj> {
+class GObj : public std::enable_shared_from_this<GObj> {
 public:
     typedef std::list<std::shared_ptr<GObj>> GObjPList;
     typedef std::shared_ptr<GObj> GObjP;
     typedef float DeltaT;
 
-    explicit GObj(GPos = {0,0,0});
+    template <typename Base>
+    std::shared_ptr<Base> shared_from_this_cast() {
+        return std::dynamic_pointer_cast<Base>(enable_shared_from_this::shared_from_this());
+    }
+
+    explicit GObj(const GPos & pos = {0,0,0});
     virtual ~GObj(){}
 
     void remove();

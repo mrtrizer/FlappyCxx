@@ -6,7 +6,7 @@
 #include <cstdlib>
 
 #include "core/gobj.h"
-#include "shapes/gdecor.h"
+#include "core/gpresenter.h"
 #include "tube.h"
 #include "floor.h"
 
@@ -30,7 +30,7 @@ private:
     static constexpr int GROUND_ON_SCREEN = 25;
 
     std::queue<std::shared_ptr<MovingTubePair>> tubeQueue;
-    std::queue<std::shared_ptr<GDecor>> groundQueue;
+    std::queue<std::shared_ptr<GPresenterSprite>> groundQueue;
     int tubeCount = 0;
     int groundCount = 0;
     bool gameFlag = false;

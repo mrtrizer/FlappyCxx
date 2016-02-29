@@ -4,12 +4,11 @@
 #include "core/gobj.h"
 #include "core/gcollider.h"
 
-class Coin :  public GObj, public GColliderCircle
+class Coin : public GColliderCircle
 {
 public:
     Coin(GPos pos):
-        GObj(pos),
-        GColliderCircle(RADIUS)
+        GColliderCircle(RADIUS,pos)
     {}
     void init() override;
 private:

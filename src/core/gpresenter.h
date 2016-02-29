@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "gtools.h"
+#include "gobj.h"
 
 class GViewFactory;
 class GView;
@@ -12,8 +13,11 @@ class GView;
 /// @brief Holds information about object representation need for view objects.
 /// @details Contains a shared pointer to GView object, but doesn't calls any it's
 /// methods except GView::externUpdate to say about state changing.
-class GPresenter : public GTools::enable_sptr<GPresenter> {
+class GPresenter : public GObj {
 public:
+    GPresenter(const GPos & pos):
+        GObj(pos)
+    {}
     virtual ~GPresenter(){}
     std::shared_ptr<GView> getGView(const GViewFactory & factory);
     void cleanGView();
@@ -25,39 +29,11 @@ private:
     std::shared_ptr<GView> gView;
 };
 
-/// @brief Holds a spritesheet params. May be one solid frame or be divided into several equal parts.
-class GPresenterSprite : public GPresenter {
-public:
-    GPresenterSprite(std::string path, float width, float height, int frameCnt = 1):
-        path(path),
-        width(width),
-        height(height),
-        frameCnt(frameCnt)
-    {}
-    virtual ~GPresenterSprite(){}
-    inline std::string getPath() const { return path; }
-    inline float getWidth() const { return width; }
-    inline float getHeight() const { return height; }
-    inline int getFrameCnt() const { return frameCnt; }
-    void setFrameN(int frameN);
-    inline int getFrameN() const { return frameN; }
-
-protected:
-    virtual std::shared_ptr<GView> makeGView(const GViewFactory & factory) override;
-private:
-    std::string path;
-    float width;
-    float height;
-    /// Current frame pointer
-    int frameN = 0;
-    /// Summary frame count
-    int frameCnt = 1;
-};
-
 /// Represents a circle shape.
 class GPresenterCircle : public GPresenter {
 public:
-    GPresenterCircle(float r):
+    GPresenterCircle(float r, const GPos & pos):
+        GPresenter(pos),
         r(r)
     {}
     virtual ~GPresenterCircle(){}
@@ -71,7 +47,8 @@ private:
 /// Represents a rectangle shape.
 class GPresenterRect : public GPresenter {
 public:
-    GPresenterRect(float width, float height):
+    GPresenterRect(float width, float height, const GPos & pos):
+        GPresenter(pos),
         width(width),
         height(height)
     {}
@@ -85,5 +62,28 @@ private:
     float height;
 };
 
+/// @brief Holds a spritesheet params. May be one solid frame or be divided into several equal parts.
+class GPresenterSprite : public GPresenterRect {
+public:
+    GPresenterSprite(std::string path, float width, float height, const GPos & pos = {0,0,0}, int frameCnt = 1):
+        GPresenterRect(width,height,pos),
+        path(path),
+        frameCnt(frameCnt)
+    {}
+    virtual ~GPresenterSprite(){}
+    inline std::string getPath() const { return path; }
+    inline int getFrameCnt() const { return frameCnt; }
+    void setFrameN(int frameN);
+    inline int getFrameN() const { return frameN; }
+
+protected:
+    virtual std::shared_ptr<GView> makeGView(const GViewFactory & factory) override;
+private:
+    std::string path;
+    /// Current frame pointer
+    int frameN = 0;
+    /// Summary frame count
+    int frameCnt = 1;
+};
 
 #endif // GPRESENTER_H

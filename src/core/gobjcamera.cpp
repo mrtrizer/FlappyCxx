@@ -1,7 +1,7 @@
 #include "gobjcamera.h"
 #include "gcontext.h"
 
-GObjCamera::GObjCamera(Size height, Ratio ratio, WindowHeight windowHeight, GPos pos):
+GObjCamera::GObjCamera(Size height, Ratio ratio, WindowHeight windowHeight, const GPos & pos):
     GObj(pos),
     height(height),
     ratio(ratio),

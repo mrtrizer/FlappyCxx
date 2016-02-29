@@ -43,7 +43,7 @@ void Slider::addTube() {
 }
 
 void Slider::addGround() {
-    groundQueue.push(ADD_CHILD(GDecor,"ground",(float)GROUND_WIDTH,(float)GROUND_WIDTH,POS(
+    groundQueue.push(ADD_CHILD(GPresenterSprite,"ground",(float)GROUND_WIDTH,(float)GROUND_WIDTH,POS(
                                    ((float)GROUND_WIDTH - 0.5f) * groundCount + TUBES_LEFT_OFFSET, //x
                                    -50.0, //y
                                    1),2));

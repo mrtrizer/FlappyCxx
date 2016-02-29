@@ -1,7 +1,7 @@
 #include "ganimation.h"
 
 GAnimation::GAnimation(std::string path, float width, float height, GPos pos, int frameCnt, float period) :
-    GDecor(path,width, height, pos, frameCnt),
+    GPresenterSprite(path,width, height, pos, frameCnt),
     period(period) {
 
 }

@@ -24,8 +24,8 @@ private:
     double speed = 0.0;
     Ctrl & flappyCtrl;
     std::shared_ptr<Slider> flappySlider;
-    std::shared_ptr<GDecor> info;
-    std::queue<std::shared_ptr<GDecor>> groundQueue;
+    std::shared_ptr<GPresenterSprite> info;
+    std::queue<std::shared_ptr<GPresenterSprite>> groundQueue;
     int score = 0;
     std::shared_ptr<Score> scorePanel;
     bool gameFlag = false;

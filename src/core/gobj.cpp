@@ -3,7 +3,7 @@
 
 using namespace std;
 
-GObj::GObj(GPos pos):
+GObj::GObj(const GPos &pos):
     pos(pos),
     aPos(pos)
 {}
@@ -55,6 +55,7 @@ GPos GObj::getAPosRecursive() const {
 
 void GObj::setParent(const GObj::GObjP &parent) {
     this->parent = parent;
+    updateAPos();
     staticZ = getAPos().getZ();
 }
 

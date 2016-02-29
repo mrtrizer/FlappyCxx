@@ -1,10 +1,10 @@
 #ifndef GANIMATION_H
 #define GANIMATION_H
 
-#include "gdecor.h"
+#include "core/gpresenter.h"
 
 /// Extends GDecor and allows automatic frame switching with predifined period.
-class GAnimation: public GDecor
+class GAnimation: public GPresenterSprite
 {
 public:
     /// @param period Period in seconds

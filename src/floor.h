@@ -4,7 +4,7 @@
 #include "core/gobj.h"
 #include "core/gcollider.h"
 
-class Floor : public GObj, public GColliderRect
+class Floor : public GColliderRect
 {
 public:
     Floor(float width, GPos pos);

@@ -17,6 +17,7 @@ class GLView: public GView
 {
 public:
     GLView(const char * vSource, const char * fSource) {
+        //TODO: move to getShader for garaties of calling in GL context?
         if (weakShader.expired())
             weakShader = shader = std::make_shared<GLShaderProgram>(vSource, fSource);
         else

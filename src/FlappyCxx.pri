@@ -21,7 +21,6 @@ HEADERS += \
     $$PWD/gl/gltexture.h \
     $$PWD/core/gviewfactory.h \
     $$PWD/core/gpresenter.h \
-    $$PWD/shapes/gdecor.h \
     $$PWD/floor.h \
     $$PWD/coin.h \
     $$PWD/ctrl.h \

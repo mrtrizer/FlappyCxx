@@ -7,12 +7,13 @@
 #include "core/gcollider.h"
 #include "core/gpresenter.h"
 
-class Button : public GObj, public GColliderRect, public GPresenterSprite {
+class Button : public GColliderRect {
 public:
     typedef std::function<void()> OnClick;
 
-    explicit Button(const OnClick & onClick, int width, int height, GPos pos = {0,0,0});
+    explicit Button(const OnClick & onClick, int width, int height, const GPos &pos);
     void recalc(DeltaT, const GContext &) override;
+    void init();
 
 private:
     OnClick onClick;

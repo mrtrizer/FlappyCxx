@@ -4,13 +4,14 @@
 #include "shapes/gobjrect.h"
 #include "coin.h"
 
-class Tube : public GObj, public GColliderRect, public GPresenterSprite {
+class Tube : public GColliderRect {
 public:
     Tube(const GPos & pos):
-        GObj(pos),
-        GColliderRect(10,70),
-        GPresenterSprite("tube",10,70)
+        GColliderRect(10,70,pos)
     {}
+    void init() {
+        ADD_CHILD(GPresenterSprite,"tube",10,70);
+    }
 };
 
 class TubePair : public GObj {
