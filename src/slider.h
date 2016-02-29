@@ -8,7 +8,6 @@
 #include "core/gobj.h"
 #include "core/gpresenter.h"
 #include "tube.h"
-#include "floor.h"
 
 /// Contains a field moving under the bird and camera.
 /// Automatic removed and adds new tubes and blocks of ground.

@@ -21,8 +21,6 @@ HEADERS += \
     $$PWD/gl/gltexture.h \
     $$PWD/core/gviewfactory.h \
     $$PWD/core/gpresenter.h \
-    $$PWD/floor.h \
-    $$PWD/coin.h \
     $$PWD/ctrl.h \
     $$PWD/menu.h \
     $$PWD/slider.h \
@@ -34,7 +32,7 @@ HEADERS += \
     $$PWD/core/gworldview.h \
     $$PWD/gl/glview.h \
     $$PWD/score.h \
-    $$PWD/shapes/ganimation.h
+    $$PWD/core/ganimation.h
 
 
 SOURCES += \
@@ -51,8 +49,6 @@ SOURCES += \
     $$PWD/core/gtools.cpp \
     $$PWD/gl/gltexture.cpp \
     $$PWD/core/gpresenter.cpp \
-    $$PWD/floor.cpp \
-    $$PWD/coin.cpp \
     $$PWD/ctrl.cpp \
     $$PWD/menu.cpp \
     $$PWD/world.cpp \
@@ -62,8 +58,9 @@ SOURCES += \
     $$PWD/gl/glviewsprite.cpp \
     $$PWD/core/gworldview.cpp \
     $$PWD/score.cpp \
-    $$PWD/shapes/ganimation.cpp \
+    $$PWD/core/ganimation.cpp \
     $$PWD/core/gview.cpp \
-    $$PWD/slider.cpp
+    $$PWD/slider.cpp \
+    $$PWD/tube.cpp
 
 LIBS += -lGL -lglut -lGLEW -lGLU

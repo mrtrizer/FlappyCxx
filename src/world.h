@@ -23,6 +23,7 @@ private:
     std::shared_ptr<Bird> bird;
     double speed = 0.0;
     Ctrl & flappyCtrl;
+    std::shared_ptr<GColliderRect> floor;
     std::shared_ptr<Slider> flappySlider;
     std::shared_ptr<GPresenterSprite> info;
     std::queue<std::shared_ptr<GPresenterSprite>> groundQueue;

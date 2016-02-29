@@ -3,7 +3,7 @@
 #include "button.h"
 #include "score.h"
 #include "core/gpresenter.h"
-#include "shapes/ganimation.h"
+#include "core/ganimation.h"
 
 Menu::Menu(Ctrl &flappyCtrl):
     flappyCtrl(flappyCtrl)

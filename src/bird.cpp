@@ -1,6 +1,6 @@
 #include "bird.h"
 #include "core/gcontext.h"
-#include "shapes/ganimation.h"
+#include "core/ganimation.h"
 
 Bird::Bird(const GPos & pos):
     GColliderCircle(RADIUS,pos)

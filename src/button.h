@@ -6,14 +6,14 @@
 #include "core/gobj.h"
 #include "core/gcollider.h"
 #include "core/gpresenter.h"
+#include "shapes/gobjrect.h"
 
-class Button : public GColliderRect {
+class Button : public GObjRect<GPresenterSprite> {
 public:
     typedef std::function<void()> OnClick;
 
     explicit Button(const OnClick & onClick, int width, int height, const GPos &pos);
     void recalc(DeltaT, const GContext &) override;
-    void init();
 
 private:
     OnClick onClick;
