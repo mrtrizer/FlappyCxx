@@ -15,7 +15,7 @@ public:
         factory(factory)
     {}
     virtual ~GLWorldView();
-    void redraw() override;
+    void redraw(GPresenterList &, GTools::PMatrix &) override;
     void init() override;
 protected:
     void updateViewPort(int width, int height) override;

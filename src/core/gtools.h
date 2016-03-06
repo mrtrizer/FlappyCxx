@@ -22,6 +22,8 @@ class GColliderRect;
 /// Gives some common tools
 namespace GTools
 {
+    typedef std::vector<float> PMatrix;
+
     bool isIntersect(const GObj &, const GObj &);
     bool isPowOfTwo(int x);
 

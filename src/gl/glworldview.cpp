@@ -7,7 +7,6 @@
 
 #include "glshaderprogram.h"
 #include "core/gworldmodel.h"
-#include "core/gobjcamera.h"
 #include "core/gview.h"
 #include "core/gpresenter.h"
 #include "glshaderprogram.h"
@@ -29,40 +28,21 @@ void GLWorldView::init() {
 }
 
 GLWorldView::~GLWorldView() {
-    //clean presenters
-    auto objects = getGWorld()->getRoot()->findChilds();
-    for (std::shared_ptr<GObj> gObj: objects) {
-        //If it's a visible object
-        auto presenter = std::dynamic_pointer_cast<GPresenter>(gObj);
-        if (presenter == nullptr)
-            continue;
-        presenter->cleanGView();
-    }
+
 }
 
-void GLWorldView::redraw() {
+void GLWorldView::redraw(GPresenterList &presenterList, GTools::PMatrix &pMatrix) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     CHECK_GL_ERROR;
 
-    if (getGWorld() == nullptr)
-        return;
-
-    //Calc ortho matrix, using GObjCamera
-    auto pMatrix = getGWorld()->getActiveCamera()->getPMatrix();
-
-    GObj::GObjPList objects = getGWorld()->getRoot()->findChilds();
-    objects.sort([](const GObj::GObjP & first, const GObj::GObjP & second) {
+    //sort presenters by z (I use z value defined once on object creation)
+    presenterList.sort([](const GObj::GObjP & first, const GObj::GObjP & second) {
         return first->getStaticZ() < second->getStaticZ();
     });
 
-    for (auto gObj: objects) {
-        auto presenter = std::dynamic_pointer_cast<GPresenter>(gObj);
-        if (presenter == nullptr)
-            continue;
-
-        //Get move matrix of the object
-        auto mvMatrix = gObj->getAPos().getMvMatrix();
-
+    //and draw presenters one by one appying move matrices
+    for (auto presenter: presenterList) {
+        auto mvMatrix = presenter->getAPos().getMvMatrix();
         presenter->getGView(*factory)->redraw(pMatrix.data(), mvMatrix.data());
     }
 

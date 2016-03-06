@@ -4,9 +4,7 @@
 
 using namespace std;
 
-GWorldModel::GWorldModel()
-{
-    //game initialization
+GWorldModel::GWorldModel() {
 }
 
 void GWorldModel::initWorld() {

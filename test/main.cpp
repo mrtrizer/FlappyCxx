@@ -24,7 +24,7 @@ std::shared_ptr<GLWorldView> gWorldView;
 std::shared_ptr<Ctrl> flappyCtrl;
 
 void render() {
-    gWorldView->redraw();
+    gWorldView->redrawWorld();
     glutSwapBuffers();
     glutPostRedisplay();
     flappyCtrl->step(); //only for test

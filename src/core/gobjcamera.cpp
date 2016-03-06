@@ -1,7 +1,7 @@
 #include "gobjcamera.h"
 #include "gcontext.h"
 
-GObjCamera::GObjCamera(Size height, Ratio ratio, WindowHeight windowHeight, const GPos & pos):
+GObjCamera::GObjCamera(float height, float ratio, int windowHeight, const GPos & pos):
     GObj(pos),
     height(height),
     ratio(ratio),
@@ -24,12 +24,12 @@ void GObjCamera::resize(double width, double height) {
     this->coeff = this->height / height;
 }
 
-GObjCamera::PMatrix GObjCamera::getPMatrix() const {
+GTools::PMatrix GObjCamera::getPMatrix() const {
     auto rect = getRect();
     static const float near = -1.0f;
     static const float far = 99.0f;
 
-    return PMatrix({
+    return GTools::PMatrix({
            2.0f / (rect.x2 - rect.x1), 0, 0, 0,
            0, 2.0f / (rect.y1 - rect.y2), 0, 0,
            0, 0, -2.0f / (far - near), 0,

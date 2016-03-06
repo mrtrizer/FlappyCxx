@@ -8,7 +8,7 @@ HEADERS += \
     $$PWD/core/gobjcamera.h \
     $$PWD/core/gcollider.h \
     $$PWD/bird.h \
-    $$PWD/gl/gworldmodel.h \
+    $$PWD/core/gworldmodel.h \
     $$PWD/core/gview.h \
     $$PWD/tube.h \
     $$PWD/core/gpos.h \

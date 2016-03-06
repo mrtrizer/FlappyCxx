@@ -11,6 +11,7 @@
 class Ctrl {
 public:
     typedef std::shared_ptr<GWorldView> GWorldViewP;
+    typedef std::shared_ptr<GWorldModel> GWorldModelP;
     enum State {MENU, GAME};
     enum Symbol {START, STOP};
 
@@ -32,7 +33,7 @@ private:
     int score = 0;
     int bestScore = 0;
 
-    void setWorld(std::shared_ptr<GWorldModel> gWorld);
+    void setWorld(const GWorldModelP & gWorld);
     State automat(Symbol symbol);
 };
 

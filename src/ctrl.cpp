@@ -2,7 +2,7 @@
 #include "core/gviewfactory.h"
 
 /// Switch current world. It's used to switch between FlappyMenu and FlappyWorld
-void Ctrl::setWorld(std::shared_ptr<GWorldModel> gWorld) {
+void Ctrl::setWorld(const GWorldModelP &gWorld) {
     curWorld = gWorld;
     curWorld->initWorld();
     if (gWorldView != nullptr)

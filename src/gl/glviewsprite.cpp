@@ -54,7 +54,7 @@ void GLViewSprite::draw(const PMatrix pMatrix, const MVMatrix mvMatrix) {
 }
 
 void GLViewSprite::update(const GPresenter & presenter){
-    auto presenterSprite = dynamic_cast<const GPresenterSprite &>(presenter);
+    auto & presenterSprite = dynamic_cast<const GPresenterSprite &>(presenter);
     int frameCnt = presenterSprite.getFrameCnt();
     int frameN = presenterSprite.getFrameN();
     float relWidth = texture->getRelWidth();

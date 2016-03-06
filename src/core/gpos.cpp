@@ -9,9 +9,9 @@ const GPos & GPos::operator* (const GPos & pos) {
 
 /// Appends offset to current coords
 void GPos::move(const GPos & offset) {
-    this->setX(this->getX() + offset.getX());
-    this->setY(this->getY() + offset.getY());
-    this->setZ(this->getZ() + offset.getZ());
+    x += offset.x;
+    y += offset.y;
+    z += offset.z;
 }
 
 /// Returns a move matrix as a vector 4x4

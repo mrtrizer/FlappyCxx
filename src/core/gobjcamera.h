@@ -6,16 +6,12 @@
 #include "gobjpointer.h"
 
 /// @brief Game camera. Contains screen parameters.
-/// A camera can be set as active in GWordCtrl and used by View
+/// @details A camera can be set as active in GWordCtrl and used by View
 /// to get a perspective transformation matrix. Also camera
 /// manages coordinates of GObjPointer object.
 class GObjCamera : public GObj
 {
 public:
-    typedef float Size;
-    typedef float Ratio;
-    typedef int WindowHeight;
-    typedef std::vector<float> PMatrix;
     typedef std::shared_ptr<GObjPointer> GObjPointerP;
 
     struct Rect {
@@ -25,18 +21,18 @@ public:
         float y2;
     };
 
-    GObjCamera(Size, Ratio, WindowHeight windowHeight, const GPos &);
+    GObjCamera(float height, float ratio, int windowHeight, const GPos &);
     void resize(double width, double height);
     Rect getRect() const;
-    virtual PMatrix getPMatrix() const;
+    virtual GTools::PMatrix getPMatrix() const;
     void init() override final;
     void recalc(DeltaT, const GContext &);
 
 private:
     /// Height in game units
-    Size height;
+    float height;
     /// RealWidth(px) / RealHeight(px)
-    Ratio ratio;
+    float ratio;
     /// RealHeight(px) / height(units)
     float coeff;
     GObjPointerP gObjPointer;

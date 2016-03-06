@@ -3,7 +3,7 @@
 #include "glviewsprite.h"
 
 GViewFactory::GViewP GLViewFactory::getGViewSprite(const GPresenter &presenter) const {
-    auto presenterSprite = dynamic_cast<const GPresenterSprite &>(presenter);
+    auto & presenterSprite = dynamic_cast<const GPresenterSprite &>(presenter);
     std::shared_ptr<GLTexture> texture;
     auto texturePath = presenterSprite.getPath();
     auto mapIter = textureMap.find(texturePath);
@@ -17,11 +17,11 @@ GViewFactory::GViewP GLViewFactory::getGViewSprite(const GPresenter &presenter) 
 }
 
 GViewFactory::GViewP GLViewFactory::getGViewCircle(const GPresenter &presenter) const {
-    auto presenterCircle = dynamic_cast<const GPresenterCircle &>(presenter);
+    auto & presenterCircle = dynamic_cast<const GPresenterCircle &>(presenter);
     return std::make_shared<GViewCircle>(CIRCLE_VERTEX_CNT, presenterCircle.getR_());
 }
 
 GViewFactory::GViewP GLViewFactory::getGViewRect(const GPresenter &presenter) const {
-    auto presenterRect = dynamic_cast<const GPresenterRect &>(presenter);
+    auto & presenterRect = dynamic_cast<const GPresenterRect &>(presenter);
     return std::make_shared<GViewRect>(presenterRect.getWidth(), presenterRect.getHeight());
 }

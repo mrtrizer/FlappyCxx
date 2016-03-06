@@ -7,8 +7,10 @@ GLAttribArray::GLAttribArray(Method method, Size size):
 }
 
 GLAttribArray::~GLAttribArray() {
-    for (VBO i: vboBufs)
+    for (VBO i: vboBufs) {
         glDeleteBuffers(1,&i.id);
+        CHECK_GL_ERROR;
+    }
 }
 
 void GLAttribArray::bind() const {
