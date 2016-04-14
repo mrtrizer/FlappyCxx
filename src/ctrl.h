@@ -17,9 +17,6 @@ public:
     enum Symbol {START, STOP};
 
     void init() override;
-    void mouseClick(int x, int y);
-    void mouseMove(int x, int y);
-    void step();
     void putSymbol(Symbol symbol);
     inline int getScore() const {return score;}
     inline int getBestScore() const {return bestScore;}
