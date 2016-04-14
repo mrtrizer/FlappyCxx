@@ -16,7 +16,7 @@ void Bird::recalc(GObj::DeltaT deltaT, const GContext &gContext) {
 }
 
 void Bird::init() {
-    ADD_CHILD(GAnimation,"bird", RADIUS * 2, RADIUS * 2, POS(-RADIUS, -RADIUS, 0),2,0.3);
+    ADD_CHILD(GAnimation,"bird", RADIUS * 2, RADIUS * 2, GPos(-RADIUS, -RADIUS, 0),2,0.3);
 }
 
 void Bird::startGame() {

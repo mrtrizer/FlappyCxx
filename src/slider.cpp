@@ -34,7 +34,7 @@ void Slider::init() {
 void Slider::addTube() {
     //place tube in random y
     //I use lrand48 becouse rand and srand are absent in Android NDK 22
-    tubeQueue.push(ADD_CHILD(MovingTubePair,POS(
+    tubeQueue.push(ADD_CHILD(MovingTubePair,GPos(
                                  STEP * tubeCount + tubeStart, //x
                                  lrand48() % 10 * 5.0f - 20.0f, //y
                                  1)));
@@ -43,7 +43,7 @@ void Slider::addTube() {
 }
 
 void Slider::addGround() {
-    groundQueue.push(ADD_CHILD(GPresenterSprite,"ground",(float)GROUND_WIDTH,(float)GROUND_WIDTH,POS(
+    groundQueue.push(ADD_CHILD(GPresenterSprite,"ground",(float)GROUND_WIDTH,(float)GROUND_WIDTH,GPos(
                                    ((float)GROUND_WIDTH - 0.5f) * groundCount + TUBES_LEFT_OFFSET, //x
                                    -50.0, //y
                                    1),2));

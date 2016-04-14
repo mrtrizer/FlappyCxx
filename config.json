@@ -1,0 +1,12 @@
+{
+	"name":"FlappyCxx",
+	"engine":"engine/",
+	"exclude":[],
+	"inc_dirs":[],
+	"cmake": {
+		"exec_name":"FlappyCxx"
+	},
+	"android": {
+		"id":"flappycxx"
+	}
+}

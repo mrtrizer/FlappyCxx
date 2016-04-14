@@ -2,13 +2,13 @@
 #include "core/ganimation.h"
 
 void Coin::init() {
-    ADD_CHILD(GAnimation,"coin", getR() * 2, getR() * 2, POS(-getR(), -getR(), 20),2,0.3);
+    ADD_CHILD(GAnimation,"coin", getR() * 2, getR() * 2, GPos(-getR(), -getR(), 20),2,0.3);
 }
 
 void TubePair::init() {
-    ADD_CHILD(Tube,POS(0,10,0));
-    ADD_CHILD(Tube,POS(0,-90,0));
-    ADD_CHILD(Coin,POS(5,-5,0));
+    ADD_CHILD(Tube,GPos(0,10,0));
+    ADD_CHILD(Tube,GPos(0,-90,0));
+    ADD_CHILD(Coin,GPos(5,-5,0));
 }
 
 void MovingTubePair::recalc(GObj::DeltaT deltaT, const GContext &) {
